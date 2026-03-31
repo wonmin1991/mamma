@@ -1,0 +1,283 @@
+"use client";
+
+import { useState, useRef, useCallback, useEffect } from "react";
+import Link from "next/link";
+import {
+  ChevronLeft,
+  Download,
+  Upload,
+  Trash2,
+  HardDrive,
+  Calendar,
+  AlertTriangle,
+  Check,
+  Info,
+} from "lucide-react";
+import {
+  exportAllData,
+  importAllData,
+  clearAllData,
+  getStorageUsage,
+  type ExportData,
+} from "@/lib/storage";
+import { usePregnancy } from "@/contexts/PregnancyContext";
+
+export default function SettingsPage() {
+  const { dueDate, currentWeek, setDueDate, setWeekDirectly, reset } =
+    usePregnancy();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [storageInfo, setStorageInfo] = useState(() => getStorageUsage());
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
+  const showToast = useCallback(
+    (message: string, type: "success" | "error") => {
+      setToast({ message, type });
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => setToast(null), 3000);
+    },
+    []
+  );
+
+  const handleExport = () => {
+    const data = exportAllData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = globalThis.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `mamma-backup-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    globalThis.URL.revokeObjectURL(url);
+    showToast("백업 파일이 다운로드되었습니다", "success");
+  };
+
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    file.text().then((text) => {
+      try {
+        const data = JSON.parse(text) as ExportData;
+        const result = importAllData(data);
+        if (result.success) {
+          showToast("데이터가 복원되었습니다. 새로고침합니다...", "success");
+          setTimeout(() => globalThis.location.reload(), 1500);
+        } else {
+          showToast(result.error || "복원에 실패했습니다", "error");
+        }
+      } catch {
+        showToast("올바르지 않은 파일입니다", "error");
+      }
+    });
+    e.target.value = "";
+  };
+
+  const handleClearAll = () => {
+    clearAllData();
+    reset();
+    setShowClearConfirm(false);
+    setStorageInfo(getStorageUsage());
+    showToast("모든 데이터가 삭제되었습니다", "success");
+    setTimeout(() => globalThis.location.reload(), 1500);
+  };
+
+  const handleDueDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDueDate(e.target.value);
+    showToast("출산예정일이 변경되었습니다", "success");
+  };
+
+  const handleWeekChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setWeekDirectly(Number(e.target.value));
+    showToast("임신 주차가 변경되었습니다", "success");
+  };
+
+  return (
+    <main className="flex flex-col">
+      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md px-5 pt-12 pb-3">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="p-1 -ml-1" aria-label="뒤로가기">
+            <ChevronLeft size={22} className="text-foreground" />
+          </Link>
+          <h1 className="text-lg font-bold text-foreground">설정</h1>
+        </div>
+      </header>
+
+      <section className="px-5 pb-8 flex flex-col gap-5">
+        {/* Pregnancy info */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+            <Calendar size={16} className="text-primary" />
+            임신 정보
+          </h2>
+
+          <div className="flex flex-col gap-3">
+            <div>
+              <label htmlFor="due-date" className="text-xs text-muted block mb-1">
+                출산예정일
+              </label>
+              <input
+                id="due-date"
+                type="date"
+                value={dueDate || ""}
+                onChange={handleDueDateChange}
+                className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="week-select" className="text-xs text-muted block mb-1">
+                직접 주차 설정 (현재: {currentWeek}주)
+              </label>
+              <select
+                id="week-select"
+                value={currentWeek}
+                onChange={handleWeekChange}
+                className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary"
+              >
+                {Array.from({ length: 40 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}주
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Data management */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-2">
+            <HardDrive size={16} className="text-secondary" />
+            데이터 관리
+          </h2>
+          <p className="text-xs text-muted mb-4 flex items-start gap-1.5">
+            <Info size={12} className="flex-shrink-0 mt-0.5" />
+            모든 데이터는 이 기기의 브라우저에만 저장됩니다. 기기를 변경하거나
+            브라우저 데이터를 삭제하면 사라질 수 있습니다.
+          </p>
+
+          <div className="bg-surface rounded-xl p-3 mb-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-muted">사용 중인 저장 공간</span>
+              <span className="text-xs font-semibold text-foreground">
+                {storageInfo.used}
+              </span>
+            </div>
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-xs text-muted">저장된 항목</span>
+              <span className="text-xs font-semibold text-foreground">
+                {storageInfo.keys}개
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={handleExport}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
+            >
+              <Download size={16} />
+              데이터 백업 (내보내기)
+            </button>
+
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-surface text-foreground text-sm font-medium border border-card-border transition-all active:scale-[0.98]"
+            >
+              <Upload size={16} />
+              데이터 복원 (가져오기)
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              onChange={handleImport}
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        {/* Danger zone */}
+        <div className="bg-card rounded-2xl border border-red-200 dark:border-red-900/50 shadow-sm p-5">
+          <h2 className="font-bold text-sm text-red-500 flex items-center gap-2 mb-3">
+            <AlertTriangle size={16} />
+            위험 구역
+          </h2>
+
+          {showClearConfirm ? (
+            <div className="animate-fade-in-up">
+              <p className="text-xs text-red-500 mb-3 font-medium">
+                정말로 모든 데이터를 삭제하시겠습니까?
+                <br />
+                북마크, 하트, 커플 모드, 아기방 등 모든 진행 상황이 사라집니다.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowClearConfirm(false)}
+                  className="flex-1 py-2.5 rounded-xl bg-surface text-foreground text-sm font-medium border border-card-border"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleClearAll}
+                  className="flex-1 py-2.5 rounded-xl bg-red-500 text-white text-sm font-medium"
+                >
+                  삭제 확인
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowClearConfirm(true)}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-500 text-sm font-medium border border-red-200 dark:border-red-900/50 transition-all active:scale-[0.98]"
+            >
+              <Trash2 size={16} />
+              모든 데이터 삭제
+            </button>
+          )}
+        </div>
+
+        {/* App info */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5 text-center">
+          <p className="text-2xl mb-2">🤰</p>
+          <p className="text-sm font-bold text-foreground">맘마 v0.1.0</p>
+          <p className="text-xs text-muted mt-1">
+            임산부를 위한 모든 정보를 한곳에서
+          </p>
+        </div>
+      </section>
+
+      {/* Toast */}
+      {toast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
+          <div
+            className={`flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg text-sm font-medium ${
+              toast.type === "success"
+                ? "bg-emerald-500 text-white"
+                : "bg-red-500 text-white"
+            }`}
+          >
+            {toast.type === "success" ? (
+              <Check size={16} />
+            ) : (
+              <AlertTriangle size={16} />
+            )}
+            {toast.message}
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
