@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
-import { ChevronRight, Settings2 } from "lucide-react";
+import { ChevronRight, Settings2, ArrowLeftRight } from "lucide-react";
 import { formatDueDate } from "@/lib/date";
+import { useBabyStore } from "@/store/useBabyStore";
 
 export default function HeroSection() {
   const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded } = usePregnancy();
@@ -12,6 +13,8 @@ export default function HeroSection() {
   const weekIdx = Math.max(0, Math.min(39, currentWeek - 1));
   const weekInfo = weeklyGuide[weekIdx];
 
+  const baby = useBabyStore((s) => s.baby);
+  const setMode = useBabyStore((s) => s.setMode);
   const trimesterLabel = weekInfo.trimester === 1 ? "초기" : weekInfo.trimester === 2 ? "중기" : "후기";
 
   return (
@@ -19,13 +22,24 @@ export default function HeroSection() {
       <div className="animate-fade-in-up">
         <div className="flex items-center justify-between">
           <p className="text-sm text-primary font-medium mb-1">오늘도 건강하세요 ✨</p>
-          <Link
-            href="/settings"
-            className="p-1.5 rounded-full hover:bg-card/50 transition-colors"
-            aria-label="설정"
-          >
-            <Settings2 size={16} className="text-muted" />
-          </Link>
+          <div className="flex items-center gap-1">
+            {baby && (
+              <button
+                onClick={() => setMode("postnatal")}
+                className="p-1.5 rounded-full hover:bg-card/50 transition-colors"
+                aria-label="출산 후 모드로 전환"
+              >
+                <ArrowLeftRight size={14} className="text-muted" />
+              </button>
+            )}
+            <Link
+              href="/settings"
+              className="p-1.5 rounded-full hover:bg-card/50 transition-colors"
+              aria-label="설정"
+            >
+              <Settings2 size={16} className="text-muted" />
+            </Link>
+          </div>
         </div>
         <h1 className="text-2xl font-bold text-foreground leading-tight">
           맘마<span className="text-primary">.</span>

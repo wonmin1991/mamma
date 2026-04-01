@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HomeRouter from "@/components/HomeRouter";
 import { restaurants, tips, curatedFeed } from "@/data/mock";
 import {
   UtensilsCrossed,
@@ -16,6 +17,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import BookmarkButton from "@/components/BookmarkButton";
+import { BabyOnboardingTrigger } from "@/components/BabyOnboarding";
 import HeroSection from "@/components/HeroSection";
 import DailyReward from "@/components/DailyReward";
 import ThisWeekHighlight from "@/components/ThisWeekHighlight";
@@ -39,6 +41,7 @@ export default function Home() {
   const popularTips = [...tips].sort((a, b) => b.likes - a.likes).slice(0, 3);
 
   return (
+    <HomeRouter pregnancyHome={
     <main className="flex flex-col">
       {/* Hero — personalized pregnancy info */}
       <HeroSection />
@@ -254,6 +257,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Baby born CTA */}
+      <section className="mt-5 px-5">
+        <BabyOnboardingTrigger />
+      </section>
+
       {/* Bookmarks shortcut */}
       <section className="mt-8 px-5">
         <Link
@@ -288,5 +296,6 @@ export default function Home() {
         </div>
       </footer>
     </main>
+    } />
   );
 }

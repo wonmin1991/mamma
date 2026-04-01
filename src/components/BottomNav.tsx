@@ -8,9 +8,20 @@ import {
   Baby,
   Lightbulb,
   Users,
+  ClipboardList,
+  TrendingUp,
+  BookOpen,
+  type LucideIcon,
 } from "lucide-react";
+import { useBabyStore } from "@/store/useBabyStore";
 
-const navItems = [
+interface NavItem {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+}
+
+const pregnancyNav: NavItem[] = [
   { href: "/", label: "홈", icon: Home },
   { href: "/restaurants", label: "맛집", icon: UtensilsCrossed },
   { href: "/guide", label: "가이드", icon: Baby },
@@ -18,8 +29,19 @@ const navItems = [
   { href: "/community", label: "커뮤니티", icon: Users },
 ];
 
+const postnatalNav: NavItem[] = [
+  { href: "/", label: "홈", icon: Home },
+  { href: "/care-log", label: "육아기록", icon: ClipboardList },
+  { href: "/growth", label: "성장", icon: TrendingUp },
+  { href: "/diary", label: "일기", icon: BookOpen },
+  { href: "/community", label: "커뮤니티", icon: Users },
+];
+
 export default function BottomNav() {
   const pathname = usePathname();
+  const mode = useBabyStore((s) => s.mode);
+
+  const navItems = mode === "postnatal" ? postnatalNav : pregnancyNav;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-t border-card-border">
