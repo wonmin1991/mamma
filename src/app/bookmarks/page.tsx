@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { restaurants, tips } from "@/data/mock";
-import { ChevronLeft, Star, Heart, Trash2, BookmarkX, MessageSquare, Check, X } from "lucide-react";
+import { ChevronLeft, BookmarkX } from "lucide-react";
 import Link from "next/link";
 import { useStore } from "@/store/useStore";
+import BookmarkCard from "@/components/BookmarkCard";
 
 export default function BookmarksPage() {
   const bookmarks = useStore((s) => s.bookmarks);
@@ -18,8 +19,28 @@ export default function BookmarksPage() {
     (b) => activeTab === "all" || b.itemType === activeTab
   );
 
-  const getRestaurant = (id: string) => restaurants.find((r) => String(r.id) === id);
-  const getTip = (id: string) => tips.find((t) => String(t.id) === id);
+  const getItem = useCallback((itemId: string, itemType: "restaurant" | "tip") => {
+    if (itemType === "restaurant") {
+      const r = restaurants.find((r) => String(r.id) === itemId);
+      if (!r) return null;
+      return { id: r.id, name: r.name, emoji: r.emoji, rating: r.rating, area: r.area };
+    }
+    const t = tips.find((t) => String(t.id) === itemId);
+    if (!t) return null;
+    return { id: t.id, title: t.title, emoji: t.emoji, likes: t.likes, gradient: t.gradient };
+  }, []);
+
+  const handleMemoEdit = useCallback((bookmarkId: string, currentMemo: string) => {
+    setEditingMemo(bookmarkId);
+    setMemoText(currentMemo);
+  }, []);
+
+  const handleMemoSave = useCallback((bookmarkId: string, text: string) => {
+    updateBookmarkMemo(bookmarkId, text);
+    setEditingMemo(null);
+  }, [updateBookmarkMemo]);
+
+  const handleMemoCancel = useCallback(() => setEditingMemo(null), []);
 
   return (
     <main className="flex flex-col">
@@ -67,154 +88,23 @@ export default function BookmarksPage() {
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            {filteredBookmarks.map((bookmark, i) => {
-              if (bookmark.itemType === "restaurant") {
-                const r = getRestaurant(bookmark.itemId);
-                if (!r) {
-                  return (
-                    <div key={bookmark.id} className="bg-card rounded-2xl border border-card-border shadow-sm p-4 flex items-center justify-between">
-                      <p className="text-xs text-muted">삭제된 맛집입니다</p>
-                      <button onClick={() => removeBookmark(bookmark.id)} className="p-2 text-muted-light hover:text-red-400 transition-colors" aria-label="북마크 삭제">
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={bookmark.id}
-                    className="bg-card rounded-2xl border border-card-border shadow-sm p-4 animate-fade-in-up"
-                    style={{ animationDelay: `${i * 60}ms` }}
-                  >
-                    <div className="flex gap-4 items-start">
-                      <Link href={`/restaurants/${r.id}`} className="flex gap-4 items-start flex-1 min-w-0">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-surface-rose to-surface-amber flex items-center justify-center flex-shrink-0">
-                          <span className="text-2xl">{r.emoji}</span>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-surface-rose text-primary font-medium">맛집</span>
-                          <h3 className="font-semibold text-sm text-foreground mt-1">{r.name}</h3>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-xs text-muted flex items-center gap-0.5">
-                              <Star size={10} className="text-amber-400" fill="currentColor" />{r.rating}
-                            </span>
-                            <span className="text-xs text-muted">{r.area}</span>
-                          </div>
-                        </div>
-                      </Link>
-                      <div className="flex flex-col gap-1">
-                        <button
-                          onClick={() => { setEditingMemo(bookmark.id); setMemoText(bookmark.memo || ""); }}
-                          className="p-2 text-muted-light hover:text-primary transition-colors"
-                          aria-label="메모 작성"
-                        >
-                          <MessageSquare size={16} />
-                        </button>
-                        <button onClick={() => removeBookmark(bookmark.id)} className="p-2 text-muted-light hover:text-red-400 transition-colors" aria-label="북마크 삭제">
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </div>
-                    {bookmark.memo && editingMemo !== bookmark.id && (
-                      <p className="mt-2 ml-[72px] text-xs text-muted bg-surface rounded-lg px-3 py-2">{bookmark.memo}</p>
-                    )}
-                    {editingMemo === bookmark.id && (
-                      <div className="mt-2 ml-[72px] flex gap-2">
-                        <input
-                          type="text"
-                          value={memoText}
-                          onChange={(e) => setMemoText(e.target.value)}
-                          placeholder="왜 저장했는지 메모..."
-                          className="flex-1 px-3 py-2 rounded-lg bg-surface border border-card-border text-xs text-foreground focus:outline-none focus:border-primary"
-                          autoFocus
-                        />
-                        <button
-                          onClick={() => { updateBookmarkMemo(bookmark.id, memoText); setEditingMemo(null); }}
-                          className="p-2 text-primary"
-                          aria-label="메모 저장"
-                        >
-                          <Check size={16} />
-                        </button>
-                        <button onClick={() => setEditingMemo(null)} className="p-2 text-muted" aria-label="메모 취소">
-                          <X size={16} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                );
-              } else {
-                const t = getTip(bookmark.itemId);
-                if (!t) {
-                  return (
-                    <div key={bookmark.id} className="bg-card rounded-2xl border border-card-border shadow-sm p-4 flex items-center justify-between">
-                      <p className="text-xs text-muted">삭제된 꿀팁입니다</p>
-                      <button onClick={() => removeBookmark(bookmark.id)} className="p-2 text-muted-light hover:text-red-400 transition-colors" aria-label="북마크 삭제">
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={bookmark.id}
-                    className="bg-card rounded-2xl border border-card-border shadow-sm p-4 animate-fade-in-up"
-                    style={{ animationDelay: `${i * 60}ms` }}
-                  >
-                    <div className="flex gap-4 items-start">
-                      <Link href={`/tips/${t.id}`} className="flex gap-4 items-start flex-1 min-w-0">
-                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${t.gradient} flex items-center justify-center flex-shrink-0`}>
-                          <span className="text-2xl">{t.emoji}</span>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-surface-violet text-secondary font-medium">꿀팁</span>
-                          <h3 className="font-semibold text-sm text-foreground mt-1 line-clamp-2">{t.title}</h3>
-                          <span className="text-xs text-muted flex items-center gap-0.5 mt-0.5">
-                            <Heart size={10} /> {t.likes.toLocaleString()}
-                          </span>
-                        </div>
-                      </Link>
-                      <div className="flex flex-col gap-1">
-                        <button
-                          onClick={() => { setEditingMemo(bookmark.id); setMemoText(bookmark.memo || ""); }}
-                          className="p-2 text-muted-light hover:text-primary transition-colors"
-                          aria-label="메모 작성"
-                        >
-                          <MessageSquare size={16} />
-                        </button>
-                        <button onClick={() => removeBookmark(bookmark.id)} className="p-2 text-muted-light hover:text-red-400 transition-colors" aria-label="북마크 삭제">
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </div>
-                    {bookmark.memo && editingMemo !== bookmark.id && (
-                      <p className="mt-2 ml-[72px] text-xs text-muted bg-surface rounded-lg px-3 py-2">{bookmark.memo}</p>
-                    )}
-                    {editingMemo === bookmark.id && (
-                      <div className="mt-2 ml-[72px] flex gap-2">
-                        <input
-                          type="text"
-                          value={memoText}
-                          onChange={(e) => setMemoText(e.target.value)}
-                          placeholder="왜 저장했는지 메모..."
-                          className="flex-1 px-3 py-2 rounded-lg bg-surface border border-card-border text-xs text-foreground focus:outline-none focus:border-primary"
-                          autoFocus
-                        />
-                        <button
-                          onClick={() => { updateBookmarkMemo(bookmark.id, memoText); setEditingMemo(null); }}
-                          className="p-2 text-primary"
-                          aria-label="메모 저장"
-                        >
-                          <Check size={16} />
-                        </button>
-                        <button onClick={() => setEditingMemo(null)} className="p-2 text-muted" aria-label="메모 취소">
-                          <X size={16} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-            })}
+            {filteredBookmarks.map((bookmark, i) => (
+              <BookmarkCard
+                key={bookmark.id}
+                bookmarkId={bookmark.id}
+                itemType={bookmark.itemType}
+                index={i}
+                memo={bookmark.memo}
+                editingMemo={editingMemo}
+                memoText={memoText}
+                onMemoEdit={handleMemoEdit}
+                onMemoSave={handleMemoSave}
+                onMemoCancel={handleMemoCancel}
+                onMemoTextChange={setMemoText}
+                onRemove={removeBookmark}
+                item={getItem(bookmark.itemId, bookmark.itemType)}
+              />
+            ))}
           </div>
         )}
       </section>

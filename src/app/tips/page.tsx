@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { tips, TIP_CATEGORIES } from "@/data/mock";
 import { ChevronLeft, Heart } from "lucide-react";
 import Link from "next/link";
@@ -9,8 +9,9 @@ import BookmarkButton from "@/components/BookmarkButton";
 export default function TipsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
 
-  const filteredTips = tips.filter(
-    (t) => activeCategory === "all" || t.category === activeCategory
+  const filteredTips = useMemo(
+    () => tips.filter((t) => activeCategory === "all" || t.category === activeCategory),
+    [activeCategory]
   );
 
   return (

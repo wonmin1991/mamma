@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { X, AlertTriangle, Check } from "lucide-react";
+import { STORAGE_KEYS } from "@/lib/storage";
 
 const REPORT_REASONS = [
   { id: "spam", label: "스팸/광고" },
@@ -11,7 +12,7 @@ const REPORT_REASONS = [
   { id: "other", label: "기타" },
 ];
 
-const REPORTS_KEY = "mamma-reports";
+const REPORTS_KEY = STORAGE_KEYS.REPORTS;
 
 interface Props {
   readonly targetId: number;

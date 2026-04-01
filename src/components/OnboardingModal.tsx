@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { Baby, Calendar, ChevronRight, Sparkles } from "lucide-react";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "done";
 
@@ -14,13 +15,15 @@ export default function OnboardingModal() {
   const [closing, setClosing] = useState(false);
   const closingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const focusTrapRef = useFocusTrap(!isOnboarded && !closing);
+
   useEffect(() => {
     return () => {
       if (closingTimerRef.current) clearTimeout(closingTimerRef.current);
     };
   }, []);
 
-  if (isOnboarded) return null;
+  if (isOnboarded || closing) return null;
 
   const handleDueDateSubmit = () => {
     if (!dateInput) return;
@@ -35,10 +38,8 @@ export default function OnboardingModal() {
     closingTimerRef.current = setTimeout(() => setClosing(true), 1200);
   };
 
-  if (closing) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-5" role="dialog" aria-modal="true" aria-label="온보딩">
+    <div ref={focusTrapRef} className="fixed inset-0 z-[100] flex items-center justify-center p-5" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       <div className="relative w-full max-w-sm bg-card rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up">
@@ -47,7 +48,7 @@ export default function OnboardingModal() {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary-light to-secondary-light flex items-center justify-center mx-auto mb-5">
               <span className="text-4xl">🤰</span>
             </div>
-            <h2 className="text-xl font-bold text-foreground">
+            <h2 id="onboarding-title" className="text-xl font-bold text-foreground">
               맘마에 오신 걸 환영해요!
             </h2>
             <p className="text-sm text-muted mt-2 leading-relaxed">

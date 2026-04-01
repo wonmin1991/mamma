@@ -63,25 +63,31 @@ export default function SettingsPage() {
     showToast("백업 파일이 다운로드되었습니다", "success");
   };
 
-  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    file.text().then((text) => {
-      try {
-        const data = JSON.parse(text) as ExportData;
-        const result = importAllData(data);
-        if (result.success) {
-          showToast("데이터가 복원되었습니다. 새로고침합니다...", "success");
-          setTimeout(() => globalThis.location.reload(), 1500);
-        } else {
-          showToast(result.error || "복원에 실패했습니다", "error");
-        }
-      } catch {
-        showToast("올바르지 않은 파일입니다", "error");
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text) as ExportData;
+
+      if (!data || typeof data !== "object" || !data.data || typeof data.version !== "number") {
+        showToast("올바르지 않은 백업 파일 형식입니다", "error");
+        return;
       }
-    });
-    e.target.value = "";
+
+      const result = importAllData(data);
+      if (result.success) {
+        showToast("데이터가 복원되었습니다. 새로고침합니다...", "success");
+        setTimeout(() => globalThis.location.reload(), 1500);
+      } else {
+        showToast(result.error || "복원에 실패했습니다", "error");
+      }
+    } catch {
+      showToast("올바르지 않은 파일입니다", "error");
+    } finally {
+      e.target.value = "";
+    }
   };
 
   const handleClearAll = () => {

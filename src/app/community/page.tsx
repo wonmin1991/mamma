@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import {
   sampleCommunityPosts,
   COMMUNITY_CATEGORIES,
@@ -16,6 +17,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useStore } from "@/store/useStore";
+import { sanitizeTrim } from "@/lib/sanitize";
+import { STORAGE_KEYS } from "@/lib/storage";
+import { formatRelativeDate } from "@/lib/date";
 
 export default function CommunityPage() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -32,7 +36,7 @@ export default function CommunityPage() {
   useEffect(() => {
     let userPosts: CommunityPost[] = [];
     try {
-      userPosts = JSON.parse(localStorage.getItem("mamma-community") || "[]");
+      userPosts = JSON.parse(localStorage.getItem(STORAGE_KEYS.COMMUNITY) || "[]");
     } catch {
       // corrupted data — ignore
     }
@@ -40,8 +44,9 @@ export default function CommunityPage() {
     setPosts([...userPosts, ...sampleCommunityPosts]);
   }, []);
 
-  const filteredPosts = posts.filter(
-    (p) => activeCategory === "all" || p.category === activeCategory
+  const filteredPosts = useMemo(
+    () => posts.filter((p) => activeCategory === "all" || p.category === activeCategory),
+    [posts, activeCategory]
   );
 
   const handleLike = useCallback((postId: number) => {
@@ -68,10 +73,10 @@ export default function CommunityPage() {
 
     const newPost: CommunityPost = {
       id: Date.now(),
-      author: formAuthor.trim() || "익명",
+      author: sanitizeTrim(formAuthor, 20) || "익명",
       category: formCategory,
-      title: formTitle.trim(),
-      content: formContent.trim(),
+      title: sanitizeTrim(formTitle, 100),
+      content: sanitizeTrim(formContent, 2000),
       likes: 0,
       comments: 0,
       createdAt: new Date().toISOString().split("T")[0],
@@ -80,13 +85,13 @@ export default function CommunityPage() {
 
     let userPosts: CommunityPost[] = [];
     try {
-      userPosts = JSON.parse(localStorage.getItem("mamma-community") || "[]");
+      userPosts = JSON.parse(localStorage.getItem(STORAGE_KEYS.COMMUNITY) || "[]");
     } catch {
       // corrupted data — start fresh
     }
     userPosts.unshift(newPost);
     try {
-      localStorage.setItem("mamma-community", JSON.stringify(userPosts));
+      localStorage.setItem(STORAGE_KEYS.COMMUNITY, JSON.stringify(userPosts));
     } catch {
       // storage quota exceeded
     }
@@ -98,15 +103,7 @@ export default function CommunityPage() {
     setFormAuthor("");
   };
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const now = new Date();
-    const diff = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-    if (diff === 0) return "오늘";
-    if (diff === 1) return "어제";
-    if (diff < 7) return `${diff}일 전`;
-    return dateStr;
-  };
+  const formFocusRef = useFocusTrap(showForm);
 
   return (
     <main className="flex flex-col">
@@ -145,11 +142,11 @@ export default function CommunityPage() {
 
       {/* Post form modal */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" aria-label="새 글 작성">
+        <div ref={formFocusRef} className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" aria-labelledby="new-post-title">
           <button type="button" className="absolute inset-0 bg-black/40" onClick={() => setShowForm(false)} aria-label="닫기" />
           <div className="relative w-full max-w-lg bg-card rounded-t-3xl p-5 pb-8 animate-fade-in-up">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-bold text-foreground">새 글 작성</h2>
+              <h2 id="new-post-title" className="text-base font-bold text-foreground">새 글 작성</h2>
               <button onClick={() => setShowForm(false)} className="p-1 text-muted" aria-label="닫기">
                 <X size={20} />
               </button>
@@ -228,7 +225,7 @@ export default function CommunityPage() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-foreground">{post.author}</p>
-                      <p className="text-xs text-muted">{formatDate(post.createdAt)}</p>
+                      <p className="text-xs text-muted">{formatRelativeDate(post.createdAt)}</p>
                     </div>
                     <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-secondary-light text-secondary font-medium">
                       {cat?.label}

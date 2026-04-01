@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
+import { STORAGE_KEYS } from "@/lib/storage";
 
 interface PregnancyData {
   dueDate: string | null;
@@ -16,7 +17,7 @@ interface PregnancyContextValue extends PregnancyData {
   reset: () => void;
 }
 
-const STORAGE_KEY = "mamma-pregnancy";
+const STORAGE_KEY = STORAGE_KEYS.PREGNANCY;
 
 function calculateFromDueDate(dueDate: string): { week: number; day: number; daysUntilDue: number } {
   const due = new Date(dueDate);
@@ -106,7 +107,13 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, setDueDate, setWeekDirectly, reset]
   );
 
-  if (!loaded) return null;
+  if (!loaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <PregnancyContext.Provider value={value}>

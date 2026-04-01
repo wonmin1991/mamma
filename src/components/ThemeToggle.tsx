@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useStore } from "@/store/useStore";
+import { STORAGE_KEYS } from "@/lib/storage";
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -22,7 +23,7 @@ export default function ThemeToggle() {
     setDark(next);
     document.documentElement.classList.toggle("dark", next);
     try {
-      localStorage.setItem("mamma-theme", next ? "dark" : "light");
+      localStorage.setItem(STORAGE_KEYS.THEME, next ? "dark" : "light");
     } catch { /* quota exceeded */ }
     setTheme(next ? "dark" : "light");
   };

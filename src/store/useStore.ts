@@ -95,7 +95,9 @@ interface AppState {
 }
 
 function generateCode() {
-  return Math.random().toString(36).substring(2, 8).toUpperCase();
+  const bytes = new Uint8Array(4);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => b.toString(36)).join("").substring(0, 6).toUpperCase();
 }
 
 function getToday() {

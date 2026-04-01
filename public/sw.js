@@ -28,7 +28,10 @@ const NAVIGATIONS = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .catch((err) => console.warn("[SW] precache failed:", err))
   );
   self.skipWaiting();
 });
@@ -39,7 +42,10 @@ self.addEventListener("activate", (event) => {
       Promise.all(
         keys
           .filter((k) => k !== STATIC_CACHE && k !== DYNAMIC_CACHE)
-          .map((k) => caches.delete(k))
+          .map((k) => {
+            console.log("[SW] deleting old cache:", k);
+            return caches.delete(k);
+          })
       )
     )
   );
@@ -83,12 +89,19 @@ self.addEventListener("fetch", (event) => {
       caches.open(DYNAMIC_CACHE).then(async (cache) => {
         const cached = await cache.match(request);
         if (cached) return cached;
-        const response = await fetch(request);
-        if (response.ok) {
-          cache.put(request, response.clone());
-          trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE);
+        try {
+          const response = await fetch(request);
+          if (response.ok) {
+            cache.put(request, response.clone());
+            trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE);
+          }
+          return response;
+        } catch {
+          return new Response("오프라인 상태입니다", {
+            status: 503,
+            headers: { "Content-Type": "text/plain; charset=utf-8" },
+          });
         }
-        return response;
       })
     );
     return;

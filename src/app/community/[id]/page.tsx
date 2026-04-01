@@ -11,6 +11,9 @@ import { ChevronLeft, Heart, MessageCircle, Send, Flag, MoreHorizontal } from "l
 import Link from "next/link";
 import { useStore } from "@/store/useStore";
 import ReportModal from "@/components/ReportModal";
+import { STORAGE_KEYS } from "@/lib/storage";
+import { sanitizeTrim } from "@/lib/sanitize";
+import { formatRelativeDate } from "@/lib/date";
 
 interface Comment {
   id: number;
@@ -20,7 +23,7 @@ interface Comment {
   likes: number;
 }
 
-const COMMENTS_KEY = "mamma-comments";
+const COMMENTS_KEY = STORAGE_KEYS.COMMENTS;
 
 export default function CommunityDetailPage() {
   const params = useParams();
@@ -47,7 +50,7 @@ export default function CommunityDetailPage() {
   useEffect(() => {
     let userPosts: CommunityPost[] = [];
     try {
-      userPosts = JSON.parse(localStorage.getItem("mamma-community") || "[]");
+      userPosts = JSON.parse(localStorage.getItem(STORAGE_KEYS.COMMUNITY) || "[]");
     } catch { /* corrupted data */ }
 
     const allPosts = [...userPosts, ...sampleCommunityPosts];
@@ -74,8 +77,8 @@ export default function CommunityDetailPage() {
 
     const newComment: Comment = {
       id: Date.now(),
-      author: commentAuthor.trim() || "익명",
-      content: commentContent.trim(),
+      author: sanitizeTrim(commentAuthor, 20) || "익명",
+      content: sanitizeTrim(commentContent, 1000),
       createdAt: new Date().toISOString().split("T")[0],
       likes: 0,
     };
@@ -96,15 +99,6 @@ export default function CommunityDetailPage() {
     setCommentAuthor("");
   };
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const now = new Date();
-    const diff = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-    if (diff === 0) return "오늘";
-    if (diff === 1) return "어제";
-    if (diff < 7) return `${diff}일 전`;
-    return dateStr;
-  };
 
   if (loading) {
     return (
@@ -177,7 +171,7 @@ export default function CommunityDetailPage() {
             </div>
             <div>
               <p className="text-sm font-semibold text-foreground">{post.author}</p>
-              <p className="text-xs text-muted">{formatDate(post.createdAt)}</p>
+              <p className="text-xs text-muted">{formatRelativeDate(post.createdAt)}</p>
             </div>
             <span className="ml-auto text-xs px-2.5 py-0.5 rounded-full bg-secondary-light text-secondary font-medium">
               {cat?.label}
@@ -235,7 +229,7 @@ export default function CommunityDetailPage() {
                   <span className="text-xs font-semibold text-foreground">{comment.author}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted">{formatDate(comment.createdAt)}</span>
+                  <span className="text-xs text-muted">{formatRelativeDate(comment.createdAt)}</span>
                   <button
                     onClick={() => {
                       setReportTarget({ id: comment.id, type: "comment" });

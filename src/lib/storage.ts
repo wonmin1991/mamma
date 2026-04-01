@@ -1,11 +1,13 @@
-const STORAGE_KEYS = [
-  "mamma-store",
-  "mamma-pregnancy",
-  "mamma-community",
-  "mamma-comments",
-  "mamma-reports",
-  "mamma-theme",
-] as const;
+export const STORAGE_KEYS = {
+  STORE: "mamma-store",
+  PREGNANCY: "mamma-pregnancy",
+  COMMUNITY: "mamma-community",
+  COMMENTS: "mamma-comments",
+  REPORTS: "mamma-reports",
+  THEME: "mamma-theme",
+} as const;
+
+const ALL_KEYS = Object.values(STORAGE_KEYS);
 
 export function safeGetItem(key: string): string | null {
   try {
@@ -32,7 +34,7 @@ export interface ExportData {
 
 export function exportAllData(): ExportData {
   const data: Record<string, unknown> = {};
-  for (const key of STORAGE_KEYS) {
+  for (const key of ALL_KEYS) {
     const raw = safeGetItem(key);
     if (raw) {
       try {
@@ -59,7 +61,7 @@ export function importAllData(exported: ExportData): {
 
   try {
     for (const [key, value] of Object.entries(exported.data)) {
-      if (!STORAGE_KEYS.includes(key as (typeof STORAGE_KEYS)[number])) continue;
+      if (!ALL_KEYS.includes(key as (typeof ALL_KEYS)[number])) continue;
       const str = typeof value === "string" ? value : JSON.stringify(value);
       const ok = safeSetItem(key, str);
       if (!ok) return { success: false, error: "저장 공간이 부족합니다." };
@@ -71,7 +73,7 @@ export function importAllData(exported: ExportData): {
 }
 
 export function clearAllData(): void {
-  for (const key of STORAGE_KEYS) {
+  for (const key of ALL_KEYS) {
     try {
       localStorage.removeItem(key);
     } catch {
@@ -83,7 +85,7 @@ export function clearAllData(): void {
 export function getStorageUsage(): { used: string; keys: number } {
   let totalBytes = 0;
   let keyCount = 0;
-  for (const key of STORAGE_KEYS) {
+  for (const key of ALL_KEYS) {
     const val = safeGetItem(key);
     if (val) {
       totalBytes += key.length + val.length;

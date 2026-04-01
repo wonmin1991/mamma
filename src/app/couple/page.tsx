@@ -16,6 +16,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import { sanitizeTrim } from "@/lib/sanitize";
 
 const MESSAGE_EMOJIS = ["❤️", "🥰", "💪", "🤗", "👶", "🍼", "✨", "🌙"];
 
@@ -38,14 +39,14 @@ export default function CouplePage() {
 
   const handleSendMessage = () => {
     if (!msgText.trim()) return;
-    addCoupleMessage(msgText.trim(), msgEmoji);
+    addCoupleMessage(sanitizeTrim(msgText, 500), msgEmoji);
     setMsgText("");
     setMsgEmoji(undefined);
   };
 
   const handleSetup = () => {
     if (!momName.trim() || !dadName.trim()) return;
-    enableCouple(momName.trim(), dadName.trim());
+    enableCouple(sanitizeTrim(momName, 20), sanitizeTrim(dadName, 20));
   };
 
   const copyCode = async () => {

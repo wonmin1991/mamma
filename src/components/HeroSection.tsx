@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
 import { ChevronRight, Settings2 } from "lucide-react";
+import { formatDueDate } from "@/lib/date";
 
 export default function HeroSection() {
   const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded } = usePregnancy();
@@ -12,11 +13,6 @@ export default function HeroSection() {
   const weekInfo = weeklyGuide[weekIdx];
 
   const trimesterLabel = weekInfo.trimester === 1 ? "초기" : weekInfo.trimester === 2 ? "중기" : "후기";
-
-  const formatDueDate = (d: string) => {
-    const date = new Date(d);
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
-  };
 
   return (
     <section className="relative px-5 pt-14 pb-8 bg-gradient-to-br from-hero-from via-hero-via to-hero-to">

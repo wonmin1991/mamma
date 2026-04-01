@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { restaurants, CATEGORIES, AREA_GROUPS } from "@/data/mock";
 import { Star, MapPin, ChevronLeft, Search, X } from "lucide-react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export default function RestaurantsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
 
-  const filteredRestaurants = restaurants.filter((r) => {
+  const filteredRestaurants = useMemo(() => restaurants.filter((r) => {
     const matchCategory = activeCategory === "all" || r.category === activeCategory;
     const matchArea = activeArea === "all" || r.region === activeArea;
     const matchSearch =
@@ -21,7 +21,7 @@ export default function RestaurantsPage() {
       r.area.includes(searchQuery) ||
       r.tags.some((t) => t.includes(searchQuery));
     return matchCategory && matchArea && matchSearch;
-  });
+  }), [activeCategory, activeArea, searchQuery]);
 
   return (
     <main className="flex flex-col">

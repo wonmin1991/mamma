@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { useDebounce } from "@/lib/useDebounce";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -11,6 +12,7 @@ import {
   TIP_CATEGORIES,
   type CommunityPost,
 } from "@/data/mock";
+import { STORAGE_KEYS } from "@/lib/storage";
 import {
   Search,
   X,
@@ -51,11 +53,13 @@ export default function SearchPage() {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("mamma-community");
+      const raw = localStorage.getItem(STORAGE_KEYS.COMMUNITY);
       // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only localStorage hydration
       if (raw) setUserPosts(JSON.parse(raw));
     } catch { /* ignore */ }
   }, []);
+
+  const debouncedQuery = useDebounce(query, 250);
 
   const allCommunityPosts = useMemo(
     () => [...userPosts, ...sampleCommunityPosts],
@@ -63,8 +67,8 @@ export default function SearchPage() {
   );
 
   const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
+    if (!debouncedQuery.trim()) return [];
+    const q = debouncedQuery.toLowerCase();
     const items: SearchResult[] = [];
 
     restaurants.forEach((r) => {
@@ -124,7 +128,7 @@ export default function SearchPage() {
     });
 
     return items;
-  }, [query, allCommunityPosts]);
+  }, [debouncedQuery, allCommunityPosts]);
 
   const filteredResults = activeFilter === "all"
     ? results
