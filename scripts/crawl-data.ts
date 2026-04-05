@@ -223,6 +223,11 @@ const TIP_QUERIES: { query: string; category: string }[] = [
   { query: "정밀초음파 검사 후기 비용", category: "hospital" },
   { query: "출산 준비물 리스트 2026", category: "product" },
   { query: "신생아 용품 추천 가성비", category: "product" },
+  { query: "산후조리원 추천 후기 2026", category: "postpartum" },
+  { query: "산후조리원 선택 체크리스트", category: "postpartum" },
+  { query: "산후조리원 비용 절약 꿀팁", category: "postpartum" },
+  { query: "산후조리 음식 식단 추천", category: "postpartum" },
+  { query: "산후우울증 증상 대처법", category: "postpartum" },
 ];
 
 async function crawlTips(): Promise<SeedTip[]> {
@@ -413,6 +418,7 @@ const TIP_EMOJIS: Record<string, string> = {
   mental: "💜",
   hospital: "🏥",
   product: "👶",
+  postpartum: "🏥",
 };
 
 const CATEGORY_PRICES: Record<string, string> = {
