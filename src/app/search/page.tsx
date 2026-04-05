@@ -12,6 +12,7 @@ import {
   TIP_CATEGORIES,
   type CommunityPost,
 } from "@/data/mock";
+import { benefits } from "@/data/benefits";
 import { STORAGE_KEYS } from "@/lib/storage";
 import {
   Search,
@@ -22,9 +23,10 @@ import {
   MessageCircle,
   ChevronLeft,
   TrendingUp,
+  Gift,
 } from "lucide-react";
 
-type ResultType = "restaurant" | "tip" | "guide" | "community";
+type ResultType = "restaurant" | "tip" | "guide" | "community" | "benefit";
 
 interface SearchResult {
   type: ResultType;
@@ -35,13 +37,14 @@ interface SearchResult {
   href: string;
 }
 
-const POPULAR_KEYWORDS = ["저염식", "엽산", "입덧", "디카페인", "출산 가방", "요가"];
+const POPULAR_KEYWORDS = ["저염식", "엽산", "입덧", "디카페인", "출산 가방", "요가", "출산축하금", "산후조리"];
 
 const typeIcons: Record<ResultType, { icon: typeof UtensilsCrossed; label: string; color: string }> = {
   restaurant: { icon: UtensilsCrossed, label: "맛집", color: "text-primary" },
   tip: { icon: Lightbulb, label: "꿀팁", color: "text-amber-500" },
   guide: { icon: Baby, label: "가이드", color: "text-secondary" },
   community: { icon: MessageCircle, label: "커뮤니티", color: "text-emerald-500" },
+  benefit: { icon: Gift, label: "혜택", color: "text-rose-500" },
 };
 
 export default function SearchPage() {
@@ -127,6 +130,20 @@ export default function SearchPage() {
       }
     });
 
+    benefits.forEach((b) => {
+      const searchable = `${b.name} ${b.summary} ${b.content} ${b.organization} ${b.region}`.toLowerCase();
+      if (searchable.includes(q)) {
+        items.push({
+          type: "benefit",
+          id: b.id,
+          title: b.name,
+          subtitle: `${b.organization} · ${b.region}`,
+          emoji: "🎁",
+          href: `/benefits?q=${encodeURIComponent(b.name)}`,
+        });
+      }
+    });
+
     return items;
   }, [debouncedQuery, allCommunityPosts]);
 
@@ -153,7 +170,7 @@ export default function SearchPage() {
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
-              placeholder="맛집, 꿀팁, 가이드, 커뮤니티 검색"
+              placeholder="맛집, 꿀팁, 혜택, 가이드 검색"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-card border border-card-border text-sm text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
@@ -173,7 +190,7 @@ export default function SearchPage() {
 
         {results.length > 0 && (
           <div className="flex gap-2 mt-3 overflow-x-auto hide-scrollbar -mx-5 px-5 pb-1">
-            {(["all", "restaurant", "tip", "guide", "community"] as const).map((f) => {
+            {(["all", "restaurant", "tip", "guide", "community", "benefit"] as const).map((f) => {
               const count = resultCounts[f] || 0;
               if (f !== "all" && count === 0) return null;
               const label = f === "all" ? "전체" : typeIcons[f].label;

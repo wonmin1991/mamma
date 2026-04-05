@@ -27,7 +27,7 @@ const quickLinks = [
   { href: "/restaurants", label: "맛집", emoji: "🍽️", bg: "bg-surface-rose", icon: UtensilsCrossed },
   { href: "/guide", label: "가이드", emoji: "👶", bg: "bg-surface-violet", icon: Baby },
   { href: "/tips", label: "꿀팁", emoji: "💡", bg: "bg-surface-amber", icon: Lightbulb },
-  { href: "/nursery", label: "아기방", emoji: "✨", bg: "bg-surface-sky", icon: UtensilsCrossed },
+  { href: "/benefits", label: "혜택", emoji: "🎁", bg: "bg-surface-sky", icon: Lightbulb },
 ];
 
 const sourceIcons = {
