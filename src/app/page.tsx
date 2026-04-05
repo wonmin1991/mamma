@@ -20,7 +20,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import { BabyOnboardingTrigger } from "@/components/BabyOnboarding";
 import HeroSection from "@/components/HeroSection";
 import DailyReward from "@/components/DailyReward";
-import ThisWeekHighlight from "@/components/ThisWeekHighlight";
+import HomeWidgets from "@/components/HomeWidgets";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
 
 const quickLinks = [
@@ -73,9 +73,9 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* This Week Highlight */}
+      {/* Widgets */}
       <section className="px-5 mt-5">
-        <ThisWeekHighlight />
+        <HomeWidgets />
       </section>
 
       {/* Recently Viewed */}

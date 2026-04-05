@@ -59,6 +59,11 @@ interface AppState {
   toggleBenefitCheck: (itemId: string) => void;
   isBenefitChecked: (itemId: string) => boolean;
 
+  // Widgets
+  activeWidgets: string[];
+  setActiveWidgets: (widgets: string[]) => void;
+  toggleWidget: (widgetId: string) => void;
+
   // Theme
   theme: "light" | "dark" | "system";
   setTheme: (theme: "light" | "dark" | "system") => void;
@@ -178,6 +183,18 @@ export const useStore = create<AppState>()(
         }
       },
       isBenefitChecked: (itemId) => get().benefitChecked.includes(itemId),
+
+      // --- Widgets ---
+      activeWidgets: ["dday", "weekHighlight", "checklist", "quickTip"],
+      setActiveWidgets: (widgets) => set({ activeWidgets: widgets }),
+      toggleWidget: (widgetId) => {
+        const current = get().activeWidgets;
+        if (current.includes(widgetId)) {
+          set({ activeWidgets: current.filter((id) => id !== widgetId) });
+        } else {
+          set({ activeWidgets: [...current, widgetId] });
+        }
+      },
 
       // --- Theme ---
       theme: "system",
@@ -307,6 +324,7 @@ export const useStore = create<AppState>()(
         coupleCode: state.coupleCode,
         checkedItems: state.checkedItems,
         benefitChecked: state.benefitChecked,
+        activeWidgets: state.activeWidgets,
         ownedItems: state.ownedItems,
         placedItems: state.placedItems,
         activeWallpaper: state.activeWallpaper,
