@@ -1,17 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { Baby, Calendar, ChevronRight, Sparkles } from "lucide-react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import ScrollDatePicker from "@/components/ScrollDatePicker";
 
 type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "done";
 
 export default function OnboardingModal() {
   const { isOnboarded, setDueDate, setWeekDirectly } = usePregnancy();
   const [step, setStep] = useState<Step>("welcome");
-  const [dateInput, setDateInput] = useState("");
+  const today = new Date();
+  const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 4).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const [dateInput, setDateInput] = useState(defaultDate);
   const [weekInput, setWeekInput] = useState(16);
+  const handleDateChange = useCallback((date: string) => setDateInput(date), []);
   const [closing, setClosing] = useState(false);
   const closingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -125,12 +129,13 @@ export default function OnboardingModal() {
             </p>
 
             <div className="flex flex-col items-center gap-4">
-              <input
-                type="date"
+              <ScrollDatePicker
                 value={dateInput}
-                onChange={(e) => setDateInput(e.target.value)}
-                className="w-full px-4 py-3.5 rounded-2xl bg-surface border border-card-border text-sm text-foreground text-center focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                onChange={handleDateChange}
               />
+              <p className="text-xs text-muted">
+                {dateInput && `${dateInput.replace(/-/g, ". ")}`}
+              </p>
               <button
                 onClick={handleDueDateSubmit}
                 disabled={!dateInput}
