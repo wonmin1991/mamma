@@ -542,14 +542,9 @@ function CheckupWidget() {
 function BenefitCalcWidget() {
   const { currentWeek } = usePregnancy();
 
-  // 전국 공통 혜택 총액 계산
-  const amounts: { name: string; amount: number; unit: string }[] = [
-    { name: "첫만남이용권", amount: 200, unit: "만원" },
-    { name: "부모급여 (0세)", amount: 1200, unit: "만원/년" },
-    { name: "부모급여 (1세)", amount: 600, unit: "만원/년" },
-    { name: "아동수당", amount: 120, unit: "만원/년" },
-    { name: "국민행복카드", amount: 100, unit: "만원" },
-  ];
+  let savedRegion = "";
+  try { savedRegion = localStorage.getItem("mamma-benefit-region") || ""; } catch {}
+
   const totalOneTime = 200 + 100; // 첫만남 + 국민행복카드
   const totalYearly = 1200 + 600 + 120; // 부모급여0세 + 1세 + 아동수당
   const totalEstimate = totalOneTime + totalYearly;
@@ -577,7 +572,9 @@ function BenefitCalcWidget() {
             연간 <span className="text-foreground font-medium">{totalYearly}만원</span>
           </div>
         </div>
-        <p className="text-[10px] text-muted mt-2">* 지자체 출산축하금 별도 (지역마다 100~500만원)</p>
+        <p className="text-[10px] text-muted mt-2">
+          * 지자체 출산축하금 별도{savedRegion ? ` — ${savedRegion} 혜택 보기 →` : " (지역 설정 시 상세 확인)"}
+        </p>
       </div>
     </Link>
   );

@@ -6,6 +6,7 @@ import {
   Home,
   UtensilsCrossed,
   Baby,
+  Gift,
   Lightbulb,
   Users,
   ClipboardList,
@@ -24,10 +25,10 @@ interface NavItem {
 
 const pregnancyNav: NavItem[] = [
   { href: "/", label: "홈", icon: Home },
-  { href: "/restaurants", label: "맛집", icon: UtensilsCrossed },
+  { href: "/benefits", label: "혜택", icon: Gift },
   { href: "/guide", label: "가이드", icon: Baby },
   { href: "/tips", label: "꿀팁", icon: Lightbulb },
-  { href: "/community", label: "나의기록", icon: Users },
+  { href: "/settings", label: "설정", icon: Settings2 },
 ];
 
 const postnatalNav: NavItem[] = [
