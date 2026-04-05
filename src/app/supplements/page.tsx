@@ -21,9 +21,9 @@ import {
 } from "@/data/supplements";
 
 const PRIORITY_STYLE = {
-  essential: { label: "필수", color: "text-red-500", bg: "bg-red-50 dark:bg-red-900/20" },
-  recommended: { label: "권장", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-900/20" },
-  optional: { label: "선택", color: "text-muted", bg: "bg-surface" },
+  essential: { label: "일반 권장", color: "text-rose-500", bg: "bg-rose-50 dark:bg-rose-900/20" },
+  recommended: { label: "참고", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-900/20" },
+  optional: { label: "선택 참고", color: "text-muted", bg: "bg-surface" },
 };
 
 export default function SupplementsPage() {
@@ -82,6 +82,15 @@ export default function SupplementsPage() {
       </header>
 
       <section className="px-5 pb-8 flex flex-col gap-4">
+        {/* Medical disclaimer */}
+        <div className="bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-200 dark:border-amber-900/50 p-3 flex items-start gap-2">
+          <AlertTriangle size={14} className="text-amber-500 flex-shrink-0 mt-0.5" />
+          <p className="text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">
+            아래 정보는 일반적인 참고 목적이며, 의학적 처방을 대체하지 않습니다.
+            복용량은 개인 건강 상태에 따라 다를 수 있으므로 반드시 담당 의사와 상담하세요.
+          </p>
+        </div>
+
         {/* Today's progress */}
         <div className="bg-gradient-to-br from-primary-light to-secondary-light rounded-2xl p-5 border border-card-border">
           <div className="flex items-center justify-between mb-2">

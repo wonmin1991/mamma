@@ -540,6 +540,12 @@ export default function SettingsPage() {
           <p className="text-xs text-muted mt-1">
             임산부를 위한 모든 정보를 한곳에서
           </p>
+          <Link
+            href="/privacy"
+            className="inline-block mt-3 text-[11px] text-muted underline underline-offset-2"
+          >
+            개인정보 처리방침
+          </Link>
         </div>
       </section>
 

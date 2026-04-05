@@ -13,7 +13,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 노원구 동일로 1596 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%8F%99%EC%9D%BC%EB%A1%9C%EC%A6%89%EC%84%9D%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EB%85%B8%EC%9B%90%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250519_181%2F1747637155552dCEev_JPEG%2F1000015331.jpg",
+    imageUrl: "",
   },
   {
     id: 2, name: "스위스워터커피", category: "cafe", region: "seoul", area: "강남구",
@@ -23,7 +23,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 강남구 선릉로112길 39 진영빌딩 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%8A%A4%EC%9C%84%EC%8A%A4%EC%9B%8C%ED%84%B0%EC%BB%A4%ED%94%BC%20%EA%B0%95%EB%82%A8%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=http%3A%2F%2Fwww.menupan.com%2Frestaurant%2Frestimg%2F004%2Fzzmenuimg%2Fd10285445_z.jpg",
+    imageUrl: "",
   },
   {
     id: 3, name: "올라포케 강남점", category: "salad", region: "seoul", area: "강남구",
@@ -33,7 +33,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "서울특별시 강남구 테헤란로4길 46 지하1층 비상가 104호", savedCount: 0,
     sourceUrl: "https://holapoke.imweb.me/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250130031900_photo1_32046c762194.webp",
+    imageUrl: "",
   },
   {
     id: 4, name: "알라보 강남점", category: "salad", region: "seoul", area: "강남구",
@@ -43,7 +43,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "서울특별시 강남구 테헤란로 129 강남N타워 1층", savedCount: 0,
     sourceUrl: "https://instagram.com/my_allavo?igshid=blux3lymodjw",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1624845916652441.jpeg",
+    imageUrl: "",
   },
   {
     id: 5, name: "썬더버드 청담점", category: "western", region: "seoul", area: "강남구",
@@ -53,7 +53,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["스테이크 등 철분 보충 메뉴"],
     address: "서울특별시 강남구 압구정로60길 18", savedCount: 0,
     sourceUrl: "https://app.catchtable.co.kr/ct/shop/sunthebud1?from=share&type=VISIT_RESERVATION",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20211022092537091_photo_0117bcbb6c7b.jpg",
+    imageUrl: "",
   },
   {
     id: 6, name: "킵샐러드 강남선릉역점", category: "salad", region: "seoul", area: "강남구",
@@ -63,7 +63,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "서울특별시 강남구 선릉로72길 13 1층", savedCount: 0,
     sourceUrl: "https://www.threads.com/@keep_salad",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240304_134%2F17095406903187zVUg_JPEG%2FKakaoTalk_20240304_155208758_18.jpg",
+    imageUrl: "",
   },
   {
     id: 7, name: "타닥타닥 솥밥 더룸 강남역삼역GFC센터필드본점 점심저녁", category: "korean", region: "seoul", area: "강남구",
@@ -73,7 +73,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능","개인실 이용 가능"],
     address: "서울특별시 강남구 강남대로94길 70 B01층 타닥타닥", savedCount: 0,
     sourceUrl: "https://s.baemin.com/PR000kPpnYxB1",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250607_165%2F1749223343021Dc9N4_PNG%2FKakaoTalk_20250607_002203154.png",
+    imageUrl: "",
   },
   {
     id: 8, name: "브레드제이 본점", category: "cafe", region: "seoul", area: "동작구",
@@ -83,7 +83,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 동작구 상도로 192 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%B8%8C%EB%A0%88%EB%93%9C%EC%A0%9C%EC%9D%B4%20%EB%B3%B8%EC%A0%90%20%EB%8F%99%EC%9E%91%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20260211_147%2F1770767065567CwtdH_JPEG%2F1000017646.jpg",
+    imageUrl: "",
   },
   {
     id: 9, name: "쁘띠보뇌르 망원점", category: "cafe", region: "seoul", area: "마포구",
@@ -93,7 +93,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 마포구 망원로1길 10", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%81%98%EB%9D%A0%EB%B3%B4%EB%87%8C%EB%A5%B4%20%EB%A7%9D%EC%9B%90%EC%A0%90%20%EB%A7%88%ED%8F%AC%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1498526447040433.jpg",
+    imageUrl: "",
   },
   {
     id: 10, name: "청국장과보리밥 청담점", category: "korean", region: "seoul", area: "강남구",
@@ -103,7 +103,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 강남구 학동로 521", savedCount: 0,
     sourceUrl: "https://smartstore.naver.com/organicbeans",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=http%3A%2F%2Fcfile8.uf.tistory.com%2Fimage%2F0270933A51894E2C146F20",
+    imageUrl: "",
   },
   {
     id: 11, name: "베이크드뮬란", category: "cafe", region: "seoul", area: "서초구",
@@ -113,7 +113,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 서초구 효령로 131 청권빌딩", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%B2%A0%EC%9D%B4%ED%81%AC%EB%93%9C%EB%AE%AC%EB%9E%80%20%EC%84%9C%EC%B4%88%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fstatic.cdn.soomgo.com%2Fupload%2Fportfolio%2F8a25feb9-d4d5-4437-b385-3f97da2840ee.jpg%3Fwebp%3D1",
+    imageUrl: "",
   },
   {
     id: 12, name: "산토리니의아침 우장산역점", category: "cafe", region: "seoul", area: "강서구",
@@ -123,7 +123,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 강서구 강서로45길 49-5", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%82%B0%ED%86%A0%EB%A6%AC%EB%8B%88%EC%9D%98%EC%95%84%EC%B9%A8%20%EC%9A%B0%EC%9E%A5%EC%82%B0%EC%97%AD%EC%A0%90%20%EA%B0%95%EC%84%9C%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240524_187%2F1716550002074ib9Ng_JPEG%2F1000003680.jpg",
+    imageUrl: "",
   },
   {
     id: 13, name: "솥내음 종로인사동점", category: "korean", region: "seoul", area: "종로구",
@@ -133,7 +133,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 종로구 인사동길 14 지상2층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/entry/place/2017586094",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260119134456_photo2_26779a63cf6b.webp",
+    imageUrl: "",
   },
   {
     id: 14, name: "목멱산방", category: "korean", region: "seoul", area: "중구",
@@ -143,7 +143,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 중구 퇴계로20길 71 1층 목멱산방", savedCount: 0,
     sourceUrl: "https://mmmroom.co.kr/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2FNw-KjNhynJgM8jButCacvw%2Fm.jpg",
+    imageUrl: "",
   },
   {
     id: 15, name: "옥류헌릴렉스", category: "cafe", region: "seoul", area: "강북구",
@@ -153,7 +153,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 강북구 삼양로181길 142 옥류헌릴렉스", savedCount: 0,
     sourceUrl: "https://www.instagram.com/cafe_relax._",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDFfMzMg%2FMDAxNzY0NTYxNzgwMTkx.xOnrGpWCb_jl5K4R6sZ5ZrePq6gFuy8mFebZSqRc974g.JeNQ9mtXUEKtWW-x3_sR83OR0lsgjTMPlT3g3AANWpAg.JPEG%2FDF585605-A267-45EF-A3F1-30554BD1511F.jpg",
+    imageUrl: "",
   },
   {
     id: 16, name: "중계고기파티 노원본점", category: "korean", region: "seoul", area: "노원구",
@@ -163,7 +163,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 노원구 중계로12길 6 중계고기파티 노원본점", savedCount: 0,
     sourceUrl: "https://www.instagram.com/gogiparty365",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20231011_283%2F1697004067858TiOmV_JPEG%2F%25B0%25ED%25B1%25E2%25C6%25C4%25C6%25BC-4249-11.jpg",
+    imageUrl: "",
   },
   {
     id: 17, name: "서울로인 여의도점", category: "korean", region: "seoul", area: "영등포구",
@@ -173,7 +173,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 영등포구 여의나루로 50 한국교직원공제회관 지하1층 9호", savedCount: 0,
     sourceUrl: "https://www.openine.com/PARTY",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=http%3A%2F%2Fwww.menupan.com%2Frestaurant%2Frestimg%2F002%2Fzzmenuimg%2Fj10412279_z.jpg",
+    imageUrl: "",
   },
   {
     id: 18, name: "5to7 성수본점", category: "cafe", region: "seoul", area: "성동구",
@@ -183,7 +183,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 서울숲2길 44-13 1층", savedCount: 0,
     sourceUrl: "http://www.instagram.com/5to7__seongsu",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200214_182%2F1581677333524FmARv_JPEG%2Fx8EMmpkK98QIogBmFtLe8bFH.jpg",
+    imageUrl: "",
   },
   {
     id: 19, name: "구욱희씨 서울숲", category: "cafe", region: "seoul", area: "성동구",
@@ -193,7 +193,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 서울숲4길 12-22", savedCount: 0,
     sourceUrl: "http://www.instagram.com/9wooki_2020",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2F--p9VqSaTCw9XM_YiTLuiQ%2Fms.jpg",
+    imageUrl: "",
   },
   {
     id: 20, name: "라에비뉴 성수", category: "cafe", region: "seoul", area: "성동구",
@@ -203,7 +203,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 성수일로10길 33 1층 103호", savedCount: 0,
     sourceUrl: "https://www.instagram.com/LaAvenue_official_",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20251120064844_photo2_6879c6d9493e.webp",
+    imageUrl: "",
   },
   {
     id: 21, name: "로우키", category: "cafe", region: "seoul", area: "성동구",
@@ -213,7 +213,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 연무장3길 6 1층, B1층", savedCount: 0,
     sourceUrl: "https://smartstore.naver.com/lowkeycoffee",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5360%2F2025%2F10%2F14%2F0000034214_001_20251014054218169.jpg",
+    imageUrl: "",
   },
   {
     id: 22, name: "미디엄스톤 성수 뚝섬역점", category: "cafe", region: "seoul", area: "성동구",
@@ -223,7 +223,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 왕십리로10길 18-1 1층, 2층, 옥상 미디엄스톤", savedCount: 0,
     sourceUrl: "http://www.instagram.com/medium_stone",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAzMjNfMTE1%2FMDAxNzc0MjI4MjA3Nzgz.17h1k01MCqFrpvqQkIco-FqFa9x4krQZX_kh8YDqS5gg.-OyBnPsKZP3VwVBG8tuoMj5o1JXu8l_Q-WChKxlpnU8g.JPEG%2F5D25B8C6-757A-4753-84BB-989EACFC0550.jpg",
+    imageUrl: "",
   },
   {
     id: 23, name: "아민 연남", category: "western", region: "seoul", area: "마포구",
@@ -233,7 +233,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["스테이크 등 철분 보충 메뉴","가벼운 브런치 메뉴"],
     address: "서울특별시 마포구 동교로52길 10-7", savedCount: 0,
     sourceUrl: "https://app.catchtable.co.kr/ct/shop/we.salad.you",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDNfMjQ2%2FMDAxNzY0NzExNTMwNDk5.oV-iUdA6XZkR-zxUobtCqcXkWlwfBseeBjgx6ad1r0kg.P5z2qr0butB5EEG8yRf_ti99DgYbcymgfjrE_ZfRKJcg.JPEG%2F1FC30C87-259B-41C3-B283-83499F73B882.jpg",
+    imageUrl: "",
   },
   {
     id: 24, name: "음무아 연남점", category: "western", region: "seoul", area: "마포구",
@@ -243,7 +243,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["스테이크 등 철분 보충 메뉴"],
     address: "서울특별시 마포구 성미산로 190-11 1층", savedCount: 0,
     sourceUrl: "https://www.instagram.com/um.muah?igsh=bmJ1dWVoYWhuajB1",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20251220102949_photo3_ccd7e1a78225.webp",
+    imageUrl: "",
   },
   {
     id: 25, name: "슬로우캘리 연남본점", category: "salad", region: "seoul", area: "마포구",
@@ -253,7 +253,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "서울특별시 마포구 동교로38길 35 2층", savedCount: 0,
     sourceUrl: "http://www.slowcali.co.kr",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20240613071041_photo1_e3ad5a6a31a9.webp",
+    imageUrl: "",
   },
   {
     id: 26, name: "두두리두팡 망원본점", category: "cafe", region: "seoul", area: "마포구",
@@ -263,7 +263,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 마포구 월드컵로23길 19 1층 두두리두팡", savedCount: 0,
     sourceUrl: "https://www.instagram.com/duduri_dupang",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20241114_145%2F173155373673692bGY_PNG%2FIMG_5843.png",
+    imageUrl: "",
   },
   {
     id: 27, name: "올바른김밥", category: "korean", region: "seoul", area: "마포구",
@@ -273,7 +273,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 마포구 동교로46길 42 1층 올바른김밥", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%98%AC%EB%B0%94%EB%A5%B8%EA%B9%80%EB%B0%A5%20%EB%A7%88%ED%8F%AC%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20240906103627712_photo_88867306caa0.webp",
+    imageUrl: "",
   },
   {
     id: 28, name: "사계진미 야탑본점", category: "korean", region: "gyeonggi", area: "성남시",
@@ -283,7 +283,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "경기도 성남시 분당구 양현로 453", savedCount: 0,
     sourceUrl: "https://blog.naver.com/ssong10921",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_135%2F1441037169750mr8or_JPEG%2FSUBMIT_1384489741831_13440922.jpg",
+    imageUrl: "",
   },
   {
     id: 29, name: "시골여행", category: "korean", region: "gyeonggi", area: "성남시",
@@ -293,7 +293,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능","코스 메뉴로 편안한 식사"],
     address: "경기도 성남시 분당구 하오개로 366-6", savedCount: 0,
     sourceUrl: "https://smartstore.naver.com/sigoltrip",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fmedia-cdn.tripadvisor.com%2Fmedia%2Fphoto-m%2F1280%2F14%2F69%2F50%2F8e%2Fphoto1jpg.jpg",
+    imageUrl: "",
   },
   {
     id: 30, name: "Poke all day 포케&amp;샐러드 판교점", category: "salad", region: "gyeonggi", area: "성남시",
@@ -303,7 +303,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "경기도 성남시 분당구 분당내곡로 131 지하1층 25호", savedCount: 0,
     sourceUrl: "https://pokeallday.co.kr/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250508085209642_photo_39953508d1f5.jpg",
+    imageUrl: "",
   },
   {
     id: 31, name: "샐러디 분당정자점", category: "salad", region: "gyeonggi", area: "성남시",
@@ -313,7 +313,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "경기도 성남시 분당구 정자일로 140 정자역엠코헤리츠 2단지 201동 104호 샐러디", savedCount: 0,
     sourceUrl: "http://www.salady.com/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2FlaILWRD3cwGvShYz_omjFQ%2Fms.jpg",
+    imageUrl: "",
   },
   {
     id: 32, name: "Poke all day 포케&amp;샐러드 서현역점", category: "salad", region: "gyeonggi", area: "성남시",
@@ -323,7 +323,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "경기도 성남시 분당구 황새울로360번길 28 2층 206호", savedCount: 0,
     sourceUrl: "https://pokeallday.co.kr/",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240705_216%2F1720156795337QUlb1_JPEG%2F06_%25C0%25B0%25C8%25B8_%25C7%25C1%25B7%25CE%25C6%25BE_%25C6%25F7%25C4%25C9_%25C7%25C1%25B7%25CE%25C6%25BE_%25C6%25F7%25C4%25C9_%25B9%25E8%25B9%25CE.jpg",
+    imageUrl: "",
   },
   {
     id: 33, name: "마니산산채 강화도본점", category: "korean", region: "incheon", area: "강화군",
@@ -333,7 +333,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능","코스 메뉴로 편안한 식사"],
     address: "인천광역시 강화군 화도면 해안남로 1182 마니산산채", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84%20%EA%B0%95%ED%99%94%EB%8F%84%EB%B3%B8%EC%A0%90%20%EA%B0%95%ED%99%94%EA%B5%B0",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfMTQ4%2FMDAxNzY1NDM4MzM5MjAx.bJW5tXSc0iw2dJF9j2zmgV-r_ISxVFA1oO2DRSv0wEkg.dWcGkisnEqbwJgZ6l1oTQjqtK_ChhOqIyRC6u3t8jDsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163217_908.jpg",
+    imageUrl: "",
   },
   {
     id: 34, name: "레이지다이노 포케&amp;샐러드 용현본점", category: "salad", region: "incheon", area: "미추홀구",
@@ -343,7 +343,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "인천광역시 미추홀구 용정공원로83번길 49 1층 147호", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%A0%88%EC%9D%B4%EC%A7%80%EB%8B%A4%EC%9D%B4%EB%85%B8%20%ED%8F%AC%EC%BC%80%26amp%3B%EC%83%90%EB%9F%AC%EB%93%9C%20%EC%9A%A9%ED%98%84%EB%B3%B8%EC%A0%90%20%EB%AF%B8%EC%B6%94%ED%99%80%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_51%2F1705831552793rcGcJ_JPEG%2F24232.jpg",
+    imageUrl: "",
   },
   {
     id: 35, name: "Poke all day 포케&amp;샐러드 부평점", category: "salad", region: "incheon", area: "부평구",
@@ -353,7 +353,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "인천광역시 부평구 대정로 24 2동 1층", savedCount: 0,
     sourceUrl: "https://pokeallday.co.kr/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250728165316_photo1_41f0057ed279.webp",
+    imageUrl: "",
   },
   {
     id: 36, name: "Poke all day 포케&amp;샐러드 인천논현점", category: "salad", region: "incheon", area: "남동구",
@@ -363,7 +363,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "인천광역시 남동구 논고개로 81 2층 202호", savedCount: 0,
     sourceUrl: "https://pokeallday.co.kr/",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20250523120010_photo1_5b7d5aa244c4.webp",
+    imageUrl: "",
   },
   {
     id: 37, name: "채움편백찜샤브샤브", category: "korean", region: "incheon", area: "서구",
@@ -373,7 +373,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "인천광역시 서구 크리스탈로 78 엘림 아트센터 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%B1%84%EC%9B%80%ED%8E%B8%EB%B0%B1%EC%B0%9C%EC%83%A4%EB%B8%8C%EC%83%A4%EB%B8%8C%20%EC%84%9C%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=http%3A%2F%2Ftong.visitkorea.or.kr%2Fcms%2Fresource%2F51%2F2878051_image2_1.jpg",
+    imageUrl: "",
   },
   {
     id: 38, name: "메가MGC커피 송도트리플스트리트점", category: "cafe", region: "incheon", area: "연수구",
@@ -383,7 +383,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "인천광역시 연수구 송도과학로16번길 33-1 A동 지하2층 메가커피", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%A9%94%EA%B0%80MGC%EC%BB%A4%ED%94%BC%20%EC%86%A1%EB%8F%84%ED%8A%B8%EB%A6%AC%ED%94%8C%EC%8A%A4%ED%8A%B8%EB%A6%AC%ED%8A%B8%EC%A0%90%20%EC%97%B0%EC%88%98%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221216_157%2F1671193174420rGkW8_JPEG%2F%25BC%25EE%25C4%25C9%25C0%25CC%25BD%25BA.jpg",
+    imageUrl: "",
   },
   {
     id: 39, name: "셀레브르", category: "cafe", region: "incheon", area: "연수구",
@@ -393,7 +393,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "인천광역시 연수구 아트센터대로 131 202동217호", savedCount: 0,
     sourceUrl: "https://smartstore.naver.com/coffee-sam",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1596076537115783.jpg",
+    imageUrl: "",
   },
   {
     id: 40, name: "롱비치커피앤브래드", category: "cafe", region: "incheon", area: "연수구",
@@ -403,7 +403,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "인천광역시 연수구 랜드마크로 194 롱비치커피앤브래드 1층", savedCount: 0,
     sourceUrl: "https://www.instagram.com/longbeachcoffee_",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo1_3e93cfbdf363.webp",
+    imageUrl: "",
   },
   {
     id: 41, name: "컵피", category: "cafe", region: "incheon", area: "연수구",
@@ -413,7 +413,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "인천광역시 연수구 송도과학로28번길 8 1층 143호", savedCount: 0,
     sourceUrl: "http://instagram.com/cupi_official",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAzMjBfMjU5%2FMDAxNzc0MDEzODA2Mzc0.2usORXtCY-KDDrwyo_KfpxNi1RRF-nkScQ65CChltLIg.vbvbOjUWa1bIRR0xJqghOwPHQNBkMvmYANh5TQlZmo4g.JPEG%2FBE33A6E0-5161-46FB-8D5C-3631A40AC92E.jpg",
+    imageUrl: "",
   },
   {
     id: 42, name: "고트커피", category: "cafe", region: "incheon", area: "연수구",
@@ -423,7 +423,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "인천광역시 연수구 송도과학로16번길 13-18 송도테크노큐브 110호", savedCount: 0,
     sourceUrl: "https://www.instagram.com/goat_coffeeee",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20260118113311_photo1_a1883a8c506d.webp",
+    imageUrl: "",
   }
 ];
 

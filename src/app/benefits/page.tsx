@@ -359,6 +359,7 @@ export default function BenefitsPage() {
           </div>
           <p className="text-xs text-muted mb-4">
             출산 준비에 필요한 용품을 저렴하게 체험할 수 있는 패키지 모음
+            <span className="block mt-1 text-[10px] text-amber-500">* 일부 링크에는 제휴 수수료가 포함되어 있습니다. 가격은 변동될 수 있습니다.</span>
           </p>
 
           <div className="flex flex-col gap-3">
@@ -439,16 +440,19 @@ export default function BenefitsPage() {
                       </div>
 
                       {pkg.url && (
-                        <a
-                          href={trackLink(pkg.url, "package", pkg.name)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => logClick("package", pkg.url, pkg.name)}
-                          className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
-                        >
-                          <ExternalLink size={14} />
-                          구매하러 가기
-                        </a>
+                        <>
+                          <a
+                            href={trackLink(pkg.url, "package", pkg.name)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => logClick("package", pkg.url, pkg.name)}
+                            className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
+                          >
+                            <ExternalLink size={14} />
+                            구매하러 가기
+                          </a>
+                          <p className="text-[10px] text-muted text-center mt-1">제휴 링크가 포함되어 있습니다</p>
+                        </>
                       )}
                     </div>
                   )}

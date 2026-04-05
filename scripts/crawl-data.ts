@@ -257,15 +257,7 @@ async function crawlRestaurants(): Promise<SeedRestaurant[]> {
     await sleep(200);
   }
 
-  // 이미지 검색 (rate limit 고려해서 순차 처리)
-  console.log(`    이미지 검색 중... (${results.length}개)`);
-  for (const r of results) {
-    r.imageUrl = await searchImage(`${r.name} ${r.area} 맛집`);
-    await sleep(100);
-  }
-  const withImage = results.filter((r) => r.imageUrl).length;
-  console.log(`    이미지 ${withImage}/${results.length}개 확보`);
-
+  // 이미지는 저작권 문제로 수집하지 않음 (이모지 폴백 사용)
   console.log(`    총 ${results.length}개\n`);
   return results;
 }
