@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { initNativePlugins, isNative } from "@/lib/native";
-import { getNotificationSettings, scheduleSupplementReminder } from "@/lib/notifications";
+import { getNotificationSettings, scheduleSupplementReminder, scheduleBenefitReminder } from "@/lib/notifications";
 
 export default function NativeInit() {
   useEffect(() => {
@@ -15,8 +15,11 @@ export default function NativeInit() {
 
     // 알림 스케줄링 자동 시작
     const notiSettings = getNotificationSettings();
-    if (notiSettings.enabled && notiSettings.supplementReminder) {
-      scheduleSupplementReminder(notiSettings.supplementTime);
+    if (notiSettings.enabled) {
+      if (notiSettings.supplementReminder) {
+        scheduleSupplementReminder(notiSettings.supplementTime);
+      }
+      scheduleBenefitReminder();
     }
   }, []);
 

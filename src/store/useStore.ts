@@ -213,7 +213,7 @@ export const useStore = create<AppState>()(
       },
 
       // --- Widgets ---
-      activeWidgets: ["dday", "supplements", "weekHighlight", "checklist", "quickTip"],
+      activeWidgets: ["dday", "weekBenefit", "supplements", "weekHighlight", "quickTip"],
       setActiveWidgets: (widgets) => set({ activeWidgets: widgets }),
       toggleWidget: (widgetId) => {
         const current = get().activeWidgets;

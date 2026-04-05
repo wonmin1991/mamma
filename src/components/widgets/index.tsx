@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide, tips } from "@/data/mock";
-import { benefitChecklist } from "@/data/benefits";
+import { benefitChecklist, getBenefitsForWeek, getUrgentBenefits } from "@/data/benefits";
 import { getSupplementsForWeek } from "@/data/supplements";
 import { useStore } from "@/store/useStore";
 import { formatDueDate } from "@/lib/date";
@@ -38,6 +38,7 @@ export const WIDGET_REGISTRY: WidgetDef[] = [
   { id: "babySize", name: "아기 크기", description: "이번 주 아기 크기 비교", emoji: "👶" },
   { id: "hearts", name: "하트 현황", description: "보유 하트 및 연속 출석", emoji: "💖" },
   { id: "supplements", name: "오늘의 영양제", description: "주차별 필수 영양제 복용 체크", emoji: "💊" },
+  { id: "weekBenefit", name: "이번 주 혜택", description: "지금 신청해야 할 혜택 알림", emoji: "⚡" },
 ];
 
 // ─── D-Day Widget ────────────────────────────────────────
@@ -350,6 +351,76 @@ function SupplementsWidget() {
   );
 }
 
+// ─── Week Benefit Widget ─────────────────────────────────
+
+function WeekBenefitWidget() {
+  const { currentWeek } = usePregnancy();
+  const benefitChecked = useStore((s) => s.benefitChecked);
+
+  const available = getBenefitsForWeek(currentWeek).filter(
+    (b) => !benefitChecked.includes(b.id)
+  );
+  const urgent = getUrgentBenefits(currentWeek).filter(
+    (b) => !benefitChecked.includes(b.id)
+  );
+
+  if (available.length === 0) {
+    return (
+      <div className="bg-card rounded-2xl border border-card-border shadow-sm p-4">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+          <CheckCircle2 size={14} className="text-emerald-500" />
+          이번 주 혜택 완료!
+        </h3>
+        <p className="text-xs text-muted mt-1">현재 주차에 신청할 혜택을 모두 처리했어요.</p>
+      </div>
+    );
+  }
+
+  const top = urgent.length > 0 ? urgent[0] : available[0];
+  const isUrgent = urgent.length > 0;
+  const remainWeeks = top.deadlineWeek > 0 ? top.deadlineWeek - currentWeek : null;
+
+  return (
+    <Link href="/benefits" className="block">
+      <div className={`rounded-2xl border shadow-sm p-4 ${
+        isUrgent
+          ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/50"
+          : "bg-card border-card-border"
+      }`}>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className={`text-sm font-bold flex items-center gap-1.5 ${isUrgent ? "text-red-500" : "text-foreground"}`}>
+            {isUrgent ? "⚡" : "🎁"} {currentWeek}주차 혜택
+          </h3>
+          <span className="text-xs text-muted">{available.length}건 대기</span>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-foreground leading-snug line-clamp-1">
+              {top.name}
+            </p>
+            {top.amount && (
+              <p className="text-primary font-bold text-sm mt-0.5">{top.amount}</p>
+            )}
+            <p className="text-xs text-muted mt-1 line-clamp-1">{top.description}</p>
+          </div>
+          {remainWeeks !== null && remainWeeks <= 3 && (
+            <span className="flex-shrink-0 text-xs px-2 py-1 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-500 font-bold">
+              D-{remainWeeks * 7}
+            </span>
+          )}
+        </div>
+
+        {available.length > 1 && (
+          <p className="text-[11px] text-primary font-medium mt-2 flex items-center gap-0.5">
+            +{available.length - 1}건 더 보기 <ChevronRight size={11} />
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
 const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   dday: DDayWidget,
   weekHighlight: WeekHighlightWidget,
@@ -358,6 +429,7 @@ const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   babySize: BabySizeWidget,
   hearts: HeartsWidget,
   supplements: SupplementsWidget,
+  weekBenefit: WeekBenefitWidget,
 };
 
 export function WidgetArea() {

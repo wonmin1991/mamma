@@ -124,9 +124,96 @@ async function showSupplementNotification() {
   }
 }
 
+// ─── 혜택 알림 스케줄링 ──────────────────────────────────
+
+let benefitTimer: ReturnType<typeof setTimeout> | null = null;
+
+export function scheduleBenefitReminder() {
+  cancelBenefitReminder();
+
+  // 매일 오전 10시에 혜택 알림 체크
+  const now = new Date();
+  const target = new Date();
+  target.setHours(10, 0, 0, 0);
+  if (target <= now) target.setDate(target.getDate() + 1);
+
+  const delay = target.getTime() - now.getTime();
+
+  benefitTimer = setTimeout(async () => {
+    await showBenefitNotification();
+    scheduleBenefitReminder();
+  }, delay);
+}
+
+async function showBenefitNotification() {
+  const permission = getPermissionStatus();
+  if (permission !== "granted") return;
+
+  try {
+    const store = localStorage.getItem("mamma-store");
+    const pregnancy = localStorage.getItem("mamma-pregnancy");
+    if (!store || !pregnancy) return;
+
+    const storeData = JSON.parse(store);
+    const pregData = JSON.parse(pregnancy);
+    const checkedItems: string[] = storeData?.state?.benefitChecked ?? [];
+
+    // 현재 주차 계산
+    let currentWeek = 16;
+    if (pregData.dueDate) {
+      const due = new Date(pregData.dueDate);
+      const now = new Date();
+      const daysUntil = Math.ceil((due.getTime() - now.getTime()) / 86400000);
+      currentWeek = Math.max(0, Math.min(40, Math.floor((280 - daysUntil) / 7)));
+    } else if (pregData.manualWeek) {
+      currentWeek = pregData.manualWeek;
+    }
+
+    // 이번 주 신청해야 하는데 아직 안 한 혜택 찾기
+    const { getBenefitsForWeek, getUrgentBenefits } = await import("@/data/benefits");
+    const urgent = getUrgentBenefits(currentWeek).filter((b) => !checkedItems.includes(b.id));
+    const available = getBenefitsForWeek(currentWeek).filter((b) => !checkedItems.includes(b.id));
+
+    if (urgent.length > 0) {
+      const item = urgent[0];
+      const remainWeeks = item.deadlineWeek - currentWeek;
+      const reg = await navigator.serviceWorker?.ready;
+      if (reg) {
+        await reg.showNotification("⚡ 마감 임박 혜택!", {
+          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} — ${remainWeeks}주 후 마감! 지금 신청하세요.`,
+          icon: "/icon-192.png",
+          badge: "/icon-192.png",
+          tag: "benefit-urgent",
+          data: { url: "/benefits" },
+        } as NotificationOptions);
+      }
+    } else if (available.length > 0) {
+      const item = available[0];
+      const reg = await navigator.serviceWorker?.ready;
+      if (reg) {
+        await reg.showNotification("🎁 이번 주 신청 가능한 혜택", {
+          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} — ${available.length}건의 혜택이 대기 중이에요.`,
+          icon: "/icon-192.png",
+          badge: "/icon-192.png",
+          tag: "benefit-reminder",
+          data: { url: "/benefits" },
+        } as NotificationOptions);
+      }
+    }
+  } catch { /* ignore */ }
+}
+
+function cancelBenefitReminder() {
+  if (benefitTimer) {
+    clearTimeout(benefitTimer);
+    benefitTimer = null;
+  }
+}
+
 export function cancelAllReminders() {
   if (reminderTimer) {
     clearTimeout(reminderTimer);
     reminderTimer = null;
   }
+  cancelBenefitReminder();
 }

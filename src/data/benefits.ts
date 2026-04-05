@@ -570,6 +570,12 @@ export interface BenefitCheckItem {
   deadline: string;
   applyUrl: string;
   priority: "high" | "medium" | "low";
+  /** 신청 권장 시작 주차 (0=임신 전, 41=출산 후) */
+  recommendedWeek: number;
+  /** 신청 마감 주차 (0이면 마감 없음) */
+  deadlineWeek: number;
+  /** 예상 금액 (표시용) */
+  amount?: string;
 }
 
 export const CHECKLIST_STAGES = [
@@ -592,6 +598,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 확인 즉시",
     applyUrl: "",
     priority: "high",
+    recommendedWeek: 4,
+    deadlineWeek: 8,
   },
   {
     id: "bc-2",
@@ -603,6 +611,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 확인 후 빠르게",
     applyUrl: "https://www.nhis.or.kr",
     priority: "high",
+    recommendedWeek: 5,
+    deadlineWeek: 12,
+    amount: "100만원",
   },
   {
     id: "bc-3",
@@ -614,6 +625,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 16주 전 권장",
     applyUrl: "",
     priority: "high",
+    recommendedWeek: 6,
+    deadlineWeek: 16,
   },
   {
     id: "bc-4",
@@ -625,6 +638,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 중 아무 때나",
     applyUrl: "https://www.gov.kr",
     priority: "medium",
+    recommendedWeek: 8,
+    deadlineWeek: 0,
+    amount: "최대 70만원",
   },
   {
     id: "bc-5",
@@ -636,6 +652,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 22주 이전 권장",
     applyUrl: "",
     priority: "medium",
+    recommendedWeek: 12,
+    deadlineWeek: 22,
   },
   {
     id: "bc-6",
@@ -647,6 +665,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 16주~출산 후 30일",
     applyUrl: "https://www.bokjiro.go.kr",
     priority: "medium",
+    recommendedWeek: 16,
+    deadlineWeek: 42,
   },
   {
     id: "bc-7",
@@ -658,6 +678,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "임신 12주 이전 권장",
     applyUrl: "",
     priority: "medium",
+    recommendedWeek: 8,
+    deadlineWeek: 30,
   },
 
   // ─── 출산 전후 ─────────────────────────────────────────
@@ -671,6 +693,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생일로부터 1개월 이내",
     applyUrl: "https://www.gov.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 44,
   },
   {
     id: "bc-9",
@@ -682,6 +706,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생일로부터 1년 이내",
     applyUrl: "https://www.gov.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 0,
+    amount: "200만원",
   },
   {
     id: "bc-10",
@@ -693,6 +720,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생신고 시 동시 신청",
     applyUrl: "https://www.gov.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 0,
+    amount: "100~300만원",
   },
   {
     id: "bc-11",
@@ -704,6 +734,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생신고 후 빠르게",
     applyUrl: "https://www.nhis.or.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 44,
   },
   {
     id: "bc-12",
@@ -715,6 +747,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "휴가 시작일로부터 1개월 이내",
     applyUrl: "https://www.ei.go.kr",
     priority: "high",
+    recommendedWeek: 36,
+    deadlineWeek: 44,
   },
 
   // ─── 출산 후 ───────────────────────────────────────────
@@ -728,6 +762,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생 후 60일 이내 신청 시 소급 지급",
     applyUrl: "https://www.bokjiro.go.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 48,
+    amount: "월 100만원",
   },
   {
     id: "bc-14",
@@ -739,6 +776,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "출생 후 60일 이내 신청 시 소급 지급",
     applyUrl: "https://www.bokjiro.go.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 48,
+    amount: "월 10만원",
   },
   {
     id: "bc-15",
@@ -750,6 +790,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "생후 14일부터",
     applyUrl: "https://www.nhis.or.kr",
     priority: "high",
+    recommendedWeek: 41,
+    deadlineWeek: 0,
   },
   {
     id: "bc-16",
@@ -761,6 +803,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "어린이집 입소 전",
     applyUrl: "https://www.bokjiro.go.kr",
     priority: "medium",
+    recommendedWeek: 41,
+    deadlineWeek: 0,
   },
   {
     id: "bc-17",
@@ -772,6 +816,9 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "육아휴직 시작 후 1개월~12개월 이내",
     applyUrl: "https://www.ei.go.kr",
     priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 0,
+    amount: "통상임금 80%",
   },
 
   // ─── 상시 ──────────────────────────────────────────────
@@ -785,6 +832,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "필요 시 수시 신청",
     applyUrl: "https://www.idolbom.go.kr",
     priority: "low",
+    recommendedWeek: 30,
+    deadlineWeek: 0,
   },
   {
     id: "bc-19",
@@ -796,6 +845,8 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "해당 시 수시",
     applyUrl: "",
     priority: "low",
+    recommendedWeek: 0,
+    deadlineWeek: 0,
   },
   {
     id: "bc-20",
@@ -807,5 +858,26 @@ export const benefitChecklist: BenefitCheckItem[] = [
     deadline: "필요 시 수시",
     applyUrl: "https://enhuf.molit.go.kr",
     priority: "low",
+    recommendedWeek: 0,
+    deadlineWeek: 0,
   },
 ];
+
+/** 현재 주차에 신청해야 할 혜택 반환 (권장 시작~마감 범위) */
+export function getBenefitsForWeek(week: number): BenefitCheckItem[] {
+  return benefitChecklist.filter((b) => {
+    if (b.recommendedWeek === 0 && b.deadlineWeek === 0) return false; // 상시 항목 제외
+    if (week < b.recommendedWeek) return false; // 아직 이른 항목
+    if (b.deadlineWeek > 0 && week > b.deadlineWeek) return false; // 마감 지난 항목
+    return true;
+  });
+}
+
+/** 긴급한 혜택 반환 (마감 3주 이내) */
+export function getUrgentBenefits(week: number): BenefitCheckItem[] {
+  return benefitChecklist.filter((b) => {
+    if (b.deadlineWeek === 0) return false;
+    const remaining = b.deadlineWeek - week;
+    return remaining >= 0 && remaining <= 3 && week >= b.recommendedWeek;
+  });
+}
