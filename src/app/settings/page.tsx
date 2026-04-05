@@ -33,6 +33,7 @@ import {
 } from "@/lib/storage";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { useStore } from "@/store/useStore";
+import { useBabyStore } from "@/store/useBabyStore";
 import { exportToShareableString, importFromShareableString } from "@/lib/cloudSync";
 import { regions, getDistrictsByRegion } from "@/data/regions";
 import {
@@ -47,6 +48,8 @@ import {
 export default function SettingsPage() {
   const { dueDate, currentWeek, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset } =
     usePregnancy();
+  const babyMode = useBabyStore((s) => s.mode);
+  const isPostnatal = babyMode === "postnatal";
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<{
     message: string;
@@ -184,7 +187,8 @@ export default function SettingsPage() {
                     key={role}
                     onClick={() => {
                       setParentRole(role);
-                      showToast(role === "mom" ? "예비 엄마로 설정했어요" : "예비 아빠로 설정했어요", "success");
+                      const prefix = isPostnatal ? "" : "예비 ";
+                      showToast(role === "mom" ? `${prefix}엄마로 설정했어요` : `${prefix}아빠로 설정했어요`, "success");
                     }}
                     className={`py-2.5 rounded-xl text-sm font-medium transition-all ${
                       parentRole === role
@@ -192,7 +196,10 @@ export default function SettingsPage() {
                         : "bg-surface text-muted border border-card-border"
                     }`}
                   >
-                    {role === "mom" ? "🤰 예비 엄마" : "👨‍👧 예비 아빠"}
+                    {role === "mom"
+                      ? isPostnatal ? "👩‍👧 엄마" : "🤰 예비 엄마"
+                      : isPostnatal ? "👨‍👧 아빠" : "👨‍👧 예비 아빠"
+                    }
                   </button>
                 ))}
               </div>
