@@ -187,7 +187,7 @@ async function crawlRestaurants(): Promise<SeedRestaurant[]> {
           area,
           address: addr,
           telephone: item.telephone || "",
-          sourceUrl: item.link || "",
+          sourceUrl: item.link || `https://map.naver.com/v5/search/${encodeURIComponent(name + " " + addr)}`,
           category: cat,
           description: "",
           rating: null,

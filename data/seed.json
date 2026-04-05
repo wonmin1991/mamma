@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "crawledAt": "2026-04-05T07:32:18.735Z",
+    "crawledAt": "2026-04-05T07:57:50.575Z",
     "note": "이 파일을 직접 편집하세요! 맛집의 description, rating, priceRange, pregnancyPerks, tags를 채운 뒤 verified: true로 변경하세요. npm run generate 으로 앱 데이터에 반영됩니다."
   },
   "restaurants": [
@@ -11,7 +11,7 @@
       "area": "노원구",
       "address": "서울특별시 노원구 동일로 1596 1층",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%8F%99%EC%9D%BC%EB%A1%9C%EC%A6%89%EC%84%9D%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%85%B8%EC%9B%90%EA%B5%AC%20%EB%8F%99%EC%9D%BC%EB%A1%9C%201596%201%EC%B8%B5",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -28,7 +28,7 @@
       "area": "강남구",
       "address": "서울특별시 강남구 선릉로112길 39 진영빌딩 1층",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%8A%A4%EC%9C%84%EC%8A%A4%EC%9B%8C%ED%84%B0%EC%BB%A4%ED%94%BC%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%84%A0%EB%A6%89%EB%A1%9C112%EA%B8%B8%2039%20%EC%A7%84%EC%98%81%EB%B9%8C%EB%94%A9%201%EC%B8%B5",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -130,7 +130,7 @@
       "area": "동작구",
       "address": "서울특별시 동작구 상도로 192 1층",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%B8%8C%EB%A0%88%EB%93%9C%EC%A0%9C%EC%9D%B4%20%EB%B3%B8%EC%A0%90%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%8F%99%EC%9E%91%EA%B5%AC%20%EC%83%81%EB%8F%84%EB%A1%9C%20192%201%EC%B8%B5",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -147,7 +147,7 @@
       "area": "마포구",
       "address": "서울특별시 마포구 망원로1길 10",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%81%98%EB%9D%A0%EB%B3%B4%EB%87%8C%EB%A5%B4%20%EB%A7%9D%EC%9B%90%EC%A0%90%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EB%A7%9D%EC%9B%90%EB%A1%9C1%EA%B8%B8%2010",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -181,7 +181,7 @@
       "area": "서초구",
       "address": "서울특별시 서초구 효령로 131 청권빌딩",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%B2%A0%EC%9D%B4%ED%81%AC%EB%93%9C%EB%AE%AC%EB%9E%80%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%ED%9A%A8%EB%A0%B9%EB%A1%9C%20131%20%EC%B2%AD%EA%B6%8C%EB%B9%8C%EB%94%A9",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -198,7 +198,7 @@
       "area": "강서구",
       "address": "서울특별시 강서구 강서로45길 49-5",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%82%B0%ED%86%A0%EB%A6%AC%EB%8B%88%EC%9D%98%EC%95%84%EC%B9%A8%20%EC%9A%B0%EC%9E%A5%EC%82%B0%EC%97%AD%EC%A0%90%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EA%B0%95%EC%84%9C%EA%B5%AC%20%EA%B0%95%EC%84%9C%EB%A1%9C45%EA%B8%B8%2049-5",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -317,7 +317,7 @@
       "area": "중구",
       "address": "서울특별시 중구 세종대로21길 53",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EA%B4%91%ED%99%94%EB%AC%B8%EA%B5%AD%EB%B0%A5%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%EC%84%B8%EC%A2%85%EB%8C%80%EB%A1%9C21%EA%B8%B8%2053",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -351,7 +351,7 @@
       "area": "강서구",
       "address": "서울특별시 강서구 마곡중앙6로 63 테크노타워 1차 2층 203, 204호",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EA%B3%A0%EB%B0%98%EC%8B%9D%EB%8B%B9%20%EB%A7%88%EA%B3%A1%EC%A0%90%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EA%B0%95%EC%84%9C%EA%B5%AC%20%EB%A7%88%EA%B3%A1%EC%A4%91%EC%95%996%EB%A1%9C%2063%20%ED%85%8C%ED%81%AC%EB%85%B8%ED%83%80%EC%9B%8C%201%EC%B0%A8%202%EC%B8%B5%20203%2C%20204%ED%98%B8",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -538,7 +538,7 @@
       "area": "마포구",
       "address": "서울특별시 마포구 동교로46길 42 1층 올바른김밥",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%98%AC%EB%B0%94%EB%A5%B8%EA%B9%80%EB%B0%A5%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EB%8F%99%EA%B5%90%EB%A1%9C46%EA%B8%B8%2042%201%EC%B8%B5%20%EC%98%AC%EB%B0%94%EB%A5%B8%EA%B9%80%EB%B0%A5",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -640,7 +640,7 @@
       "area": "수원시",
       "address": "경기도 수원시 영통구 센트럴파크로127번길 80-3",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%95%84%EB%AF%B8%EC%8A%A4%ED%83%80%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EC%98%81%ED%86%B5%EA%B5%AC%20%EC%84%BC%ED%8A%B8%EB%9F%B4%ED%8C%8C%ED%81%AC%EB%A1%9C127%EB%B2%88%EA%B8%B8%2080-3",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -708,7 +708,7 @@
       "area": "강화군",
       "address": "인천광역시 강화군 화도면 해안남로 1182 마니산산채",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84%20%EA%B0%95%ED%99%94%EB%8F%84%EB%B3%B8%EC%A0%90%20%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B0%95%ED%99%94%EA%B5%B0%20%ED%99%94%EB%8F%84%EB%A9%B4%20%ED%95%B4%EC%95%88%EB%82%A8%EB%A1%9C%201182%20%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -725,7 +725,7 @@
       "area": "미추홀구",
       "address": "인천광역시 미추홀구 용정공원로83번길 49 1층 147호",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%A0%88%EC%9D%B4%EC%A7%80%EB%8B%A4%EC%9D%B4%EB%85%B8%20%ED%8F%AC%EC%BC%80%26amp%3B%EC%83%90%EB%9F%AC%EB%93%9C%20%EC%9A%A9%ED%98%84%EB%B3%B8%EC%A0%90%20%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C%20%EB%AF%B8%EC%B6%94%ED%99%80%EA%B5%AC%20%EC%9A%A9%EC%A0%95%EA%B3%B5%EC%9B%90%EB%A1%9C83%EB%B2%88%EA%B8%B8%2049%201%EC%B8%B5%20147%ED%98%B8",
       "category": "salad",
       "description": "",
       "rating": null,
@@ -776,7 +776,7 @@
       "area": "서구",
       "address": "인천광역시 서구 크리스탈로 78 엘림 아트센터 1층",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EC%B1%84%EC%9B%80%ED%8E%B8%EB%B0%B1%EC%B0%9C%EC%83%A4%EB%B8%8C%EC%83%A4%EB%B8%8C%20%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C%20%EC%84%9C%EA%B5%AC%20%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%83%88%EB%A1%9C%2078%20%EC%97%98%EB%A6%BC%20%EC%95%84%ED%8A%B8%EC%84%BC%ED%84%B0%201%EC%B8%B5",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -793,7 +793,7 @@
       "area": "연수구",
       "address": "인천광역시 연수구 송도과학로16번길 33-1 A동 지하2층 메가커피",
       "telephone": "",
-      "sourceUrl": "",
+      "sourceUrl": "https://map.naver.com/v5/search/%EB%A9%94%EA%B0%80MGC%EC%BB%A4%ED%94%BC%20%EC%86%A1%EB%8F%84%ED%8A%B8%EB%A6%AC%ED%94%8C%EC%8A%A4%ED%8A%B8%EB%A6%AC%ED%8A%B8%EC%A0%90%20%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C%20%EC%97%B0%EC%88%98%EA%B5%AC%20%EC%86%A1%EB%8F%84%EA%B3%BC%ED%95%99%EB%A1%9C16%EB%B2%88%EA%B8%B8%2033-1%20A%EB%8F%99%20%EC%A7%80%ED%95%982%EC%B8%B5%20%EB%A9%94%EA%B0%80%EC%BB%A4%ED%94%BC",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -1402,19 +1402,19 @@
       "category": "postpartum"
     },
     {
-      "title": "2026년 둘째 첫만남이용권 300만원 산후조리원 분할 결제 및...",
-      "summary": "강력히 추천합니다. [글을 마치며: 혜택은 꼼꼼하게, 육아는 묵묵하게] 첫째 아이 때는 모든 게... 둘째첫만남이용권 #2026첫만남이용권 #첫만남이용권300만원 #국민행복카드 #첫만남이용권조리원 #산후조리원결...",
-      "source": "두배파파의 쌍둥이 남매 육아 분투기",
-      "sourceUrl": "https://blog.naver.com/doublepapa/224223806082",
-      "postDate": "20260320",
-      "category": "postpartum"
-    },
-    {
       "title": "나주공공산후조리원 후기(2026/2월)",
       "summary": "2026년 2월에 새로 재개원한 나주공공산후조리원 둘째 출산은 다가오고 리모델링 공사가 길어져서... 수유나 아기목욕,기저귀갈기 등 물어보면 다 잘 알려주셔서 경산맘들 뿐 아니라 초산맘들도 추천합니다",
       "source": "초언's 블로그",
       "sourceUrl": "https://blog.naver.com/hehehejisu/224202525939",
       "postDate": "20260303",
+      "category": "postpartum"
+    },
+    {
+      "title": "2026년 둘째 첫만남이용권 300만원 산후조리원 분할 결제 및...",
+      "summary": "강력히 추천합니다. [글을 마치며: 혜택은 꼼꼼하게, 육아는 묵묵하게] 첫째 아이 때는 모든 게... 둘째첫만남이용권 #2026첫만남이용권 #첫만남이용권300만원 #국민행복카드 #첫만남이용권조리원 #산후조리원결...",
+      "source": "두배파파의 쌍둥이 남매 육아 분투기",
+      "sourceUrl": "https://blog.naver.com/doublepapa/224223806082",
+      "postDate": "20260320",
       "category": "postpartum"
     },
     {
@@ -1801,30 +1801,6 @@
       "sourceType": "cafe",
       "sourceName": "우먼해독 : 탄력 | 주름 | 기미 | 미백...",
       "sourceUrl": "http://cafe.naver.com/luxurylineage/17393",
-      "postDate": ""
-    },
-    {
-      "title": "임신성 당뇨 증상인가요? 갑자기 너무 무서워요ㅠㅠ",
-      "summary": "이게 임신성 당뇨 증상일 수도 있는 건가요?ㅠ 아니면 그냥 임신 후기라서 그런 건지 완전 헷갈려요 목도 자꾸... 너무 무섭고 아기한테 안 좋을까봐 진짜 걱정돼서 죽겠어요ㅠㅠ 재검까지 며칠 남았는데 이 기간 동안 식단...",
-      "sourceType": "cafe",
-      "sourceName": "미즈넷-임신 육아 임산부 교육 뷰티 아...",
-      "sourceUrl": "http://cafe.naver.com/miznett/4907756",
-      "postDate": ""
-    },
-    {
-      "title": "임신성당뇨식단 이렇게 해봤는데ㅠㅠㅠㅠ;;",
-      "summary": "보니까 베스트로 1등이라서 오~ 인기 많은건가보다 하고 봤는데 재구매율도 어마어마하고 나온지 얼마 안된거 같은데도 벌써 후기가 천개 넘어가려고하던데ㅎㅎ 암튼 넘 찐후기들이 좋다보니 저도 임신성당뇨식단하면서...",
-      "sourceType": "cafe",
-      "sourceName": "컬처블룸★체험,리뷰,라이프,건강,맛집...",
-      "sourceUrl": "http://cafe.naver.com/culturebloom/1535538",
-      "postDate": ""
-    },
-    {
-      "title": "임신성 당뇨 태아 영향 식단 관리 생활습관",
-      "summary": "확인하니까 임신성 당뇨 수치가 살짝 높게 나왔더라구요 병원에서는 걱정할 정도는 아니라서 식단 관리... 후기 보니까 일반 화장품은 독해서 임신 중에는 순한 거 써야 된다는데 정말인 건지 잘 몰라서요.. 지금 바르는...",
-      "sourceType": "cafe",
-      "sourceName": "올웨이즈 프리존 - 올팜 / 공팜 / 팔도...",
-      "sourceUrl": "http://cafe.naver.com/alwayzfreezone/838127",
       "postDate": ""
     }
   ]
