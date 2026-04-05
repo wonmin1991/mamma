@@ -2,11 +2,14 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { usePregnancy } from "@/contexts/PregnancyContext";
-import { Baby, Calendar, ChevronRight, Sparkles } from "lucide-react";
+import { Baby, Calendar, ChevronRight, Sparkles, MapPin, ChevronDown } from "lucide-react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import ScrollDatePicker from "@/components/ScrollDatePicker";
+import { regions, getDistrictsByRegion } from "@/data/regions";
 
-type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "done";
+type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "region" | "done";
+
+const REGION_STORAGE_KEY = "mamma-benefit-region";
 
 export default function OnboardingModal() {
   const { isOnboarded, setDueDate, setWeekDirectly } = usePregnancy();
@@ -16,6 +19,8 @@ export default function OnboardingModal() {
   const [dateInput, setDateInput] = useState(defaultDate);
   const [weekInput, setWeekInput] = useState(16);
   const handleDateChange = useCallback((date: string) => setDateInput(date), []);
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [closing, setClosing] = useState(false);
   const closingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -32,12 +37,18 @@ export default function OnboardingModal() {
   const handleDueDateSubmit = () => {
     if (!dateInput) return;
     setDueDate(dateInput);
-    setStep("done");
-    closingTimerRef.current = setTimeout(() => setClosing(true), 1200);
+    setStep("region");
   };
 
   const handleWeekSubmit = () => {
     setWeekDirectly(weekInput);
+    setStep("region");
+  };
+
+  const handleRegionSubmit = () => {
+    if (selectedRegion) {
+      localStorage.setItem(REGION_STORAGE_KEY, selectedRegion);
+    }
     setStep("done");
     closingTimerRef.current = setTimeout(() => setClosing(true), 1200);
   };
@@ -195,6 +206,69 @@ export default function OnboardingModal() {
                 className="text-xs text-muted hover:text-foreground transition-colors"
               >
                 돌아가기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === "region" && (
+          <div className="p-8">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-surface-sky to-surface-violet flex items-center justify-center mx-auto mb-4">
+              <MapPin size={24} className="text-primary" />
+            </div>
+            <h2 className="text-lg font-bold text-foreground text-center mb-2">
+              거주 지역을 알려주세요
+            </h2>
+            <p className="text-xs text-muted text-center mb-6">
+              지역별 출산/육아 혜택 정보를 맞춤 제공해드려요
+            </p>
+
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <select
+                  value={selectedRegion}
+                  onChange={(e) => {
+                    setSelectedRegion(e.target.value);
+                    setSelectedDistrict("");
+                  }}
+                  className="w-full px-4 py-3.5 rounded-2xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
+                >
+                  <option value="">시/도 선택</option>
+                  {regions.map((r) => (
+                    <option key={r.code} value={r.name}>{r.name}</option>
+                  ))}
+                </select>
+                <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+              </div>
+
+              {selectedRegion && getDistrictsByRegion(selectedRegion).length > 1 && (
+                <div className="relative">
+                  <select
+                    value={selectedDistrict}
+                    onChange={(e) => setSelectedDistrict(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-2xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
+                  >
+                    <option value="">시/군/구 선택 (선택사항)</option>
+                    {getDistrictsByRegion(selectedRegion).map((d) => (
+                      <option key={d.code} value={d.name}>{d.name}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+                </div>
+              )}
+
+              <button
+                onClick={handleRegionSubmit}
+                disabled={!selectedRegion}
+                className="w-full py-3.5 rounded-2xl bg-primary text-white font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98] transition-all mt-1"
+              >
+                확인
+              </button>
+              <button
+                onClick={handleRegionSubmit}
+                className="text-xs text-muted hover:text-foreground transition-colors text-center"
+              >
+                나중에 설정할게요
               </button>
             </div>
           </div>
