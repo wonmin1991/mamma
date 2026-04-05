@@ -6,6 +6,7 @@ import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide, tips } from "@/data/mock";
 import { benefitChecklist, getBenefitsForWeek, getUrgentBenefits } from "@/data/benefits";
 import { getSupplementsForWeek } from "@/data/supplements";
+import { getCheckupsForWeek, getUpcomingCheckups } from "@/data/checkups";
 import { useStore } from "@/store/useStore";
 import { formatDueDate } from "@/lib/date";
 import {
@@ -19,6 +20,10 @@ import {
   Apple,
   Baby,
   Pill,
+  AlertTriangle,
+  Stethoscope,
+  Calculator,
+  ClipboardList,
 } from "lucide-react";
 
 // ─── Widget Registry ─────────────────────────────────────
@@ -39,6 +44,9 @@ export const WIDGET_REGISTRY: WidgetDef[] = [
   { id: "hearts", name: "하트 현황", description: "보유 하트 및 연속 출석", emoji: "💖" },
   { id: "supplements", name: "오늘의 영양제", description: "주차별 필수 영양제 복용 체크", emoji: "💊" },
   { id: "weekBenefit", name: "이번 주 혜택", description: "지금 신청해야 할 혜택 알림", emoji: "⚡" },
+  { id: "todayTodo", name: "오늘의 할 일", description: "검진, 영양제, 혜택을 한눈에", emoji: "📋" },
+  { id: "checkup", name: "검진 일정", description: "이번 주차 필수 검진 안내", emoji: "🩺" },
+  { id: "benefitCalc", name: "혜택 계산기", description: "총 받을 수 있는 금액 계산", emoji: "💰" },
 ];
 
 // ─── D-Day Widget ────────────────────────────────────────
@@ -421,6 +429,160 @@ function WeekBenefitWidget() {
   );
 }
 
+// ─── Today Todo Widget (대시보드) ─────────────────────────
+
+function TodayTodoWidget() {
+  const { currentWeek } = usePregnancy();
+  const benefitChecked = useStore((s) => s.benefitChecked);
+  const isSupplementChecked = useStore((s) => s.isSupplementChecked);
+
+  const currentCheckups = getCheckupsForWeek(currentWeek);
+  const upcomingCheckups = getUpcomingCheckups(currentWeek);
+  const urgentBenefits = getUrgentBenefits(currentWeek).filter((b) => !benefitChecked.includes(b.id));
+  const todaySupplements = getSupplementsForWeek(currentWeek);
+  const uncheckedSupplements = todaySupplements.filter((s) => s.priority === "essential" && !isSupplementChecked(s.id));
+
+  const todos: { icon: string; text: string; href: string; urgent?: boolean }[] = [];
+
+  if (uncheckedSupplements.length > 0) {
+    todos.push({ icon: "💊", text: `영양제 ${uncheckedSupplements.length}종 복용`, href: "/supplements" });
+  }
+  if (currentCheckups.length > 0) {
+    todos.push({ icon: "🩺", text: `${currentCheckups[0].name}`, href: "/guide", urgent: currentCheckups[0].priority === "essential" });
+  }
+  if (upcomingCheckups.length > 0) {
+    todos.push({ icon: "📅", text: `${upcomingCheckups[0].name} (곧 시작)`, href: "/guide" });
+  }
+  if (urgentBenefits.length > 0) {
+    const b = urgentBenefits[0];
+    todos.push({ icon: "⚡", text: `${b.name} 신청${b.amount ? ` (${b.amount})` : ""}`, href: "/benefits", urgent: true });
+  }
+
+  if (todos.length === 0) {
+    return (
+      <div className="bg-gradient-to-br from-surface-emerald to-surface-sky rounded-2xl border border-card-border p-4">
+        <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
+          <CheckCircle2 size={14} className="text-emerald-500" />
+          오늘 할 일을 모두 완료했어요!
+        </p>
+        <p className="text-xs text-muted mt-1">잘하고 있어요. 편안한 하루 보내세요.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-card rounded-2xl border border-card-border shadow-sm p-4">
+      <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5 mb-3">
+        <ClipboardList size={14} className="text-primary" />
+        {currentWeek}주차 오늘의 할 일
+      </h3>
+      <div className="flex flex-col gap-2">
+        {todos.map((todo, i) => (
+          <Link key={i} href={todo.href} className="flex items-center gap-2.5 group">
+            <span className="text-base">{todo.icon}</span>
+            <span className={`text-xs flex-1 ${todo.urgent ? "text-red-500 font-semibold" : "text-foreground"}`}>
+              {todo.text}
+            </span>
+            <ChevronRight size={12} className="text-muted group-hover:text-primary transition-colors" />
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Checkup Widget ──────────────────────────────────────
+
+function CheckupWidget() {
+  const { currentWeek } = usePregnancy();
+  const current = getCheckupsForWeek(currentWeek);
+  const upcoming = getUpcomingCheckups(currentWeek);
+
+  const item = current[0] || upcoming[0];
+  if (!item) {
+    return (
+      <div className="bg-card rounded-2xl border border-card-border shadow-sm p-4">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+          <Stethoscope size={14} className="text-emerald-500" />
+          검진 일정 없음
+        </h3>
+        <p className="text-xs text-muted mt-1">이번 주차에는 예정된 검진이 없어요.</p>
+      </div>
+    );
+  }
+
+  const isCurrent = current.includes(item);
+
+  return (
+    <Link href="/guide" className="block">
+      <div className={`rounded-2xl border shadow-sm p-4 ${
+        isCurrent && item.priority === "essential"
+          ? "bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-900/50"
+          : "bg-card border-card-border"
+      }`}>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+            <span className="text-base">{item.emoji}</span>
+            {isCurrent ? "이번 주 검진" : "다음 검진"}
+          </h3>
+          <span className="text-[10px] text-muted">{item.weekStart}~{item.weekEnd}주</span>
+        </div>
+        <p className="text-sm font-semibold text-foreground">{item.name}</p>
+        <p className="text-xs text-muted mt-1 line-clamp-2">{item.description}</p>
+        {item.cost && (
+          <p className="text-xs text-primary font-medium mt-1.5">예상 비용: {item.cost}</p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
+// ─── Benefit Calculator Widget ───────────────────────────
+
+function BenefitCalcWidget() {
+  const { currentWeek } = usePregnancy();
+
+  // 전국 공통 혜택 총액 계산
+  const amounts: { name: string; amount: number; unit: string }[] = [
+    { name: "첫만남이용권", amount: 200, unit: "만원" },
+    { name: "부모급여 (0세)", amount: 1200, unit: "만원/년" },
+    { name: "부모급여 (1세)", amount: 600, unit: "만원/년" },
+    { name: "아동수당", amount: 120, unit: "만원/년" },
+    { name: "국민행복카드", amount: 100, unit: "만원" },
+  ];
+  const totalOneTime = 200 + 100; // 첫만남 + 국민행복카드
+  const totalYearly = 1200 + 600 + 120; // 부모급여0세 + 1세 + 아동수당
+  const totalEstimate = totalOneTime + totalYearly;
+
+  return (
+    <Link href="/benefits" className="block">
+      <div className="bg-gradient-to-br from-emerald-50 to-sky-50 dark:from-emerald-900/20 dark:to-sky-900/20 rounded-2xl border border-card-border p-4">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+            <Calculator size={14} className="text-emerald-500" />
+            혜택 계산기
+          </h3>
+          <ChevronRight size={14} className="text-muted" />
+        </div>
+
+        <p className="text-xs text-muted">전국 공통 혜택 기준 예상 수령액</p>
+        <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+          약 {totalEstimate.toLocaleString()}만원+
+        </p>
+        <div className="flex gap-3 mt-2">
+          <div className="text-[11px] text-muted">
+            일시금 <span className="text-foreground font-medium">{totalOneTime}만원</span>
+          </div>
+          <div className="text-[11px] text-muted">
+            연간 <span className="text-foreground font-medium">{totalYearly}만원</span>
+          </div>
+        </div>
+        <p className="text-[10px] text-muted mt-2">* 지자체 출산축하금 별도 (지역마다 100~500만원)</p>
+      </div>
+    </Link>
+  );
+}
+
 const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   dday: DDayWidget,
   weekHighlight: WeekHighlightWidget,
@@ -430,6 +592,9 @@ const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   hearts: HeartsWidget,
   supplements: SupplementsWidget,
   weekBenefit: WeekBenefitWidget,
+  todayTodo: TodayTodoWidget,
+  checkup: CheckupWidget,
+  benefitCalc: BenefitCalcWidget,
 };
 
 export function WidgetArea() {

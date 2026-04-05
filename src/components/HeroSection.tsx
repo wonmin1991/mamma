@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
-import { ChevronRight, Settings2, ArrowLeftRight } from "lucide-react";
+import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle } from "lucide-react";
 import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
 
@@ -23,6 +23,13 @@ export default function HeroSection() {
         <div className="flex items-center justify-between">
           <p className="text-sm text-primary font-medium mb-1">오늘도 건강하세요 ✨</p>
           <div className="flex items-center gap-1">
+            <Link
+              href="/emergency"
+              className="p-1.5 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+              aria-label="응급 상황 가이드"
+            >
+              <AlertTriangle size={14} className="text-red-400" />
+            </Link>
             {baby && (
               <button
                 onClick={() => setMode("postnatal")}
