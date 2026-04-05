@@ -2,9 +2,6 @@ import Link from "next/link";
 import HomeRouter from "@/components/HomeRouter";
 import { restaurants, tips, curatedFeed } from "@/data/mock";
 import {
-  UtensilsCrossed,
-  Baby,
-  Lightbulb,
   Heart,
   ChevronRight,
   Star,
@@ -13,7 +10,6 @@ import {
   BookOpen,
   MessageCircle,
   Bookmark,
-  Search,
   ExternalLink,
 } from "lucide-react";
 import BookmarkButton from "@/components/BookmarkButton";
@@ -22,13 +18,6 @@ import HeroSection from "@/components/HeroSection";
 import DailyReward from "@/components/DailyReward";
 import HomeWidgets from "@/components/HomeWidgets";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
-
-const quickLinks = [
-  { href: "/restaurants", label: "맛집", emoji: "🍽️", bg: "bg-surface-rose", icon: UtensilsCrossed },
-  { href: "/guide", label: "가이드", emoji: "👶", bg: "bg-surface-violet", icon: Baby },
-  { href: "/tips", label: "꿀팁", emoji: "💡", bg: "bg-surface-amber", icon: Lightbulb },
-  { href: "/benefits", label: "혜택", emoji: "🎁", bg: "bg-surface-sky", icon: Lightbulb },
-];
 
 const sourceIcons = {
   instagram: { icon: Camera, label: "Instagram", color: "text-pink-500" },
@@ -45,33 +34,6 @@ export default function Home() {
     <main className="flex flex-col">
       {/* Hero — personalized pregnancy info */}
       <HeroSection />
-
-      {/* Quick Links */}
-      <section className="px-5 -mt-1">
-        <div className="grid grid-cols-4 gap-3">
-          {quickLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`flex flex-col items-center gap-2 py-4 rounded-2xl ${link.bg} border border-card-border transition-transform active:scale-95`}
-            >
-              <span className="text-2xl">{link.emoji}</span>
-              <span className="text-xs font-medium text-foreground">{link.label}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Search Bar */}
-      <section className="px-5 mt-5">
-        <Link
-          href="/search"
-          className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-card border border-card-border shadow-sm"
-        >
-          <Search size={16} className="text-muted" />
-          <span className="text-sm text-muted">맛집, 꿀팁, 가이드 검색...</span>
-        </Link>
-      </section>
 
       {/* Widgets */}
       <section className="px-5 mt-5">
