@@ -79,6 +79,7 @@ interface SeedRestaurant {
 interface SeedTip {
   title: string;
   summary: string;
+  content: string;
   source: string;
   sourceUrl: string;
   postDate: string;
@@ -298,18 +299,34 @@ async function crawlTips(): Promise<SeedTip[]> {
   for (const { query, category } of TIP_QUERIES) {
     try {
       const data = await naverSearch("blog", query, 5, "sim");
+      // 같은 쿼리의 블로그 설명들을 모아서 풍부한 content 생성
+      const descriptions = data.items
+        .map((item) => strip(item.description || ""))
+        .filter((d) => d.length > 20);
+
       for (const item of data.items) {
         const title = strip(item.title);
         if (seen.has(title) || title.length < 5) continue;
         seen.add(title);
 
+        const ownDesc = strip(item.description || "");
+
+        // 다른 블로그의 내용도 합쳐서 content 보강
+        const otherDescs = descriptions
+          .filter((d) => d !== ownDesc)
+          .slice(0, 2);
+        const richContent = [ownDesc, ...otherDescs]
+          .filter(Boolean)
+          .join("\n\n");
+
         results.push({
           title,
-          summary: strip(item.description || ""),
+          summary: ownDesc.length > 100 ? ownDesc.slice(0, 100) + "..." : ownDesc,
           source: item.bloggername || "네이버 블로그",
           sourceUrl: item.link || "",
           postDate: item.postdate || "",
           category,
+          content: richContent,
         });
       }
       console.log(`    "${query}" -> ${data.items.length}건`);
@@ -514,10 +531,11 @@ function generateCrawledTS(seed: SeedData) {
   const tipLines = seed.tips.slice(0, 20).map((t, i) => {
     const summary =
       t.summary.length > 100 ? t.summary.slice(0, 100) + "..." : t.summary;
+    const content = t.content || t.summary;
     return `  {
     id: ${i + 1}, title: ${J(t.title)}, category: ${J(t.category)},
     summary: ${J(summary)},
-    content: ${J(t.summary)},
+    content: ${J(content)},
     source: ${J(t.source)}, emoji: ${J(TIP_EMOJIS[t.category] ?? "💡")}, likes: 0,
     gradient: ${J(GRADIENTS[i % GRADIENTS.length])},
     sourceUrl: ${J(t.sourceUrl)},

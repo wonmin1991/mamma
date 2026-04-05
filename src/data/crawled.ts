@@ -13,7 +13,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 노원구 동일로 1596 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%8F%99%EC%9D%BC%EB%A1%9C%EC%A6%89%EC%84%9D%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EB%85%B8%EC%9B%90%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250526_125%2F1748258054945kVaOi_JPEG%2F%25C0%25BD%25B7%25E1_%25C4%25DD%25B6%25F3.jpg",
+    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1483867153844383.JPG",
   },
   {
     id: 2, name: "스위스워터커피", category: "cafe", region: "seoul", area: "강남구",
@@ -63,7 +63,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["신선한 채소·과일 섭취 가능","유기농 재료 사용","신선한 샐러드 메뉴"],
     address: "서울특별시 강남구 선릉로72길 13 1층", savedCount: 0,
     sourceUrl: "https://www.threads.com/@keep_salad",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240410_90%2F1712752401218g26PN_JPEG%2F_KA_9488-2-306.jpg",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240304_134%2F17095406903187zVUg_JPEG%2FKakaoTalk_20240304_155208758_18.jpg",
   },
   {
     id: 7, name: "타닥타닥 솥밥 더룸 강남역삼역GFC센터필드본점 점심저녁", category: "korean", region: "seoul", area: "강남구",
@@ -73,7 +73,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능","개인실 이용 가능"],
     address: "서울특별시 강남구 강남대로94길 70 B01층 타닥타닥", savedCount: 0,
     sourceUrl: "https://s.baemin.com/PR000kPpnYxB1",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250804_7%2F1754234416715myfFN_PNG%2FChatGPT_Image_2025%25B3%25E2_8%25BF%25F9_4%25C0%25CF_%25BF%25C0%25C0%25FC_12_19_02.png",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20251218_76%2F1765998856795EEPVL_PNG%2FChatGPT_Image_2025%25B3%25E2_12%25BF%25F9_17%25C0%25CF_%25BF%25C0%25C8%25C4_02_41_09.png",
   },
   {
     id: 8, name: "브레드제이 본점", category: "cafe", region: "seoul", area: "동작구",
@@ -83,7 +83,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 동작구 상도로 192 1층", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%B8%8C%EB%A0%88%EB%93%9C%EC%A0%9C%EC%9D%B4%20%EB%B3%B8%EC%A0%90%20%EB%8F%99%EC%9E%91%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20260212_188%2F1770856405679DhbWG_JPEG%2F1000017665.jpg",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221212_140%2F1670823040205Xxqiv_JPEG%2F1670822515871-12.jpg",
   },
   {
     id: 9, name: "쁘띠보뇌르 망원점", category: "cafe", region: "seoul", area: "마포구",
@@ -123,7 +123,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 강서구 강서로45길 49-5", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EC%82%B0%ED%86%A0%EB%A6%AC%EB%8B%88%EC%9D%98%EC%95%84%EC%B9%A8%20%EC%9A%B0%EC%9E%A5%EC%82%B0%EC%97%AD%EC%A0%90%20%EA%B0%95%EC%84%9C%EA%B5%AC",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230118_117%2F1674016130758uEcMP_PNG%2FKakaoTalk_20230118_132410065.png",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240524_187%2F1716550002074ib9Ng_JPEG%2F1000003680.jpg",
   },
   {
     id: 13, name: "솥내음 종로인사동점", category: "korean", region: "seoul", area: "종로구",
@@ -223,7 +223,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능"],
     address: "서울특별시 영등포구 국제금융로 39 지하1층 101호", savedCount: 0,
     sourceUrl: "https://app.catchtable.co.kr/ct/shop/gocheongdam_yeouido",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAyMDRfNjQg%2FMDAxNzcwMTg4MTQ4ODI5.MY1x04OT-q-q9d7rwBVEwPLIoD3Y01ProPOKr6XHyeQg.eI0LWXvq1BpokyGwJfXYA_cT-OVOgmqMl5dYaaMw-twg.JPEG%2FC2C9C852-AC31-44E6-9F88-1C73CBF842EA.jpg",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAyMDRfMTg1%2FMDAxNzcwMTg4MTQ4MDUz.t49iVbx3fNAUpFV_uoxV_wNJRNbyyV4cA6d7aEOOnEkg.QIao8JPJliqLuH-qifBU39ZN5v05tVAsGm8Q906tx5Mg.JPEG%2FAA5C2846-93A5-4675-80B2-45F3D3ACA34D.jpg",
   },
   {
     id: 23, name: "5to7 성수본점", category: "cafe", region: "seoul", area: "성동구",
@@ -243,7 +243,7 @@ export const crawledRestaurants: Restaurant[] = [
     pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
     address: "서울특별시 성동구 서울숲4길 12-22", savedCount: 0,
     sourceUrl: "http://www.instagram.com/9wooki_2020",
-    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20251221011232_photo1_21dfcde4afc6.webp",
+    imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2F--p9VqSaTCw9XM_YiTLuiQ%2Fms.jpg",
   },
   {
     id: 25, name: "라에비뉴 성수", category: "cafe", region: "seoul", area: "성동구",
@@ -376,7 +376,17 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240705_216%2F1720156795337QUlb1_JPEG%2F06_%25C0%25B0%25C8%25B8_%25C7%25C1%25B7%25CE%25C6%25BE_%25C6%25F7%25C4%25C9_%25C7%25C1%25B7%25CE%25C6%25BE_%25C6%25F7%25C4%25C9_%25B9%25E8%25B9%25CE.jpg",
   },
   {
-    id: 38, name: "달코밍 김포사우점", category: "western", region: "gyeonggi", area: "김포시",
+    id: 38, name: "아미스타", category: "cafe", region: "gyeonggi", area: "수원시",
+    rating: 0, tags: ["음식점"],
+    description: "수원시에 위치한 아미스타. 상세 정보는 네이버 플레이스를 확인하세요.",
+    emoji: "☕", priceRange: "5,000~12,000원",
+    pregnancyPerks: ["디카페인 메뉴 제공 확인 필요"],
+    address: "경기도 수원시 영통구 센트럴파크로127번길 80-3", savedCount: 0,
+    sourceUrl: "https://map.naver.com/p/search/%EC%95%84%EB%AF%B8%EC%8A%A4%ED%83%80%20%EC%88%98%EC%9B%90%EC%8B%9C",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221109_62%2F1667960656386Peymv_JPEG%2F20221109_112115.jpg",
+  },
+  {
+    id: 39, name: "달코밍 김포사우점", category: "western", region: "gyeonggi", area: "김포시",
     rating: 0, tags: ["브런치카페"],
     description: "김포시에 위치한 달코밍 김포사우점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🍝", priceRange: "15,000~35,000원",
@@ -386,7 +396,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240609_217%2F1717893698996isu2i_JPEG%2FCABB115C-6426-48F4-8917-556D9CC412D8.jpeg",
   },
   {
-    id: 39, name: "샐블리즈 운정점", category: "salad", region: "gyeonggi", area: "파주시",
+    id: 40, name: "샐블리즈 운정점", category: "salad", region: "gyeonggi", area: "파주시",
     rating: 0, tags: ["도시락,컵밥"],
     description: "파주시에 위치한 샐블리즈 운정점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🥗", priceRange: "10,000~18,000원",
@@ -396,27 +406,27 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221118_13%2F16686983304379zito_JPEG%2F%25C0%25AF%25BA%25CE%25BA%25BC_%25B9%25D0%25B9%25DA%25BD%25BA8900.jpg",
   },
   {
-    id: 40, name: "리얼식단 파주운정점", category: "western", region: "gyeonggi", area: "파주시",
+    id: 41, name: "리얼식단 파주운정점", category: "western", region: "gyeonggi", area: "파주시",
     rating: 0, tags: ["브런치카페"],
     description: "파주시에 위치한 리얼식단 파주운정점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🍝", priceRange: "15,000~35,000원",
     pregnancyPerks: ["스테이크 등 철분 보충 메뉴","가벼운 브런치 메뉴"],
     address: "경기도 파주시 와석순환로252번길 7-20 1층", savedCount: 0,
     sourceUrl: "https://www.instagram.com/real.sicdan_paju",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250520_190%2F17476703280967zKJM_PNG%2F1.png",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250520_128%2F1747671524682AArAi_PNG%2F6.png",
   },
   {
-    id: 41, name: "마니산산채 강화도본점", category: "korean", region: "incheon", area: "강화군",
+    id: 42, name: "마니산산채 강화도본점", category: "korean", region: "incheon", area: "강화군",
     rating: 0, tags: ["한식"],
     description: "강화군에 위치한 마니산산채 강화도본점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🍚", priceRange: "10,000~25,000원",
     pregnancyPerks: ["따뜻한 한식 메뉴 위주","저염식 요청 가능","코스 메뉴로 편안한 식사"],
     address: "인천광역시 강화군 화도면 해안남로 1182 마니산산채", savedCount: 0,
     sourceUrl: "https://map.naver.com/p/search/%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84%20%EA%B0%95%ED%99%94%EB%8F%84%EB%B3%B8%EC%A0%90%20%EA%B0%95%ED%99%94%EA%B5%B0",
-    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfMTQ4%2FMDAxNzY1NDM4MzM5MjAx.bJW5tXSc0iw2dJF9j2zmgV-r_ISxVFA1oO2DRSv0wEkg.dWcGkisnEqbwJgZ6l1oTQjqtK_ChhOqIyRC6u3t8jDsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163217_908.jpg",
+    imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfNTgg%2FMDAxNzY1NDM4MzQwMjM1.739_M0fjFWF88Gq40v_gTINx3xBpYGaXxtOoSnQpCngg.YVi0qw1dfhDqMCpcRjRv6BzIOoGHlsZXxjsEwKsoHEsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163218_091.jpg",
   },
   {
-    id: 42, name: "레이지다이노 포케&amp;샐러드 용현본점", category: "salad", region: "incheon", area: "미추홀구",
+    id: 43, name: "레이지다이노 포케&amp;샐러드 용현본점", category: "salad", region: "incheon", area: "미추홀구",
     rating: 0, tags: ["도시락,컵밥"],
     description: "미추홀구에 위치한 레이지다이노 포케&amp;샐러드 용현본점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🥗", priceRange: "10,000~18,000원",
@@ -426,7 +436,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_121%2F1705831134357ebd0B_JPEG%2F24185.jpg",
   },
   {
-    id: 43, name: "Poke all day 포케&amp;샐러드 부평점", category: "salad", region: "incheon", area: "부평구",
+    id: 44, name: "Poke all day 포케&amp;샐러드 부평점", category: "salad", region: "incheon", area: "부평구",
     rating: 0, tags: ["도시락,컵밥"],
     description: "부평구에 위치한 Poke all day 포케&amp;샐러드 부평점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🥗", priceRange: "10,000~18,000원",
@@ -436,7 +446,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250728165316_photo1_41f0057ed279.webp",
   },
   {
-    id: 44, name: "Poke all day 포케&amp;샐러드 인천논현점", category: "salad", region: "incheon", area: "남동구",
+    id: 45, name: "Poke all day 포케&amp;샐러드 인천논현점", category: "salad", region: "incheon", area: "남동구",
     rating: 0, tags: ["도시락,컵밥"],
     description: "남동구에 위치한 Poke all day 포케&amp;샐러드 인천논현점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🥗", priceRange: "10,000~18,000원",
@@ -446,7 +456,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20250523120010_photo1_5b7d5aa244c4.webp",
   },
   {
-    id: 45, name: "채움편백찜샤브샤브", category: "korean", region: "incheon", area: "서구",
+    id: 46, name: "채움편백찜샤브샤브", category: "korean", region: "incheon", area: "서구",
     rating: 0, tags: ["음식점"],
     description: "서구에 위치한 채움편백찜샤브샤브. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "🍚", priceRange: "10,000~25,000원",
@@ -456,7 +466,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=http%3A%2F%2Ftong.visitkorea.or.kr%2Fcms%2Fresource%2F51%2F2878051_image2_1.jpg",
   },
   {
-    id: 46, name: "메가MGC커피 송도트리플스트리트점", category: "cafe", region: "incheon", area: "연수구",
+    id: 47, name: "메가MGC커피 송도트리플스트리트점", category: "cafe", region: "incheon", area: "연수구",
     rating: 0, tags: ["카페,디저트"],
     description: "연수구에 위치한 메가MGC커피 송도트리플스트리트점. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "☕", priceRange: "5,000~12,000원",
@@ -466,7 +476,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221216_157%2F1671193174420rGkW8_JPEG%2F%25BC%25EE%25C4%25C9%25C0%25CC%25BD%25BA.jpg",
   },
   {
-    id: 47, name: "셀레브르", category: "cafe", region: "incheon", area: "연수구",
+    id: 48, name: "셀레브르", category: "cafe", region: "incheon", area: "연수구",
     rating: 0, tags: ["음식점"],
     description: "연수구에 위치한 셀레브르. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "☕", priceRange: "5,000~12,000원",
@@ -476,7 +486,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1596076537115783.jpg",
   },
   {
-    id: 48, name: "롱비치커피앤브래드", category: "cafe", region: "incheon", area: "연수구",
+    id: 49, name: "롱비치커피앤브래드", category: "cafe", region: "incheon", area: "연수구",
     rating: 0, tags: ["음식점"],
     description: "연수구에 위치한 롱비치커피앤브래드. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "☕", priceRange: "5,000~12,000원",
@@ -486,7 +496,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo2_3e93cfbdf363.webp",
   },
   {
-    id: 49, name: "컵피", category: "cafe", region: "incheon", area: "연수구",
+    id: 50, name: "컵피", category: "cafe", region: "incheon", area: "연수구",
     rating: 0, tags: ["음식점"],
     description: "연수구에 위치한 컵피. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "☕", priceRange: "5,000~12,000원",
@@ -496,7 +506,7 @@ export const crawledRestaurants: Restaurant[] = [
     imageUrl: "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAzMjBfMjU5%2FMDAxNzc0MDEzODA2Mzc0.2usORXtCY-KDDrwyo_KfpxNi1RRF-nkScQ65CChltLIg.vbvbOjUWa1bIRR0xJqghOwPHQNBkMvmYANh5TQlZmo4g.JPEG%2FBE33A6E0-5161-46FB-8D5C-3631A40AC92E.jpg",
   },
   {
-    id: 50, name: "고트커피", category: "cafe", region: "incheon", area: "연수구",
+    id: 51, name: "고트커피", category: "cafe", region: "incheon", area: "연수구",
     rating: 0, tags: ["음식점"],
     description: "연수구에 위치한 고트커피. 상세 정보는 네이버 플레이스를 확인하세요.",
     emoji: "☕", priceRange: "5,000~12,000원",
@@ -511,7 +521,7 @@ export const crawledTips: Tip[] = [
   {
     id: 1, title: "임신초기영양제 추천, 랄츠맘 스텝1로 시작하는 건강한 준비", category: "nutrition",
     summary: "그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구...",
-    content: "그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...",
+    content: "그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...\n\n임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...\n\n그래서 오늘은 임신 초기 3개월 동안 꼭 챙기면 좋은 영양제를 정리해봤어요  임신 초기 영양제, 왜... 것을 추천! 근데 저는 비타민D를 꾸준히 먹었는데도 12주차 기형아 검사 당시 결핍이 나왔어요 ㅠㅠㅠ...",
     source: "nothing special, just an ordinary day", emoji: "💊", likes: 0,
     gradient: "from-rose-400 to-pink-300",
     sourceUrl: "https://blog.naver.com/hyukmint/224225736137",
@@ -519,7 +529,7 @@ export const crawledTips: Tip[] = [
   {
     id: 2, title: "임신초기종합영양제 추천 효능효과 성분 비교 분석", category: "nutrition",
     summary: "임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테...",
-    content: "임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...",
+    content: "임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...\n\n그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...\n\n그래서 오늘은 임신 초기 3개월 동안 꼭 챙기면 좋은 영양제를 정리해봤어요  임신 초기 영양제, 왜... 것을 추천! 근데 저는 비타민D를 꾸준히 먹었는데도 12주차 기형아 검사 당시 결핍이 나왔어요 ㅠㅠㅠ...",
     source: "GO", emoji: "💊", likes: 0,
     gradient: "from-violet-400 to-purple-300",
     sourceUrl: "https://blog.naver.com/abr0402/224021949457",
@@ -527,7 +537,7 @@ export const crawledTips: Tip[] = [
   {
     id: 3, title: "임신초기 3개월 꼭 챙겨야하는 임산부 영양제 섭취시기 추천 제품", category: "nutrition",
     summary: "그래서 오늘은 임신 초기 3개월 동안 꼭 챙기면 좋은 영양제를 정리해봤어요  임신 초기 영양제, 왜... 것을 추천! 근데 저는 비타민D를 꾸준히 먹었는데도 12주차 기형아 검사 ...",
-    content: "그래서 오늘은 임신 초기 3개월 동안 꼭 챙기면 좋은 영양제를 정리해봤어요  임신 초기 영양제, 왜... 것을 추천! 근데 저는 비타민D를 꾸준히 먹었는데도 12주차 기형아 검사 당시 결핍이 나왔어요 ㅠㅠㅠ...",
+    content: "그래서 오늘은 임신 초기 3개월 동안 꼭 챙기면 좋은 영양제를 정리해봤어요  임신 초기 영양제, 왜... 것을 추천! 근데 저는 비타민D를 꾸준히 먹었는데도 12주차 기형아 검사 당시 결핍이 나왔어요 ㅠㅠㅠ...\n\n그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...\n\n임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...",
     source: "마케터 야라네 집", emoji: "💊", likes: 0,
     gradient: "from-emerald-400 to-teal-300",
     sourceUrl: "https://blog.naver.com/ahnyr12/224210229646",
@@ -535,7 +545,7 @@ export const crawledTips: Tip[] = [
   {
     id: 4, title: "[랄츠맘 스텝1]임신준비, 임신초기 필수 영양제 추천", category: "nutrition",
     summary: "바로 랄츠맘 스텝1✔️ 산부인과 전문의들이 공동성분을 배합해 만든 제품으로 이런 분들에게 추천해요 -건강한 임신준비 중인 예비맘 -초기 임산부에게 필요한 프리미엄 영양제를 찾는분 ...",
-    content: "바로 랄츠맘 스텝1✔️ 산부인과 전문의들이 공동성분을 배합해 만든 제품으로 이런 분들에게 추천해요 -건강한 임신준비 중인 예비맘 -초기 임산부에게 필요한 프리미엄 영양제를 찾는분 -임신초기 여성...",
+    content: "바로 랄츠맘 스텝1✔️ 산부인과 전문의들이 공동성분을 배합해 만든 제품으로 이런 분들에게 추천해요 -건강한 임신준비 중인 예비맘 -초기 임산부에게 필요한 프리미엄 영양제를 찾는분 -임신초기 여성...\n\n그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...\n\n임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...",
     source: "요니츄의 블로그", emoji: "💊", likes: 0,
     gradient: "from-sky-400 to-blue-300",
     sourceUrl: "https://blog.naver.com/dbsgh9288/224236876681",
@@ -543,7 +553,7 @@ export const crawledTips: Tip[] = [
   {
     id: 5, title: "목넘김 편한 임신초기영양제 추천 랄츠맘 스텝1", category: "nutrition",
     summary: "목넘김 편한 임신초기영양제 랄츠맘 스텝1 글, 사진 육아 인플루언서 @베베뽀 안녕하세요 육아 인플루언서 베베뽀예요! 오늘은 임신초기영양제를 소개해보려고 해요 이름부터 유명한 랄츠맘...",
-    content: "목넘김 편한 임신초기영양제 랄츠맘 스텝1 글, 사진 육아 인플루언서 @베베뽀 안녕하세요 육아 인플루언서 베베뽀예요! 오늘은 임신초기영양제를 소개해보려고 해요 이름부터 유명한 랄츠맘! 임신 준비중인...",
+    content: "목넘김 편한 임신초기영양제 랄츠맘 스텝1 글, 사진 육아 인플루언서 @베베뽀 안녕하세요 육아 인플루언서 베베뽀예요! 오늘은 임신초기영양제를 소개해보려고 해요 이름부터 유명한 랄츠맘! 임신 준비중인...\n\n그래서 임신초기영양제로 추천하기에 충분하다고 느꼈답니다. 또한 PTP 개별 포장으로 되어 있어서 위생적이면서도 휴대하기가 정말 편했어요. 외출할 때도 가방에 쏙 넣어 다니기 좋았구요. 이런 부분들이...\n\n임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 임신초기종합영양제 추천 효능효과 성분 비교 분석 이제 곧 출산 예정이에요. 임신 테스트기로 처음 알게...",
     source: "아기와 사는 이야기", emoji: "💊", likes: 0,
     gradient: "from-amber-400 to-orange-300",
     sourceUrl: "https://blog.naver.com/tmd2896/224021915972",
@@ -551,7 +561,7 @@ export const crawledTips: Tip[] = [
   {
     id: 6, title: "엽산 철분 임산부 영양제 선택 기준과 시기별 복용법", category: "nutrition",
     summary: "엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제...",
-    content: "엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...",
+    content: "엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...\n\n#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...\n\n없으며 임산부 개인의 건강에도 직결될 수 있습니다. 구조적으로 모든 것을 되돌릴 수는 없지만 지속적인 관리와 노력을 통해 안정된 일상 생활을 누릴 수 있습니다. 엽산과 철분 복용법을 이해하고 실천하는...",
     source: "자유로운 파도는 자유로워", emoji: "💊", likes: 0,
     gradient: "from-rose-400 to-red-300",
     sourceUrl: "https://blog.naver.com/vl3v954l/224195265341",
@@ -559,7 +569,7 @@ export const crawledTips: Tip[] = [
   {
     id: 7, title: "임산부 영양제 시기별 정리 엽산 철분 칼슘 오메가3 복용법", category: "nutrition",
     summary: "#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 ...",
-    content: "#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...",
+    content: "#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...\n\n엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...\n\n없으며 임산부 개인의 건강에도 직결될 수 있습니다. 구조적으로 모든 것을 되돌릴 수는 없지만 지속적인 관리와 노력을 통해 안정된 일상 생활을 누릴 수 있습니다. 엽산과 철분 복용법을 이해하고 실천하는...",
     source: "선재의 세상", emoji: "💊", likes: 0,
     gradient: "from-lime-400 to-green-300",
     sourceUrl: "https://blog.naver.com/sodnsaud77/224177170665",
@@ -567,7 +577,7 @@ export const crawledTips: Tip[] = [
   {
     id: 8, title: "임산부를 위한 엽산과 철분 복용법", category: "nutrition",
     summary: "없으며 임산부 개인의 건강에도 직결될 수 있습니다. 구조적으로 모든 것을 되돌릴 수는 없지만 지속적인 관리와 노력을 통해 안정된 일상 생활을 누릴 수 있습니다. 엽산과 철분 복용법...",
-    content: "없으며 임산부 개인의 건강에도 직결될 수 있습니다. 구조적으로 모든 것을 되돌릴 수는 없지만 지속적인 관리와 노력을 통해 안정된 일상 생활을 누릴 수 있습니다. 엽산과 철분 복용법을 이해하고 실천하는...",
+    content: "없으며 임산부 개인의 건강에도 직결될 수 있습니다. 구조적으로 모든 것을 되돌릴 수는 없지만 지속적인 관리와 노력을 통해 안정된 일상 생활을 누릴 수 있습니다. 엽산과 철분 복용법을 이해하고 실천하는...\n\n엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...\n\n#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...",
     source: "아름다운 환기", emoji: "💊", likes: 0,
     gradient: "from-indigo-400 to-violet-300",
     sourceUrl: "https://blog.naver.com/x4h2gpui/224151776512",
@@ -575,7 +585,7 @@ export const crawledTips: Tip[] = [
   {
     id: 9, title: "비타민D 엽산 유산균 철분 칼슘 오메가3 섭취량 복용법 정리", category: "nutrition",
     summary: "임산부가 꼭 챙겨서 먹어야 할 영양제로는 엽산, 철분, 칼슘, 유산균, 오메가3, 비타민 D 크게 6가지 종류입니다. [ 임산부 시기별 영양제 ] 임신 전 후 전체적으로 섭취해야 ...",
-    content: "임산부가 꼭 챙겨서 먹어야 할 영양제로는 엽산, 철분, 칼슘, 유산균, 오메가3, 비타민 D 크게 6가지 종류입니다. [ 임산부 시기별 영양제 ] 임신 전 후 전체적으로 섭취해야 할 비타민D &amp; 유산균 임신 중기부터 꼭...",
+    content: "임산부가 꼭 챙겨서 먹어야 할 영양제로는 엽산, 철분, 칼슘, 유산균, 오메가3, 비타민 D 크게 6가지 종류입니다. [ 임산부 시기별 영양제 ] 임신 전 후 전체적으로 섭취해야 할 비타민D &amp; 유산균 임신 중기부터 꼭...\n\n엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...\n\n#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...",
     source: "by 워니언니", emoji: "💊", likes: 0,
     gradient: "from-pink-400 to-rose-300",
     sourceUrl: "https://blog.naver.com/wonny9498/223573306077",
@@ -583,7 +593,7 @@ export const crawledTips: Tip[] = [
   {
     id: 10, title: "임산부 엽산 섭취 및 복용법 효과", category: "nutrition",
     summary: "임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과... 산부인과에서도 철분이나 엽산을 공복에 먹으면 속쓰림이나 오심이 생길 수 ...",
-    content: "임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과... 산부인과에서도 철분이나 엽산을 공복에 먹으면 속쓰림이나 오심이 생길 수 있다고 해서 그 뒤로는...",
+    content: "임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과 임산부 엽산 섭취 및 복용법 효과... 산부인과에서도 철분이나 엽산을 공복에 먹으면 속쓰림이나 오심이 생길 수 있다고 해서 그 뒤로는...\n\n엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별 복용법 엽산 철분 임산부 영양제 선택 기준과 시기별...\n\n#임산부영양제 #임신영양제정리 #엽산언제까지 #철분몇주부터 #칼슘오메가3 #임산부비타민D #임산부유산균 #임산부마그네슘 #임신준비필수템 #예비맘정보 #임신초기관리 #임신중기영양제 #임신후기준비...",
     source: "내 성공은 건강덕분", emoji: "💊", likes: 0,
     gradient: "from-cyan-400 to-sky-300",
     sourceUrl: "https://blog.naver.com/owe6400/224129657712",
@@ -591,7 +601,7 @@ export const crawledTips: Tip[] = [
   {
     id: 11, title: "입덧증상 시작시기부터 끝나는시기 입덧완화음식 입덧약 총정리", category: "nutrition",
     summary: "입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭...",
-    content: "입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...",
+    content: "입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...\n\n음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...\n\n이번 포스팅에서 임산부 입덧 완화를 위한 다양한 음식과 방법을 알려드렸는데요, 그대로 따라 하기보다는 자신에게 맞는 방법과 습관을 찾아서 맞춰나가는 게 가장 중요하다고 생각해요:) 제가 추천드린 입덧...",
     source: "광밍호율 쿠쉬한 날들!", emoji: "💊", likes: 0,
     gradient: "from-teal-400 to-emerald-300",
     sourceUrl: "https://blog.naver.com/minzy91/224220335334",
@@ -599,7 +609,7 @@ export const crawledTips: Tip[] = [
   {
     id: 12, title: "입덧 끝나는 시기 완화 음식 전해질 보충 음료까지 총정리", category: "nutrition",
     summary: "음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 ...",
-    content: "음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...",
+    content: "음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...\n\n입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...\n\n이번 포스팅에서 임산부 입덧 완화를 위한 다양한 음식과 방법을 알려드렸는데요, 그대로 따라 하기보다는 자신에게 맞는 방법과 습관을 찾아서 맞춰나가는 게 가장 중요하다고 생각해요:) 제가 추천드린 입덧...",
     source: "달달한 그녀의 일상", emoji: "💊", likes: 0,
     gradient: "from-orange-400 to-amber-300",
     sourceUrl: "https://blog.naver.com/limhyunae/223955217657",
@@ -607,7 +617,7 @@ export const crawledTips: Tip[] = [
   {
     id: 13, title: "임신 초기 입덧 완화 음식 방법 산모 음료 임신선물", category: "nutrition",
     summary: "이번 포스팅에서 임산부 입덧 완화를 위한 다양한 음식과 방법을 알려드렸는데요, 그대로 따라 하기보다는 자신에게 맞는 방법과 습관을 찾아서 맞춰나가는 게 가장 중요하다고 생각해요:)...",
-    content: "이번 포스팅에서 임산부 입덧 완화를 위한 다양한 음식과 방법을 알려드렸는데요, 그대로 따라 하기보다는 자신에게 맞는 방법과 습관을 찾아서 맞춰나가는 게 가장 중요하다고 생각해요:) 제가 추천드린 입덧...",
+    content: "이번 포스팅에서 임산부 입덧 완화를 위한 다양한 음식과 방법을 알려드렸는데요, 그대로 따라 하기보다는 자신에게 맞는 방법과 습관을 찾아서 맞춰나가는 게 가장 중요하다고 생각해요:) 제가 추천드린 입덧...\n\n입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...\n\n음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...",
     source: "워킹맘 현구리의 일상 리뷰록", emoji: "💊", likes: 0,
     gradient: "from-fuchsia-400 to-pink-300",
     sourceUrl: "https://blog.naver.com/hj_guriming/224107426236",
@@ -615,7 +625,7 @@ export const crawledTips: Tip[] = [
   {
     id: 14, title: "입덧 완화 음식 리스트 심할 때 셋째맘 추천 대처 방법", category: "nutrition",
     summary: "뭘 먹어도 입맛이 없고 토할 것 같지만 그나마 먹을 수 있었던 입덧 완화 음식 추천해 드릴게요. 1.... 매실차 입덧 완화 방법으로 추천 X100 하는 음료는 바로바로 매실차! ...",
-    content: "뭘 먹어도 입맛이 없고 토할 것 같지만 그나마 먹을 수 있었던 입덧 완화 음식 추천해 드릴게요. 1.... 매실차 입덧 완화 방법으로 추천 X100 하는 음료는 바로바로 매실차! 속이 너무 안 좋아서 아무것도 못 먹겠다...",
+    content: "뭘 먹어도 입맛이 없고 토할 것 같지만 그나마 먹을 수 있었던 입덧 완화 음식 추천해 드릴게요. 1.... 매실차 입덧 완화 방법으로 추천 X100 하는 음료는 바로바로 매실차! 속이 너무 안 좋아서 아무것도 못 먹겠다...\n\n입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...\n\n음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...",
     source: "My beautiful story", emoji: "💊", likes: 0,
     gradient: "from-blue-400 to-indigo-300",
     sourceUrl: "https://blog.naver.com/hjteacher30/224092561557",
@@ -623,7 +633,7 @@ export const crawledTips: Tip[] = [
   {
     id: 15, title: "임산부 입덧 심할때 이 방법 몰라서 더 힘들어요 완화방법 음식...", category: "nutrition",
     summary: "중 하나라도 가볍게 실천해보시면 분명히 차이를 느끼실 거예요. 이 시기도 결국 지나가니까요. #입덧심할때 #입덧완화방법 #입덧완화음식 제 글이 도움이 되셨다면 '팬하기' 꾹 눌러주...",
-    content: "중 하나라도 가볍게 실천해보시면 분명히 차이를 느끼실 거예요. 이 시기도 결국 지나가니까요. #입덧심할때 #입덧완화방법 #입덧완화음식 제 글이 도움이 되셨다면 '팬하기' 꾹 눌러주세요 맞팬도 대환영입니다!",
+    content: "중 하나라도 가볍게 실천해보시면 분명히 차이를 느끼실 거예요. 이 시기도 결국 지나가니까요. #입덧심할때 #입덧완화방법 #입덧완화음식 제 글이 도움이 되셨다면 '팬하기' 꾹 눌러주세요 맞팬도 대환영입니다!\n\n입덧완화음식이나 생활 팁으로 조절이 어렵거나, 구토·체중 감소·탈수로 일상생활이 힘들다면 입덧약을 처방받는 것도 방법. 2024년부터 입덧약에 건강보험이 적용되기 시작. (이거 꼭 필요했다고요!) 둘째...\n\n음식 냄새만 맡아도 토할 것 같고, 물 한 잔 넘기기도 어려웠어요. 그래서 건강하게 버티기 위해 입덧 완화를 할 수 있는 방법들을 찾아보기 시작했어요. 찾아볼수록 수분 섭취가 그 무엇보다도 중요한 것...",
     source: "반짝반짝 슈슈베베", emoji: "💊", likes: 0,
     gradient: "from-yellow-400 to-amber-300",
     sourceUrl: "https://blog.naver.com/kje3329/224239196140",
@@ -631,7 +641,7 @@ export const crawledTips: Tip[] = [
   {
     id: 16, title: "임신성당뇨 검사 후기 관리 방법 및 식단 추천", category: "nutrition",
     summary: "임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기...",
-    content: "임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....",
+    content: "임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...\n\n임신성당뇨를 가진 사람들도 임당식단표를 지키면서 체중과 혈당을 함께 관리하고 있다는 글들이 많았다. 처음에는 광고 아닐까 싶었지만, 후기를 찬찬히 읽어보니 실제로 나처럼 힘들어하던 임신부들이...",
     source: "❤️MIN’s 의 다락방❤️", emoji: "💊", likes: 0,
     gradient: "from-rose-400 to-pink-300",
     sourceUrl: "https://blog.naver.com/gwf21/224140813159",
@@ -639,7 +649,7 @@ export const crawledTips: Tip[] = [
   {
     id: 17, title: "임신성당뇨 수치 식단 관리 팁 임산부 간식 추천", category: "nutrition",
     summary: "임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관...",
-    content: "임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...",
+    content: "임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...\n\n임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨를 가진 사람들도 임당식단표를 지키면서 체중과 혈당을 함께 관리하고 있다는 글들이 많았다. 처음에는 광고 아닐까 싶었지만, 후기를 찬찬히 읽어보니 실제로 나처럼 힘들어하던 임신부들이...",
     source: "냉이의 먹고디자인하고사랑하기", emoji: "💊", likes: 0,
     gradient: "from-violet-400 to-purple-300",
     sourceUrl: "https://blog.naver.com/rjs930/224140832266",
@@ -647,7 +657,7 @@ export const crawledTips: Tip[] = [
   {
     id: 18, title: "임신성당뇨 걱정이라면 임당식단표 짜보는것이", category: "nutrition",
     summary: "임신성당뇨를 가진 사람들도 임당식단표를 지키면서 체중과 혈당을 함께 관리하고 있다는 글들이 많았다. 처음에는 광고 아닐까 싶었지만, 후기를 찬찬히 읽어보니 실제로 나처럼 힘들어하던...",
-    content: "임신성당뇨를 가진 사람들도 임당식단표를 지키면서 체중과 혈당을 함께 관리하고 있다는 글들이 많았다. 처음에는 광고 아닐까 싶었지만, 후기를 찬찬히 읽어보니 실제로 나처럼 힘들어하던 임신부들이...",
+    content: "임신성당뇨를 가진 사람들도 임당식단표를 지키면서 체중과 혈당을 함께 관리하고 있다는 글들이 많았다. 처음에는 광고 아닐까 싶었지만, 후기를 찬찬히 읽어보니 실제로 나처럼 힘들어하던 임신부들이...\n\n임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...",
     source: "감슐랭", emoji: "💊", likes: 0,
     gradient: "from-emerald-400 to-teal-300",
     sourceUrl: "https://blog.naver.com/sunny04haha/224061489996",
@@ -655,7 +665,7 @@ export const crawledTips: Tip[] = [
   {
     id: 19, title: "임신성당뇨식단 알아보고 임신당뇨 관리해본다면", category: "nutrition",
     summary: "처음엔 임신성당뇨식단으로 “덜 먹으면 혈당이 떨어지고 살도 빠지겠지”라는 단순한 생각으로... 특히 귀리식이섬유, 바나바잎추출물, 난소화성말토덱스트린 등 혈당 관리에 도움이 되는 ...",
-    content: "처음엔 임신성당뇨식단으로 “덜 먹으면 혈당이 떨어지고 살도 빠지겠지”라는 단순한 생각으로... 특히 귀리식이섬유, 바나바잎추출물, 난소화성말토덱스트린 등 혈당 관리에 도움이 되는 원료들이 포함되어...",
+    content: "처음엔 임신성당뇨식단으로 “덜 먹으면 혈당이 떨어지고 살도 빠지겠지”라는 단순한 생각으로... 특히 귀리식이섬유, 바나바잎추출물, 난소화성말토덱스트린 등 혈당 관리에 도움이 되는 원료들이 포함되어...\n\n임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...",
     source: "SWEET B 하루", emoji: "💊", likes: 0,
     gradient: "from-sky-400 to-blue-300",
     sourceUrl: "https://blog.naver.com/vnlffltm/224065791804",
@@ -663,7 +673,7 @@ export const crawledTips: Tip[] = [
   {
     id: 20, title: "임신성 당뇨 재검 후기 임당식단 추천 후기 정리", category: "nutrition",
     summary: "만약 저처럼 임신성 당뇨로 인해 식단 관리의 어려움을 겪고 있거나, 굶지 않으면서도 안정적인 혈당 조절과 균형 잡힌 영양 섭취를 원하는 예비 엄마가 있다면, 이 제품이 여러분께도 ...",
-    content: "만약 저처럼 임신성 당뇨로 인해 식단 관리의 어려움을 겪고 있거나, 굶지 않으면서도 안정적인 혈당 조절과 균형 잡힌 영양 섭취를 원하는 예비 엄마가 있다면, 이 제품이 여러분께도 큰 위로와 실질적인...",
+    content: "만약 저처럼 임신성 당뇨로 인해 식단 관리의 어려움을 겪고 있거나, 굶지 않으면서도 안정적인 혈당 조절과 균형 잡힌 영양 섭취를 원하는 예비 엄마가 있다면, 이 제품이 여러분께도 큰 위로와 실질적인...\n\n임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치...",
     source: "누룽지ღ’ᴗ’ღ", emoji: "💊", likes: 0,
     gradient: "from-amber-400 to-orange-300",
     sourceUrl: "https://blog.naver.com/creative_bs/224140161790",
