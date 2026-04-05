@@ -16,6 +16,7 @@ import {
   Play,
 } from "lucide-react";
 import Link from "next/link";
+import { showRewardAd, logAdEvent, getAdStats } from "@/lib/adProvider";
 
 type Mode = "view" | "shop" | "decorate";
 
@@ -93,32 +94,35 @@ export default function NurseryPage() {
     setSelectedSlot(null);
   };
 
-  const adIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const adCleanupRef = useRef<(() => void) | null>(null);
+  const [todayAdCount, setTodayAdCount] = useState(0);
+  const maxDailyAds = 10;
 
   useEffect(() => {
+    setTodayAdCount(getAdStats().todayCount);
     return () => {
-      if (adIntervalRef.current) clearInterval(adIntervalRef.current);
+      adCleanupRef.current?.();
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
   }, []);
 
   const watchAd = () => {
-    if (adActive) return;
+    if (adActive || todayAdCount >= maxDailyAds) return;
     setAdActive(true);
-    setAdTimer(5);
-    adIntervalRef.current = setInterval(() => {
-      setAdTimer((t) => {
-        if (t <= 1) {
-          if (adIntervalRef.current) clearInterval(adIntervalRef.current);
-          adIntervalRef.current = null;
-          setAdActive(false);
-          addHearts(10, "ad");
-          showToast("+10 하트 획득! 🎉");
-          return 0;
+
+    adCleanupRef.current = showRewardAd(
+      (secondsLeft) => setAdTimer(secondsLeft),
+      (result) => {
+        setAdActive(false);
+        setAdTimer(0);
+        logAdEvent(result);
+        if (result.success) {
+          addHearts(result.reward, "ad");
+          setTodayAdCount((c) => c + 1);
+          showToast(`+${result.reward} 하트 획득! 🎉`);
         }
-        return t - 1;
-      });
-    }, 1000);
+      }
+    );
   };
 
   const ownedPlaceableItems = nurseryItems.filter(
@@ -282,18 +286,21 @@ export default function NurseryPage() {
       <section className="px-5 mt-3">
         <button
           onClick={watchAd}
-          disabled={adActive}
+          disabled={adActive || todayAdCount >= maxDailyAds}
           className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-medium transition-all ${
-            adActive
+            adActive || todayAdCount >= maxDailyAds
               ? "bg-surface border-card-border text-muted"
               : "bg-gradient-to-r from-amber-50 to-primary-lighter border-primary-light text-primary active:scale-[0.98]"
           }`}
         >
           {adActive ? (
             <>⏱️ 광고 시청 중... {adTimer}초</>
+          ) : todayAdCount >= maxDailyAds ? (
+            <>오늘 광고 보기를 모두 사용했어요</>
           ) : (
             <>
               <Play size={14} /> 광고 보고 +10 하트 받기
+              <span className="text-xs opacity-60">({todayAdCount}/{maxDailyAds})</span>
             </>
           )}
         </button>

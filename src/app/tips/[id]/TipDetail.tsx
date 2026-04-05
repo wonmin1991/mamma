@@ -6,6 +6,7 @@ import Link from "next/link";
 import BookmarkButton from "@/components/BookmarkButton";
 import { useState, useEffect } from "react";
 import { useStore } from "@/store/useStore";
+import { trackLink, logClick } from "@/lib/affiliate";
 
 interface Props {
   tip: Tip;
@@ -113,9 +114,10 @@ export default function TipDetail({ tip, categoryLabel }: Props) {
 
           {tip.sourceUrl && (
             <a
-              href={tip.sourceUrl}
+              href={trackLink(tip.sourceUrl, "tip", tip.title)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => logClick("tip", tip.sourceUrl!, tip.title)}
               className="flex items-center justify-center gap-2 w-full mt-4 py-3 rounded-xl bg-surface text-foreground text-sm font-medium border border-card-border transition-all hover:bg-primary-light hover:text-primary active:scale-[0.98]"
             >
               <ExternalLink size={14} />

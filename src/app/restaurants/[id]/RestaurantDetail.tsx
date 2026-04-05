@@ -14,6 +14,7 @@ import Link from "next/link";
 import BookmarkButton from "@/components/BookmarkButton";
 import { useState, useEffect } from "react";
 import { useStore } from "@/store/useStore";
+import { trackLink, logClick } from "@/lib/affiliate";
 
 interface Props {
   restaurant: Restaurant;
@@ -171,9 +172,10 @@ export default function RestaurantDetail({ restaurant: r }: Props) {
             </a>
             {r.sourceUrl && (
               <a
-                href={r.sourceUrl}
+                href={trackLink(r.sourceUrl, "restaurant", r.name)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => logClick("restaurant", r.sourceUrl!, r.name)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-surface text-foreground text-sm font-medium border border-card-border transition-all hover:bg-surface-rose active:scale-[0.98]"
               >
                 <ExternalLink size={14} />
