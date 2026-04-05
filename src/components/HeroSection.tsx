@@ -8,7 +8,7 @@ import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
 
 export default function HeroSection() {
-  const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded } = usePregnancy();
+  const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded, babyNickname } = usePregnancy();
 
   const weekIdx = Math.max(0, Math.min(39, currentWeek - 1));
   const weekInfo = weeklyGuide[weekIdx];
@@ -64,7 +64,7 @@ export default function HeroSection() {
             <div className="flex items-center gap-3">
               <span className="text-3xl">{weekInfo.babySizeEmoji}</span>
               <div>
-                <p className="text-xs text-muted">이번 주 아기는</p>
+                <p className="text-xs text-muted">이번 주 {babyNickname}(은)는</p>
                 <p className="font-semibold text-foreground">
                   {weekInfo.babySize} 크기
                 </p>

@@ -242,7 +242,7 @@ function QuickTipWidget() {
 // ─── Baby Size Widget ────────────────────────────────────
 
 function BabySizeWidget() {
-  const { currentWeek } = usePregnancy();
+  const { currentWeek, babyNickname } = usePregnancy();
   const weekIdx = Math.max(0, Math.min(39, currentWeek - 1));
   const week = weeklyGuide[weekIdx];
 
@@ -252,7 +252,7 @@ function BabySizeWidget() {
         <div className="flex items-center gap-4">
           <span className="text-5xl">{week.babySizeEmoji}</span>
           <div>
-            <p className="text-xs text-muted">{currentWeek}주차 아기 크기</p>
+            <p className="text-xs text-muted">{currentWeek}주차 {babyNickname}</p>
             <p className="text-base font-bold text-foreground">{week.babySize}</p>
             <div className="flex gap-3 mt-1">
               <p className="text-[11px] text-muted">몸무게 <span className="text-foreground font-medium">{week.babyWeight}</span></p>

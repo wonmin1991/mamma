@@ -45,7 +45,7 @@ import {
 } from "@/lib/notifications";
 
 export default function SettingsPage() {
-  const { dueDate, currentWeek, setDueDate, setWeekDirectly, reset } =
+  const { dueDate, currentWeek, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset } =
     usePregnancy();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<{
@@ -176,6 +176,24 @@ export default function SettingsPage() {
           </h2>
 
           <div className="flex flex-col gap-3">
+            <div>
+              <label htmlFor="baby-nickname" className="text-xs text-muted block mb-1">
+                태명
+              </label>
+              <input
+                id="baby-nickname"
+                type="text"
+                value={babyNickname}
+                onChange={(e) => {
+                  setBabyNickname(e.target.value);
+                  showToast("태명이 변경되었습니다", "success");
+                }}
+                placeholder="예: 콩이, 복덩이"
+                maxLength={10}
+                className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary"
+              />
+            </div>
+
             <div>
               <label htmlFor="due-date" className="text-xs text-muted block mb-1">
                 출산예정일

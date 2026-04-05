@@ -9,11 +9,13 @@ interface PregnancyData {
   currentDay: number;
   daysUntilDue: number;
   isOnboarded: boolean;
+  babyNickname: string;
 }
 
 interface PregnancyContextValue extends PregnancyData {
   setDueDate: (date: string) => void;
   setWeekDirectly: (week: number) => void;
+  setBabyNickname: (name: string) => void;
   reset: () => void;
 }
 
@@ -42,6 +44,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
   const [currentDay, setCurrentDay] = useState(0);
   const [daysUntilDue, setDaysUntilDue] = useState(0);
   const [isOnboarded, setIsOnboarded] = useState(true);
+  const [babyNickname, setBabyNicknameState] = useState("아기");
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -49,6 +52,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
+        if (saved.babyNickname) setBabyNicknameState(saved.babyNickname);
         if (saved.dueDate) {
           const calc = calculateFromDueDate(saved.dueDate);
           /* eslint-disable react-hooks/set-state-in-effect -- client-only localStorage hydration */
@@ -73,6 +77,14 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
+  const saveToStorage = useCallback((data: Record<string, unknown>) => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const existing = raw ? JSON.parse(raw) : {};
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...existing, ...data }));
+    } catch { /* ignore */ }
+  }, []);
+
   const setDueDate = useCallback((date: string) => {
     const calc = calculateFromDueDate(date);
     setDueDateState(date);
@@ -80,8 +92,8 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     setCurrentDay(calc.day);
     setDaysUntilDue(calc.daysUntilDue);
     setIsOnboarded(true);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ dueDate: date }));
-  }, []);
+    saveToStorage({ dueDate: date });
+  }, [saveToStorage]);
 
   const setWeekDirectly = useCallback((week: number) => {
     setDueDateState(null);
@@ -90,8 +102,14 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     const remaining = (40 - week) * 7;
     setDaysUntilDue(remaining);
     setIsOnboarded(true);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ manualWeek: week }));
-  }, []);
+    saveToStorage({ manualWeek: week, dueDate: undefined });
+  }, [saveToStorage]);
+
+  const setBabyNickname = useCallback((name: string) => {
+    const trimmed = name.trim() || "아기";
+    setBabyNicknameState(trimmed);
+    saveToStorage({ babyNickname: trimmed });
+  }, [saveToStorage]);
 
   const reset = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
@@ -99,12 +117,13 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     setCurrentWeek(16);
     setCurrentDay(0);
     setDaysUntilDue(0);
+    setBabyNicknameState("아기");
     setIsOnboarded(false);
   }, []);
 
   const value = useMemo(
-    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, setDueDate, setWeekDirectly, reset }),
-    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, setDueDate, setWeekDirectly, reset]
+    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset }),
+    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset]
   );
 
   if (!loaded) {

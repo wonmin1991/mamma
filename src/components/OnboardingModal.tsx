@@ -2,23 +2,24 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { usePregnancy } from "@/contexts/PregnancyContext";
-import { Baby, Calendar, ChevronRight, Sparkles, MapPin, ChevronDown } from "lucide-react";
+import { Baby, Calendar, ChevronRight, Sparkles, MapPin, ChevronDown, Heart } from "lucide-react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import ScrollDatePicker from "@/components/ScrollDatePicker";
 import { regions, getDistrictsByRegion } from "@/data/regions";
 
-type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "region" | "done";
+type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
 
 const REGION_STORAGE_KEY = "mamma-benefit-region";
 
 export default function OnboardingModal() {
-  const { isOnboarded, setDueDate, setWeekDirectly } = usePregnancy();
+  const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname } = usePregnancy();
   const [step, setStep] = useState<Step>("welcome");
   const today = new Date();
   const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 4).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   const [dateInput, setDateInput] = useState(defaultDate);
   const [weekInput, setWeekInput] = useState(16);
   const handleDateChange = useCallback((date: string) => setDateInput(date), []);
+  const [nicknameInput, setNicknameInput] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [closing, setClosing] = useState(false);
@@ -37,11 +38,18 @@ export default function OnboardingModal() {
   const handleDueDateSubmit = () => {
     if (!dateInput) return;
     setDueDate(dateInput);
-    setStep("region");
+    setStep("babyName");
   };
 
   const handleWeekSubmit = () => {
     setWeekDirectly(weekInput);
+    setStep("babyName");
+  };
+
+  const handleBabyNameSubmit = () => {
+    if (nicknameInput.trim()) {
+      setBabyNickname(nicknameInput.trim());
+    }
     setStep("region");
   };
 
@@ -206,6 +214,43 @@ export default function OnboardingModal() {
                 className="text-xs text-muted hover:text-foreground transition-colors"
               >
                 돌아가기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === "babyName" && (
+          <div className="p-8">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-light to-surface-rose flex items-center justify-center mx-auto mb-4">
+              <Heart size={24} className="text-primary" />
+            </div>
+            <h2 className="text-lg font-bold text-foreground text-center mb-2">
+              태명을 지어주세요
+            </h2>
+            <p className="text-xs text-muted text-center mb-6">
+              뱃속 아기의 태명을 입력하면 앱에서 태명으로 불러드려요
+            </p>
+
+            <div className="flex flex-col items-center gap-4">
+              <input
+                type="text"
+                placeholder="예: 콩이, 복덩이, 하늘이"
+                value={nicknameInput}
+                onChange={(e) => setNicknameInput(e.target.value)}
+                maxLength={10}
+                className="w-full px-4 py-3.5 rounded-2xl bg-surface border border-card-border text-sm text-foreground text-center focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                autoFocus
+              />
+              {nicknameInput.trim() && (
+                <p className="text-sm text-muted animate-fade-in-up">
+                  &quot;<span className="text-primary font-semibold">{nicknameInput.trim()}</span>&quot;(이)가 건강하게 자라고 있어요!
+                </p>
+              )}
+              <button
+                onClick={handleBabyNameSubmit}
+                className="w-full py-3.5 rounded-2xl bg-primary text-white font-semibold text-sm active:scale-[0.98] transition-all"
+              >
+                {nicknameInput.trim() ? "확인" : "나중에 정할게요"}
               </button>
             </div>
           </div>
