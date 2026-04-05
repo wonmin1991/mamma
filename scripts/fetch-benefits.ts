@@ -27,7 +27,7 @@ function sleep(ms: number) {
 // ─── API 설정 ────────────────────────────────────────────
 
 const API_BASE = "https://api.odcloud.kr/api";
-const SERVICE_PATH = "15113968/v1/uddi:48d787db-bfee-4858-88f7-d55d434a4023";
+const SERVICE_PATH = "gov24/v3/serviceList";
 
 const PREGNANCY_KEYWORDS = [
   "임산부", "임신", "출산", "산모", "신생아", "영유아",
@@ -104,13 +104,11 @@ function extractRegion(text: string): string {
 // ─── Fetch 함수 ──────────────────────────────────────────
 
 async function fetchPage(page: number, perPage: number): Promise<{ data: RawBenefit[]; totalCount: number }> {
-  const url = new URL(`${API_BASE}/${SERVICE_PATH}`);
-  url.searchParams.set("serviceKey", SERVICE_KEY!);
-  url.searchParams.set("page", String(page));
-  url.searchParams.set("perPage", String(perPage));
-  url.searchParams.set("returnType", "JSON");
+  // serviceKey는 이미 인코딩된 값을 그대로 넣어야 함 (new URL 사용 시 이중 인코딩 방지)
+  const encodedKey = encodeURIComponent(SERVICE_KEY!);
+  const urlStr = `${API_BASE}/${SERVICE_PATH}?serviceKey=${encodedKey}&page=${page}&perPage=${perPage}`;
 
-  const res = await fetch(url.toString(), {
+  const res = await fetch(urlStr, {
     headers: { accept: "application/json" },
   });
 
@@ -205,23 +203,10 @@ function generateBenefitsTS(data: BenefitData) {
 
   const now = new Date().toISOString().slice(0, 10);
   const output = `// Auto-generated from data/benefits-seed.json — ${now}
-// 공공데이터포털 행정안전부_대한민국 공공서비스(혜택) 정보 기반
+// 공공데이터포털 정부24 공공서비스 혜택 정보 기반
 // 수동 편집 금지 — \`npm run fetch-benefits\` 으로 갱신하세요.
 
-export interface BenefitItem {
-  id: number;
-  name: string;
-  summary: string;
-  content: string;
-  category: string;
-  organization: string;
-  criteria: string;
-  howToApply: string;
-  applyUrl: string;
-  region: string;
-  contact: string;
-  lastUpdated: string;
-}
+import type { BenefitItem } from "./benefits";
 
 export const benefits: BenefitItem[] = [
 ${lines.join(",\n")}
@@ -234,9 +219,9 @@ export const benefitsMeta = {
 };
 `;
 
-  const outPath = join(__dirname, "..", "src", "data", "benefits.ts");
+  const outPath = join(__dirname, "..", "src", "data", "benefits-api.ts");
   writeFileSync(outPath, output, "utf-8");
-  console.log(`benefits.ts 생성 완료 (src/data/benefits.ts)`);
+  console.log(`benefits-api.ts 생성 완료 (src/data/benefits-api.ts)`);
 }
 
 function J(v: unknown): string {

@@ -1,6 +1,9 @@
 // 임산부/육아 혜택 데이터
-// `npm run fetch-benefits` 실행 시 공공데이터포털 API에서 최신 데이터로 갱신됩니다.
-// API 키 없이도 아래 기본 데이터로 앱이 동작합니다.
+// `npm run fetch-benefits` 실행 시 benefits-api.ts가 갱신됩니다.
+// 이 파일의 수동 데이터 + API 데이터가 합쳐져서 사용됩니다.
+
+// API에서 가져온 데이터 (benefits-api.ts가 있으면 import)
+import { benefits as apiBenefits } from "./benefits-api";
 
 export interface BenefitItem {
   id: number;
@@ -17,7 +20,7 @@ export interface BenefitItem {
   lastUpdated: string;
 }
 
-export const benefits: BenefitItem[] = [
+const _defaultBenefits: BenefitItem[] = [
   {
     id: 1,
     name: "첫만남이용권",
@@ -372,9 +375,17 @@ export const benefits: BenefitItem[] = [
 
 export const benefitsMeta = {
   fetchedAt: "2025-01-01T00:00:00.000Z",
-  totalFromApi: 0,
-  filteredCount: 25,
+  totalFromApi: apiBenefits.length,
+  filteredCount: _defaultBenefits.length + apiBenefits.length,
 };
+
+// API 데이터가 있으면 합쳐서 사용 (중복 제거)
+export const benefits: BenefitItem[] = (() => {
+  if (apiBenefits.length === 0) return _defaultBenefits;
+  const manualNames = new Set(_defaultBenefits.map((b) => b.name));
+  const unique = apiBenefits.filter((b) => !manualNames.has(b.name));
+  return [..._defaultBenefits, ...unique];
+})();
 
 // ─── 육아 패키지 / 웰컴키트 ─────────────────────────────
 
