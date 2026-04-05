@@ -528,7 +528,20 @@ function generateCrawledTS(seed: SeedData) {
   }`;
   });
 
-  const tipLines = seed.tips.slice(0, 20).map((t, i) => {
+  // 카테고리별 균등 배분 (각 카테고리에서 최대 5개씩)
+  const tipsByCategory = new Map<string, typeof seed.tips>();
+  for (const t of seed.tips) {
+    const arr = tipsByCategory.get(t.category) ?? [];
+    arr.push(t);
+    tipsByCategory.set(t.category, arr);
+  }
+  const balancedTips: typeof seed.tips = [];
+  const maxPerCategory = 5;
+  for (const [, tips] of tipsByCategory) {
+    balancedTips.push(...tips.slice(0, maxPerCategory));
+  }
+
+  const tipLines = balancedTips.map((t, i) => {
     const summary =
       t.summary.length > 100 ? t.summary.slice(0, 100) + "..." : t.summary;
     const content = t.content || t.summary;

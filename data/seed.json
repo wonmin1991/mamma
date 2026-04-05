@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "crawledAt": "2026-04-05T08:23:25.382Z",
+    "crawledAt": "2026-04-05T08:27:27.207Z",
     "note": "이 파일을 직접 편집하세요! 맛집의 description, rating, priceRange, pregnancyPerks, tags를 채운 뒤 verified: true로 변경하세요. npm run generate 으로 앱 데이터에 반영됩니다."
   },
   "restaurants": [
@@ -12,7 +12,7 @@
       "address": "서울특별시 노원구 동일로 1596 1층",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%8F%99%EC%9D%BC%EB%A1%9C%EC%A6%89%EC%84%9D%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EB%85%B8%EC%9B%90%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1483867153844383.JPG",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250519_181%2F1747637155552dCEev_JPEG%2F1000015331.jpg",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -53,7 +53,7 @@
       "address": "서울특별시 강남구 테헤란로4길 46 지하1층 비상가 104호",
       "telephone": "",
       "sourceUrl": "https://holapoke.imweb.me/",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20250130031900_photo1_32046c762194.webp",
+      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250130031900_photo1_32046c762194.webp",
       "category": "salad",
       "description": "",
       "rating": null,
@@ -139,7 +139,7 @@
       "address": "서울특별시 강남구 강남대로94길 70 B01층 타닥타닥",
       "telephone": "",
       "sourceUrl": "https://s.baemin.com/PR000kPpnYxB1",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20251218_76%2F1765998856795EEPVL_PNG%2FChatGPT_Image_2025%25B3%25E2_12%25BF%25F9_17%25C0%25CF_%25BF%25C0%25C8%25C4_02_41_09.png",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250607_165%2F1749223343021Dc9N4_PNG%2FKakaoTalk_20250607_002203154.png",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -161,7 +161,7 @@
       "address": "서울특별시 동작구 상도로 192 1층",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%B8%8C%EB%A0%88%EB%93%9C%EC%A0%9C%EC%9D%B4%20%EB%B3%B8%EC%A0%90%20%EB%8F%99%EC%9E%91%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221212_140%2F1670823040205Xxqiv_JPEG%2F1670822515871-12.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20260211_147%2F1770767065567CwtdH_JPEG%2F1000017646.jpg",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -359,111 +359,6 @@
       "verified": false
     },
     {
-      "name": "고청담 용산점",
-      "naverCategory": "한식>육류,고기요리",
-      "region": "seoul",
-      "area": "용산구",
-      "address": "서울특별시 용산구 한강대로 100 아모레퍼시픽 본사 B1F",
-      "telephone": "",
-      "sourceUrl": "https://app.catchtable.co.kr/ct/shop/gocheongdam_yongsan",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2Fttcu8v8N_9obFzpI0jsXJw%2Fms.jpg",
-      "category": "korean",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "따뜻한 한식 메뉴 위주",
-        "저염식 요청 가능"
-      ],
-      "tags": [],
-      "emoji": "🍚",
-      "verified": false
-    },
-    {
-      "name": "광화문국밥",
-      "naverCategory": "음식점>한식",
-      "region": "seoul",
-      "area": "중구",
-      "address": "서울특별시 중구 세종대로21길 53",
-      "telephone": "",
-      "sourceUrl": "https://map.naver.com/p/search/%EA%B4%91%ED%99%94%EB%AC%B8%EA%B5%AD%EB%B0%A5%20%EC%A4%91%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fimg.siksinhot.com%2Fplace%2F1492920967057022.jpg",
-      "category": "korean",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "따뜻한 한식 메뉴 위주",
-        "저염식 요청 가능"
-      ],
-      "tags": [],
-      "emoji": "🍚",
-      "verified": false
-    },
-    {
-      "name": "고청담 광화문 디타워점",
-      "naverCategory": "한식>육류,고기요리",
-      "region": "seoul",
-      "area": "종로구",
-      "address": "서울특별시 종로구 종로3길 17 D타워 5층",
-      "telephone": "",
-      "sourceUrl": "https://app.catchtable.co.kr/ct/shop/gocheongdam_gwm",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20250625070636_photo1_VQqJSCTzFQ7q.webp",
-      "category": "korean",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "따뜻한 한식 메뉴 위주",
-        "저염식 요청 가능"
-      ],
-      "tags": [],
-      "emoji": "🍚",
-      "verified": false
-    },
-    {
-      "name": "고반식당 마곡점",
-      "naverCategory": "음식점>한식>육류,고기요리",
-      "region": "seoul",
-      "area": "강서구",
-      "address": "서울특별시 강서구 마곡중앙6로 63 테크노타워 1차 2층 203, 204호",
-      "telephone": "",
-      "sourceUrl": "https://map.naver.com/p/search/%EA%B3%A0%EB%B0%98%EC%8B%9D%EB%8B%B9%20%EB%A7%88%EA%B3%A1%EC%A0%90%20%EA%B0%95%EC%84%9C%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20241226094338_photo2_bfab6e610bb7.webp",
-      "category": "korean",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "따뜻한 한식 메뉴 위주",
-        "저염식 요청 가능"
-      ],
-      "tags": [],
-      "emoji": "🍚",
-      "verified": false
-    },
-    {
-      "name": "고청담 여의도점",
-      "naverCategory": "한식>육류,고기요리",
-      "region": "seoul",
-      "area": "영등포구",
-      "address": "서울특별시 영등포구 국제금융로 39 지하1층 101호",
-      "telephone": "",
-      "sourceUrl": "https://app.catchtable.co.kr/ct/shop/gocheongdam_yeouido",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNjAyMDRfMTg1%2FMDAxNzcwMTg4MTQ4MDUz.t49iVbx3fNAUpFV_uoxV_wNJRNbyyV4cA6d7aEOOnEkg.QIao8JPJliqLuH-qifBU39ZN5v05tVAsGm8Q906tx5Mg.JPEG%2FAA5C2846-93A5-4675-80B2-45F3D3ACA34D.jpg",
-      "category": "korean",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "따뜻한 한식 메뉴 위주",
-        "저염식 요청 가능"
-      ],
-      "tags": [],
-      "emoji": "🍚",
-      "verified": false
-    },
-    {
       "name": "5to7 성수본점",
       "naverCategory": "음식점>카페,디저트",
       "region": "seoul",
@@ -571,7 +466,7 @@
       "address": "서울특별시 마포구 동교로52길 10-7",
       "telephone": "",
       "sourceUrl": "https://app.catchtable.co.kr/ct/shop/we.salad.you",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDNfOTYg%2FMDAxNzY0NzExNTMyMTAy.awqOhdw_LUR_xM5TQglpyNJBQ0KdA4gnMTRr5hERkoEg.UG2KyUiaTa9trUDVVPuVYriRZ7ESzYkDWk3u3KyL67og.JPEG%2F78DAA497-7016-410E-A40E-06C9173919BC.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDNfMjQ2%2FMDAxNzY0NzExNTMwNDk5.oV-iUdA6XZkR-zxUobtCqcXkWlwfBseeBjgx6ad1r0kg.P5z2qr0butB5EEG8yRf_ti99DgYbcymgfjrE_ZfRKJcg.JPEG%2F1FC30C87-259B-41C3-B283-83499F73B882.jpg",
       "category": "western",
       "description": "",
       "rating": null,
@@ -777,90 +672,6 @@
       "verified": false
     },
     {
-      "name": "아미스타",
-      "naverCategory": "음식점>카페,디저트",
-      "region": "gyeonggi",
-      "area": "수원시",
-      "address": "경기도 수원시 영통구 센트럴파크로127번길 80-3",
-      "telephone": "",
-      "sourceUrl": "https://map.naver.com/p/search/%EC%95%84%EB%AF%B8%EC%8A%A4%ED%83%80%20%EC%88%98%EC%9B%90%EC%8B%9C",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221109_62%2F1667960656386Peymv_JPEG%2F20221109_112115.jpg",
-      "category": "cafe",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "디카페인 메뉴 제공 확인 필요"
-      ],
-      "tags": [],
-      "emoji": "☕",
-      "verified": false
-    },
-    {
-      "name": "달코밍 김포사우점",
-      "naverCategory": "브런치카페",
-      "region": "gyeonggi",
-      "area": "김포시",
-      "address": "경기도 김포시 봉화로 38 1층",
-      "telephone": "",
-      "sourceUrl": "https://blog.naver.com/varier79",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240609_217%2F1717893698996isu2i_JPEG%2FCABB115C-6426-48F4-8917-556D9CC412D8.jpeg",
-      "category": "western",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "스테이크 등 철분 보충 메뉴",
-        "가벼운 브런치 메뉴"
-      ],
-      "tags": [],
-      "emoji": "🍝",
-      "verified": false
-    },
-    {
-      "name": "샐블리즈 운정점",
-      "naverCategory": "도시락,컵밥>다이어트,샐러드",
-      "region": "gyeonggi",
-      "area": "파주시",
-      "address": "경기도 파주시 가람로21번길 26-25 102호",
-      "telephone": "",
-      "sourceUrl": "https://www.instagram.com/salvely_s",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221118_13%2F16686983304379zito_JPEG%2F%25C0%25AF%25BA%25CE%25BA%25BC_%25B9%25D0%25B9%25DA%25BD%25BA8900.jpg",
-      "category": "salad",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "신선한 채소·과일 섭취 가능",
-        "유기농 재료 사용",
-        "신선한 샐러드 메뉴"
-      ],
-      "tags": [],
-      "emoji": "🥗",
-      "verified": false
-    },
-    {
-      "name": "리얼식단 파주운정점",
-      "naverCategory": "브런치카페",
-      "region": "gyeonggi",
-      "area": "파주시",
-      "address": "경기도 파주시 와석순환로252번길 7-20 1층",
-      "telephone": "",
-      "sourceUrl": "https://www.instagram.com/real.sicdan_paju",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250520_128%2F1747671524682AArAi_PNG%2F6.png",
-      "category": "western",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [
-        "스테이크 등 철분 보충 메뉴",
-        "가벼운 브런치 메뉴"
-      ],
-      "tags": [],
-      "emoji": "🍝",
-      "verified": false
-    },
-    {
       "name": "마니산산채 강화도본점",
       "naverCategory": "한식>한정식",
       "region": "incheon",
@@ -868,7 +679,7 @@
       "address": "인천광역시 강화군 화도면 해안남로 1182 마니산산채",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84%20%EA%B0%95%ED%99%94%EB%8F%84%EB%B3%B8%EC%A0%90%20%EA%B0%95%ED%99%94%EA%B5%B0",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfNTgg%2FMDAxNzY1NDM4MzQwMjM1.739_M0fjFWF88Gq40v_gTINx3xBpYGaXxtOoSnQpCngg.YVi0qw1dfhDqMCpcRjRv6BzIOoGHlsZXxjsEwKsoHEsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163218_091.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfMTQ4%2FMDAxNzY1NDM4MzM5MjAx.bJW5tXSc0iw2dJF9j2zmgV-r_ISxVFA1oO2DRSv0wEkg.dWcGkisnEqbwJgZ6l1oTQjqtK_ChhOqIyRC6u3t8jDsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163217_908.jpg",
       "category": "korean",
       "description": "",
       "rating": null,
@@ -890,7 +701,7 @@
       "address": "인천광역시 미추홀구 용정공원로83번길 49 1층 147호",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%A0%88%EC%9D%B4%EC%A7%80%EB%8B%A4%EC%9D%B4%EB%85%B8%20%ED%8F%AC%EC%BC%80%26amp%3B%EC%83%90%EB%9F%AC%EB%93%9C%20%EC%9A%A9%ED%98%84%EB%B3%B8%EC%A0%90%20%EB%AF%B8%EC%B6%94%ED%99%80%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_121%2F1705831134357ebd0B_JPEG%2F24185.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_51%2F1705831552793rcGcJ_JPEG%2F24232.jpg",
       "category": "salad",
       "description": "",
       "rating": null,
@@ -1017,7 +828,7 @@
       "address": "인천광역시 연수구 랜드마크로 194 롱비치커피앤브래드 1층",
       "telephone": "",
       "sourceUrl": "https://www.instagram.com/longbeachcoffee_",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo2_3e93cfbdf363.webp",
+      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo1_3e93cfbdf363.webp",
       "category": "cafe",
       "description": "",
       "rating": null,
@@ -1250,6 +1061,51 @@
       "postDate": "20260110",
       "category": "nutrition",
       "content": "만약 저처럼 임신성 당뇨로 인해 식단 관리의 어려움을 겪고 있거나, 굶지 않으면서도 안정적인 혈당 조절과 균형 잡힌 영양 섭취를 원하는 예비 엄마가 있다면, 이 제품이 여러분께도 큰 위로와 실질적인...\n\n임신성당뇨 검사 후기 관리 방법 및 식단 추천 임신 중기를 맞이하며 설레는 마음으로 정기 검진을 받았는데요. 청천벽력 같은 소식으로 혈당 수치가 높으니 재검을 받아야 한다는 이야기를 듣게 되었습니다....\n\n임신성당뇨 수치 식단 관리 팁 임산부 간식 추천 임신을 한 모든 예비 엄마들의 최우선 목표는 아마 태어날 아기를 위한 건강일 거예요. 저 역시 마찬가지였고요. 평소 스스로 건강 관리를 잘한다고 믿어 의심치..."
+    },
+    {
+      "title": "임산부 요가 온라인 요가온 솔직 후기 만삭 시기 운동 추천",
+      "summary": "임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #...",
+      "source": "워라블로그",
+      "sourceUrl": "https://blog.naver.com/worklifeblending/224006421795",
+      "postDate": "20250913",
+      "category": "exercise",
+      "content": "임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #온라인요가온 #만삭운동 3....\n\n운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에게 추천 받았었는데 그때는 하고 있던...\n\n운동1. 요가 원래 임신 전부터 요가를 꾸준히(주4회정도) 했었다. 그런데 임신 초기부터는 확실히 몸이... 유진 임산부 요가를 다녔었는데, 강력 추천한다. 일반 요가원은 보통 일반 수업이 위주고 임산부 수업은..."
+    },
+    {
+      "title": "운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한...",
+      "summary": "운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에...",
+      "source": "NOTES from Gorgeous Juice",
+      "sourceUrl": "https://blog.naver.com/juice3202/224052459582",
+      "postDate": "20251024",
+      "category": "exercise",
+      "content": "운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에게 추천 받았었는데 그때는 하고 있던...\n\n임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #온라인요가온 #만삭운동 3....\n\n운동1. 요가 원래 임신 전부터 요가를 꾸준히(주4회정도) 했었다. 그런데 임신 초기부터는 확실히 몸이... 유진 임산부 요가를 다녔었는데, 강력 추천한다. 일반 요가원은 보통 일반 수업이 위주고 임산부 수업은..."
+    },
+    {
+      "title": "39w5d, 3.81kg / 유진임산부요가, 샬로머문화원 추천)",
+      "summary": "운동1. 요가 원래 임신 전부터 요가를 꾸준히(주4회정도) 했었다. 그런데 임신 초기부터는 확실히 몸이... 유진 임산부 요가를 다녔었는데, 강력 추천한다. 일반 요가원은 보통 일...",
+      "source": "멋쟁이 양양이",
+      "sourceUrl": "https://blog.naver.com/yyang_zzi/224081107163",
+      "postDate": "20251119",
+      "category": "exercise",
+      "content": "운동1. 요가 원래 임신 전부터 요가를 꾸준히(주4회정도) 했었다. 그런데 임신 초기부터는 확실히 몸이... 유진 임산부 요가를 다녔었는데, 강력 추천한다. 일반 요가원은 보통 일반 수업이 위주고 임산부 수업은...\n\n임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #온라인요가온 #만삭운동 3....\n\n운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에게 추천 받았었는데 그때는 하고 있던..."
+    },
+    {
+      "title": "임산부 요가 자세 역아돌리기 운동 추천해요!!",
+      "summary": "임산부 요가 자세 역아돌리기 운동 추천해요!! 안녕하세요, 오늘은 저의 임신 중 경험과 함께 임산부... 역시 임산부 스트레칭 효과는 무시 못해요, 진짜! 2. 임산부 요가 자세와...",
+      "source": "건강하고, 행복하고, 오래살자",
+      "sourceUrl": "https://blog.naver.com/doitduitdudu/223828747476",
+      "postDate": "20250410",
+      "category": "exercise",
+      "content": "임산부 요가 자세 역아돌리기 운동 추천해요!! 안녕하세요, 오늘은 저의 임신 중 경험과 함께 임산부... 역시 임산부 스트레칭 효과는 무시 못해요, 진짜! 2. 임산부 요가 자세와 시작한 건강관리법 요가...\n\n임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #온라인요가온 #만삭운동 3....\n\n운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에게 추천 받았었는데 그때는 하고 있던..."
+    },
+    {
+      "title": "임신 중 운동 어떻게 해야 할까? 사당 윤주영 임산부 요가 후기",
+      "summary": "#사당임산부요가 #윤주영임산부요가 #임산부요가 #임신중운동 #임산부운동 #사당요가 #임산부요가추천 사당 윤주영 임산부 요가 후기 | 임신 중 운동 고민 해결한 이야기 안녕하세요 :...",
+      "source": "아티성혜 잘놀고 잘먹기",
+      "sourceUrl": "https://blog.naver.com/artisunghye/224205065425",
+      "postDate": "20260305",
+      "category": "exercise",
+      "content": "#사당임산부요가 #윤주영임산부요가 #임산부요가 #임신중운동 #임산부운동 #사당요가 #임산부요가추천 사당 윤주영 임산부 요가 후기 | 임신 중 운동 고민 해결한 이야기 안녕하세요 :) 정말 오랜만에 블로그에...\n\n임산부 전용 강의이다 보니 무리 가는 동작 없음! 너무너무 만족스러워 지금도 꾸준히 듣고 있는데, 강의 신청은 안전하게 네이버로 결제했어요. ▼▼▼ #임산부요가추천 #온라인요가 #온라인요가온 #만삭운동 3....\n\n운동 기록 춘천 임산부요가 산후요가 인연이 바꾼 내 삶에 대한 태도 by 고져스쥬스 Gorgeous Juice 운동을... 5년전 쓰러진 뒤 내 페이스에 맞는 운동들을 의사선생님에게 추천 받았었는데 그때는 하고 있던..."
     },
     {
       "title": "임산부 휴식과 스트레칭 루틴으로 건강한 스케줄 관리법",
@@ -1926,6 +1782,30 @@
       "postDate": "20260128"
     },
     {
+      "title": "산후조리원 선택 기준 총정리 | 2026 가격·체크리스트·후기...",
+      "summary": "2026년 기준 산후조리원 가격 솔직히 말씀드리면, 산후조리원 비용은 이제 웬만한 여행 경비 수준을... 산후조리원후기 #공공산후조리원 #첫만남이용권 #산후조리원추천 #산후조리원예약 #서울산후조리원...",
+      "sourceType": "blog",
+      "sourceName": "하유니네 즐거운 생활",
+      "sourceUrl": "https://blog.naver.com/hi-review/224209317874",
+      "postDate": "20260309"
+    },
+    {
+      "title": "나주공공산후조리원 후기(2026/2월)",
+      "summary": "2026년 2월에 새로 재개원한 나주공공산후조리원 둘째 출산은 다가오고 리모델링 공사가 길어져서... 수유나 아기목욕,기저귀갈기 등 물어보면 다 잘 알려주셔서 경산맘들 뿐 아니라 초산맘들도 추천합니다",
+      "sourceType": "blog",
+      "sourceName": "초언's 블로그",
+      "sourceUrl": "https://blog.naver.com/hehehejisu/224202525939",
+      "postDate": "20260303"
+    },
+    {
+      "title": "양구 공공산후조리원 후기(추천!)",
+      "summary": "춘천 미래산부인과에서~ 양구 공공산후조리원으로 출발 양구 공공산후조리원 후기!! 적극 추천 ☆☆☆☆☆ 별 다섯개부터 박고 시이작!~ 공공산후조리원이 저렴하고 좋다고만 들었지.. 딱히 관심도 없다가...",
+      "sourceType": "blog",
+      "sourceName": "솜베이킹",
+      "sourceUrl": "https://blog.naver.com/som233/224240191797",
+      "postDate": "20260404"
+    },
+    {
       "title": "임신 주수별 배 크기 변화와 체중 증가량(49kg → 61.5kg)",
       "summary": "임신 주수별로 달라지는 배 크기를 기록해보니, 시간이 얼마나 빠르게 지나가는지 다시 한번... 건강하게 임신 기간을 보낼 수 있었던 것 같아요. 배 크기 변화는 16주가 지나면서부터 조금씩 티가 나기...",
       "sourceType": "blog",
@@ -1995,30 +1875,6 @@
       "sourceType": "cafe",
       "sourceName": "맘이베베 (핫딜, 육아, 놀이)",
       "sourceUrl": "http://cafe.naver.com/skybluezw4rh/12992607",
-      "postDate": ""
-    },
-    {
-      "title": "먹어도 안전한 임산부소화제 3가지 (한국 &amp; 해외 소화제 총 정리)",
-      "summary": "흔해요 &quot;임산부니까 아무 약이나 먹어도 될까?&quot; 라는 걱정때문에 불편함을 참고 버티는 분들도 많죠 그래서 한국에서 비교적 안전하게 복용이 가능한 소화제 3가지와 피해야 할 소화제 유형까지 정리해드릴게요!...",
-      "sourceType": "cafe",
-      "sourceName": "집꾸미는엄마들 (육아정보/가전가구찐...",
-      "sourceUrl": "http://cafe.naver.com/dkdldlqj/1311",
-      "postDate": ""
-    },
-    {
-      "title": "임산부 속쓰림에 양배추즙? &quot;그만 드세요&quot;",
-      "summary": "&quot;약 먹어도 안 들어요&quot; — 타이밍이 전부였다 임신 중에 쓸 수 있는 임산부 제산제나 위산 분비 억제제(PPI)는 둘 다 안전하다고 해요. 그런데 &quot;약을 먹어도 효과가 없다&quot;고 말하는 분들이 꽤 있다고 하더라고요. 산부인과...",
-      "sourceType": "cafe",
-      "sourceName": "맘스홀릭 베이비 (360만 엄마들의 임신...",
-      "sourceUrl": "http://cafe.naver.com/imsanbu/78517307",
-      "postDate": ""
-    },
-    {
-      "title": "임산부 기침 안전한 완화법 정리",
-      "summary": "임산부 기침으로 고생하시는 분들께 도움이 될까 해서 제가 직접 경험해본 안전한 완화법들을 정리해봤어요.... 결국 안전한 약 처방받아서 완전히 나았거든요. 같은 고민 하시는 임산부 분들께 제 경험이 도움 되길...",
-      "sourceType": "cafe",
-      "sourceName": "우먼해독 : 탄력 | 주름 | 기미 | 미백...",
-      "sourceUrl": "http://cafe.naver.com/luxurylineage/17393",
       "postDate": ""
     },
     {
