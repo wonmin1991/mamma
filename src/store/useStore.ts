@@ -59,6 +59,12 @@ interface AppState {
   toggleBenefitCheck: (itemId: string) => void;
   isBenefitChecked: (itemId: string) => boolean;
 
+  // Supplements
+  supplementChecks: Record<string, string[]>; // { "2026-04-05": ["folic-acid", "iron"] }
+  toggleSupplementCheck: (supplementId: string) => void;
+  isSupplementChecked: (supplementId: string) => boolean;
+  getTodayCheckedCount: () => number;
+
   // Widgets
   activeWidgets: string[];
   setActiveWidgets: (widgets: string[]) => void;
@@ -184,8 +190,30 @@ export const useStore = create<AppState>()(
       },
       isBenefitChecked: (itemId) => get().benefitChecked.includes(itemId),
 
+      // --- Supplements ---
+      supplementChecks: {},
+      toggleSupplementCheck: (supplementId) => {
+        const today = getToday();
+        const checks = { ...get().supplementChecks };
+        const todayChecks = checks[today] ?? [];
+        if (todayChecks.includes(supplementId)) {
+          checks[today] = todayChecks.filter((id) => id !== supplementId);
+        } else {
+          checks[today] = [...todayChecks, supplementId];
+        }
+        set({ supplementChecks: checks });
+      },
+      isSupplementChecked: (supplementId) => {
+        const today = getToday();
+        return (get().supplementChecks[today] ?? []).includes(supplementId);
+      },
+      getTodayCheckedCount: () => {
+        const today = getToday();
+        return (get().supplementChecks[today] ?? []).length;
+      },
+
       // --- Widgets ---
-      activeWidgets: ["dday", "weekHighlight", "checklist", "quickTip"],
+      activeWidgets: ["dday", "supplements", "weekHighlight", "checklist", "quickTip"],
       setActiveWidgets: (widgets) => set({ activeWidgets: widgets }),
       toggleWidget: (widgetId) => {
         const current = get().activeWidgets;
@@ -324,6 +352,7 @@ export const useStore = create<AppState>()(
         coupleCode: state.coupleCode,
         checkedItems: state.checkedItems,
         benefitChecked: state.benefitChecked,
+        supplementChecks: state.supplementChecks,
         activeWidgets: state.activeWidgets,
         ownedItems: state.ownedItems,
         placedItems: state.placedItems,

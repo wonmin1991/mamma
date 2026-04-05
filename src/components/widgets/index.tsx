@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide, tips } from "@/data/mock";
 import { benefitChecklist } from "@/data/benefits";
+import { getSupplementsForWeek } from "@/data/supplements";
 import { useStore } from "@/store/useStore";
 import { formatDueDate } from "@/lib/date";
 import {
@@ -17,6 +18,7 @@ import {
   ChevronRight,
   Apple,
   Baby,
+  Pill,
 } from "lucide-react";
 
 // ─── Widget Registry ─────────────────────────────────────
@@ -35,6 +37,7 @@ export const WIDGET_REGISTRY: WidgetDef[] = [
   { id: "quickTip", name: "오늘의 꿀팁", description: "매일 바뀌는 임신 팁", emoji: "💡" },
   { id: "babySize", name: "아기 크기", description: "이번 주 아기 크기 비교", emoji: "👶" },
   { id: "hearts", name: "하트 현황", description: "보유 하트 및 연속 출석", emoji: "💖" },
+  { id: "supplements", name: "오늘의 영양제", description: "주차별 필수 영양제 복용 체크", emoji: "💊" },
 ];
 
 // ─── D-Day Widget ────────────────────────────────────────
@@ -259,6 +262,66 @@ function HeartsWidget() {
 
 // ─── Widget Renderer ─────────────────────────────────────
 
+// ─── Supplements Widget ──────────────────────────────────
+
+function SupplementsWidget() {
+  const { currentWeek } = usePregnancy();
+  const isSupplementChecked = useStore((s) => s.isSupplementChecked);
+  const toggleSupplementCheck = useStore((s) => s.toggleSupplementCheck);
+
+  const current = getSupplementsForWeek(currentWeek);
+  const essential = current.filter((s) => s.priority === "essential");
+  const checkedCount = essential.filter((s) => isSupplementChecked(s.id)).length;
+
+  return (
+    <div className="bg-card rounded-2xl border border-card-border shadow-sm p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+          <Pill size={14} className="text-primary" />
+          오늘의 영양제
+        </h3>
+        <Link href="/supplements" className="text-xs text-primary font-medium flex items-center gap-0.5">
+          전체보기 <ChevronRight size={12} />
+        </Link>
+      </div>
+
+      <div className="flex items-center gap-2 mb-3">
+        <div className="flex-1 h-1.5 bg-surface rounded-full overflow-hidden">
+          <div
+            className="h-full bg-primary rounded-full transition-all"
+            style={{ width: `${essential.length > 0 ? (checkedCount / essential.length) * 100 : 0}%` }}
+          />
+        </div>
+        <span className="text-[11px] text-muted">{checkedCount}/{essential.length} 필수</span>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        {essential.map((s) => {
+          const checked = isSupplementChecked(s.id);
+          return (
+            <button
+              key={s.id}
+              onClick={() => toggleSupplementCheck(s.id)}
+              className="flex items-center gap-2.5 text-left"
+            >
+              {checked ? (
+                <CheckCircle2 size={16} className="text-primary flex-shrink-0" />
+              ) : (
+                <Circle size={16} className="text-muted flex-shrink-0" />
+              )}
+              <span className="text-lg">{s.emoji}</span>
+              <span className={`text-xs ${checked ? "text-muted line-through" : "text-foreground"}`}>
+                {s.name.split(" (")[0]}
+              </span>
+              <span className="text-[10px] text-muted ml-auto">{s.dosage}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   dday: DDayWidget,
   weekHighlight: WeekHighlightWidget,
@@ -266,6 +329,7 @@ const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   quickTip: QuickTipWidget,
   babySize: BabySizeWidget,
   hearts: HeartsWidget,
+  supplements: SupplementsWidget,
 };
 
 export function WidgetArea() {
