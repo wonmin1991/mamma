@@ -12,15 +12,24 @@ import {
   AlertTriangle,
   Check,
   Info,
+  Moon,
+  Sun,
+  Monitor,
+  Cloud,
+  Copy,
+  Smartphone,
 } from "lucide-react";
 import {
   exportAllData,
   importAllData,
   clearAllData,
   getStorageUsage,
+  STORAGE_KEYS,
   type ExportData,
 } from "@/lib/storage";
 import { usePregnancy } from "@/contexts/PregnancyContext";
+import { useStore } from "@/store/useStore";
+import { exportToShareableString, importFromShareableString } from "@/lib/cloudSync";
 
 export default function SettingsPage() {
   const { dueDate, currentWeek, setDueDate, setWeekDirectly, reset } =
@@ -33,6 +42,8 @@ export default function SettingsPage() {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [storageInfo, setStorageInfo] = useState(() => getStorageUsage());
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const theme = useStore((s) => s.theme);
+  const setTheme = useStore((s) => s.setTheme);
 
   useEffect(() => {
     return () => {
@@ -48,6 +59,19 @@ export default function SettingsPage() {
     },
     []
   );
+
+  const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
+    setTheme(newTheme);
+    if (newTheme === "system") {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", prefersDark);
+      localStorage.removeItem(STORAGE_KEYS.THEME);
+    } else {
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      localStorage.setItem(STORAGE_KEYS.THEME, newTheme);
+    }
+    showToast("테마가 변경되었습니다", "success");
+  };
 
   const handleExport = () => {
     const data = exportAllData();
@@ -162,6 +186,37 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Theme */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+            <Moon size={16} className="text-secondary" />
+            화면 테마
+          </h2>
+          <div className="grid grid-cols-3 gap-2">
+            {([
+              { value: "light" as const, label: "라이트", icon: Sun },
+              { value: "dark" as const, label: "다크", icon: Moon },
+              { value: "system" as const, label: "시스템", icon: Monitor },
+            ]).map(({ value, label, icon: Icon }) => (
+              <button
+                key={value}
+                onClick={() => handleThemeChange(value)}
+                className={`flex flex-col items-center gap-2 py-3 rounded-xl text-sm font-medium transition-all ${
+                  theme === value
+                    ? "bg-primary text-white shadow-sm"
+                    : "bg-surface text-muted border border-card-border"
+                }`}
+              >
+                <Icon size={18} />
+                <span className="text-xs">{label}</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-muted mt-3">
+            시스템 설정을 선택하면 기기의 다크모드 설정에 자동으로 맞춰집니다.
+          </p>
+        </div>
+
         {/* Data management */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
           <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-2">
@@ -212,6 +267,62 @@ export default function SettingsPage() {
               onChange={handleImport}
               className="hidden"
             />
+          </div>
+        </div>
+
+        {/* Device sync */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-2">
+            <Cloud size={16} className="text-primary" />
+            기기 간 데이터 이동
+          </h2>
+          <p className="text-xs text-muted mb-4 flex items-start gap-1.5">
+            <Smartphone size={12} className="flex-shrink-0 mt-0.5" />
+            다른 기기로 데이터를 옮길 때 사용하세요. 동기화 코드를
+            복사하여 새 기기에서 붙여넣기하면 됩니다.
+          </p>
+
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                try {
+                  const code = exportToShareableString();
+                  navigator.clipboard.writeText(code);
+                  showToast("동기화 코드가 복사되었습니다. 새 기기에서 붙여넣기하세요.", "success");
+                } catch {
+                  showToast("동기화 코드 생성에 실패했습니다", "error");
+                }
+              }}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
+            >
+              <Copy size={16} />
+              동기화 코드 복사 (내보내기)
+            </button>
+
+            <button
+              onClick={async () => {
+                try {
+                  const code = await navigator.clipboard.readText();
+                  if (!code || code.length < 10) {
+                    showToast("클립보드에 동기화 코드가 없습니다", "error");
+                    return;
+                  }
+                  const result = importFromShareableString(code);
+                  if (result.success) {
+                    showToast("데이터가 복원되었습니다. 새로고침합니다...", "success");
+                    setTimeout(() => globalThis.location.reload(), 1500);
+                  } else {
+                    showToast(result.error || "복원에 실패했습니다", "error");
+                  }
+                } catch {
+                  showToast("클립보드를 읽을 수 없습니다", "error");
+                }
+              }}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-surface text-foreground text-sm font-medium border border-card-border transition-all active:scale-[0.98]"
+            >
+              <Download size={16} />
+              동기화 코드 붙여넣기 (가져오기)
+            </button>
           </div>
         </div>
 

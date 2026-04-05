@@ -1,0 +1,99 @@
+name: Update Data (Monthly)
+
+# 매월 1일 오전 9시(KST) 자동 실행
+# 수동 실행도 가능 (workflow_dispatch)
+on:
+  schedule:
+    - cron: "0 0 1 * *" # UTC 0시 = KST 9시
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "갱신 대상 (benefits, crawl, both)"
+        required: false
+        default: "both"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-benefits:
+    if: github.event_name == 'schedule' || github.event.inputs.targets == 'benefits' || github.event.inputs.targets == 'both'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch latest benefits data
+        env:
+          DATA_GO_KR_SERVICE_KEY: ${{ secrets.DATA_GO_KR_SERVICE_KEY }}
+        run: npm run fetch-benefits
+
+      - name: Check for changes
+        id: check
+        run: |
+          git diff --quiet src/data/benefits.ts && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR with updated benefits
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="data/benefits-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/benefits.ts data/benefits-seed.json
+          git commit -m "chore: update benefits data ($(date +%Y-%m-%d))"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: 혜택 데이터 갱신 ($(date +%Y-%m-%d))" \
+            --body "공공데이터포털 API에서 최신 임산부/육아 혜택 데이터를 갱신했습니다." \
+            --base main
+
+  update-crawl:
+    if: github.event_name == 'schedule' || github.event.inputs.targets == 'crawl' || github.event.inputs.targets == 'both'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Crawl latest content from Naver
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: npm run crawl
+
+      - name: Check for changes
+        id: check
+        run: |
+          git diff --quiet src/data/crawled.ts && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR with updated content
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="data/crawl-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/crawled.ts data/seed.json
+          git commit -m "chore: update crawled content ($(date +%Y-%m-%d))"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: 크롤링 콘텐츠 갱신 ($(date +%Y-%m-%d))" \
+            --body "네이버 API에서 최신 맛집/꿀팁/큐레이션 데이터를 갱신했습니다." \
+            --base main
