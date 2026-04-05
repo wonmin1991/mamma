@@ -8,7 +8,7 @@ import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
 
 export default function HeroSection() {
-  const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded, babyNickname } = usePregnancy();
+  const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded, babyNickname, parentRole } = usePregnancy();
 
   const weekIdx = Math.max(0, Math.min(39, currentWeek - 1));
   const weekInfo = weeklyGuide[weekIdx];
@@ -21,7 +21,9 @@ export default function HeroSection() {
     <section className="relative px-5 pt-14 pb-8 bg-gradient-to-br from-hero-from via-hero-via to-hero-to">
       <div className="animate-fade-in-up">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-primary font-medium mb-1">오늘도 건강하세요 ✨</p>
+          <p className="text-sm text-primary font-medium mb-1">
+            {parentRole === "dad" ? "오늘도 든든한 아빠 ✨" : "오늘도 건강하세요 ✨"}
+          </p>
           <div className="flex items-center gap-1">
             <Link
               href="/emergency"

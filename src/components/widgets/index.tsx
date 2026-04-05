@@ -432,15 +432,19 @@ function WeekBenefitWidget() {
 // ─── Today Todo Widget (대시보드) ─────────────────────────
 
 function TodayTodoWidget() {
-  const { currentWeek } = usePregnancy();
+  const { currentWeek, parentRole } = usePregnancy();
   const benefitChecked = useStore((s) => s.benefitChecked);
   const isSupplementChecked = useStore((s) => s.isSupplementChecked);
 
   const currentCheckups = getCheckupsForWeek(currentWeek);
   const upcomingCheckups = getUpcomingCheckups(currentWeek);
-  const urgentBenefits = getUrgentBenefits(currentWeek).filter((b) => !benefitChecked.includes(b.id));
+  const urgentBenefits = getUrgentBenefits(currentWeek)
+    .filter((b) => !benefitChecked.includes(b.id))
+    .filter((b) => !b.forRole || b.forRole === parentRole || b.forRole === "both");
   const todaySupplements = getSupplementsForWeek(currentWeek);
-  const uncheckedSupplements = todaySupplements.filter((s) => s.priority === "essential" && !isSupplementChecked(s.id));
+  const uncheckedSupplements = parentRole === "mom"
+    ? todaySupplements.filter((s) => s.priority === "essential" && !isSupplementChecked(s.id))
+    : [];
 
   const todos: { icon: string; text: string; href: string; urgent?: boolean }[] = [];
 

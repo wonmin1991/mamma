@@ -3,6 +3,8 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
 import { STORAGE_KEYS } from "@/lib/storage";
 
+export type ParentRole = "mom" | "dad";
+
 interface PregnancyData {
   dueDate: string | null;
   currentWeek: number;
@@ -10,12 +12,14 @@ interface PregnancyData {
   daysUntilDue: number;
   isOnboarded: boolean;
   babyNickname: string;
+  parentRole: ParentRole;
 }
 
 interface PregnancyContextValue extends PregnancyData {
   setDueDate: (date: string) => void;
   setWeekDirectly: (week: number) => void;
   setBabyNickname: (name: string) => void;
+  setParentRole: (role: ParentRole) => void;
   reset: () => void;
 }
 
@@ -45,6 +49,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
   const [daysUntilDue, setDaysUntilDue] = useState(0);
   const [isOnboarded, setIsOnboarded] = useState(true);
   const [babyNickname, setBabyNicknameState] = useState("아기");
+  const [parentRole, setParentRoleState] = useState<ParentRole>("mom");
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -53,6 +58,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
       if (raw) {
         const saved = JSON.parse(raw);
         if (saved.babyNickname) setBabyNicknameState(saved.babyNickname);
+        if (saved.parentRole) setParentRoleState(saved.parentRole);
         if (saved.dueDate) {
           const calc = calculateFromDueDate(saved.dueDate);
           /* eslint-disable react-hooks/set-state-in-effect -- client-only localStorage hydration */
@@ -111,6 +117,11 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     saveToStorage({ babyNickname: trimmed });
   }, [saveToStorage]);
 
+  const setParentRole = useCallback((role: ParentRole) => {
+    setParentRoleState(role);
+    saveToStorage({ parentRole: role });
+  }, [saveToStorage]);
+
   const reset = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setDueDateState(null);
@@ -118,12 +129,13 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     setCurrentDay(0);
     setDaysUntilDue(0);
     setBabyNicknameState("아기");
+    setParentRoleState("mom");
     setIsOnboarded(false);
   }, []);
 
   const value = useMemo(
-    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset }),
-    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset]
+    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset }),
+    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset]
   );
 
   if (!loaded) {

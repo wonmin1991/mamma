@@ -7,12 +7,12 @@ import { useFocusTrap } from "@/lib/useFocusTrap";
 import ScrollDatePicker from "@/components/ScrollDatePicker";
 import { regions, getDistrictsByRegion } from "@/data/regions";
 
-type Step = "welcome" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
+type Step = "welcome" | "role" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
 
 const REGION_STORAGE_KEY = "mamma-benefit-region";
 
 export default function OnboardingModal() {
-  const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname } = usePregnancy();
+  const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname, setParentRole } = usePregnancy();
   const [step, setStep] = useState<Step>("welcome");
   const today = new Date();
   const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 4).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
@@ -80,7 +80,7 @@ export default function OnboardingModal() {
               간단한 정보를 알려주세요.
             </p>
             <button
-              onClick={() => setStep("method")}
+              onClick={() => setStep("role")}
               className="mt-6 w-full py-3.5 rounded-2xl bg-primary text-white font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
             >
               시작하기 <ChevronRight size={16} />
@@ -94,6 +94,41 @@ export default function OnboardingModal() {
             >
               나중에 설정할게요
             </button>
+          </div>
+        )}
+
+        {step === "role" && (
+          <div className="p-8">
+            <h2 className="text-lg font-bold text-foreground text-center mb-2">
+              누구를 위한 정보인가요?
+            </h2>
+            <p className="text-xs text-muted text-center mb-6">
+              역할에 맞는 맞춤 가이드를 제공해드려요
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setParentRole("mom"); setStep("method"); }}
+                className="flex-1 flex flex-col items-center gap-3 p-5 rounded-2xl border border-card-border bg-surface hover:border-primary transition-colors"
+              >
+                <span className="text-4xl">🤰</span>
+                <div className="text-center">
+                  <p className="font-bold text-sm text-foreground">예비 엄마</p>
+                  <p className="text-[11px] text-muted mt-1">임신·출산 가이드</p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => { setParentRole("dad"); setStep("method"); }}
+                className="flex-1 flex flex-col items-center gap-3 p-5 rounded-2xl border border-card-border bg-surface hover:border-secondary transition-colors"
+              >
+                <span className="text-4xl">👨‍👧</span>
+                <div className="text-center">
+                  <p className="font-bold text-sm text-foreground">예비 아빠</p>
+                  <p className="text-[11px] text-muted mt-1">아빠가 할 일 가이드</p>
+                </div>
+              </button>
+            </div>
           </div>
         )}
 

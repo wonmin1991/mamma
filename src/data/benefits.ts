@@ -721,7 +721,7 @@ export interface BenefitCheckItem {
   name: string;
   description: string;
   stage: "pregnancy" | "birth" | "after-birth" | "ongoing";
-  category: "money" | "medical" | "childcare" | "document" | "insurance";
+  category: "money" | "medical" | "childcare" | "document" | "insurance" | "other";
   region: string;
   deadline: string;
   applyUrl: string;
@@ -732,6 +732,8 @@ export interface BenefitCheckItem {
   deadlineWeek: number;
   /** 예상 금액 (표시용) */
   amount?: string;
+  /** 대상 역할 (미지정이면 모두) */
+  forRole?: "mom" | "dad" | "both";
 }
 
 export const CHECKLIST_STAGES = [
@@ -1016,6 +1018,121 @@ export const benefitChecklist: BenefitCheckItem[] = [
     priority: "low",
     recommendedWeek: 0,
     deadlineWeek: 0,
+  },
+
+  // ─── 아빠 전용 체크리스트 ──────────────────────────────
+  {
+    id: "bc-d1",
+    name: "아빠 배려 출산휴가 10일 사용하기",
+    description: "배우자 출산 시 10일의 유급 출산휴가를 사용할 수 있습니다. 출산일로부터 120일 이내 신청. 분할 사용도 가능해요.",
+    stage: "birth",
+    category: "money",
+    region: "전국",
+    deadline: "출산일로부터 120일 이내",
+    applyUrl: "https://www.ei.go.kr",
+    priority: "high",
+    recommendedWeek: 36,
+    deadlineWeek: 50,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d2",
+    name: "출생신고 대리 신청 (아빠가 해주세요!)",
+    description: "엄마가 산후조리 중일 때 아빠가 출생신고를 대리할 수 있어요. 주민센터 또는 정부24에서 첫만남이용권, 아동수당도 동시 신청하세요.",
+    stage: "birth",
+    category: "document",
+    region: "전국",
+    deadline: "출생일로부터 1개월 이내",
+    applyUrl: "https://www.gov.kr",
+    priority: "high",
+    recommendedWeek: 40,
+    deadlineWeek: 44,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d3",
+    name: "아빠 육아휴직 신청 (6+6 제도 필수!)",
+    description: "아빠도 육아휴직을 사용하면 6+6 부모육아휴직제로 첫 6개월 월 최대 450만원! 회사에 미리 알리고 신청하세요.",
+    stage: "after-birth",
+    category: "money",
+    region: "전국",
+    deadline: "자녀 생후 18개월 이내 시작",
+    applyUrl: "https://www.ei.go.kr",
+    priority: "high",
+    recommendedWeek: 36,
+    deadlineWeek: 0,
+    amount: "월 최대 450만원",
+    forRole: "dad",
+  },
+  {
+    id: "bc-d4",
+    name: "산후조리원 예약·결제 (아빠 담당)",
+    description: "산후조리원 투어, 예약, 결제를 아빠가 주도해주세요. 입퇴실 날짜와 면회 규정도 확인하세요.",
+    stage: "pregnancy",
+    category: "medical",
+    region: "전국",
+    deadline: "임신 12주 이전 권장",
+    applyUrl: "",
+    priority: "medium",
+    recommendedWeek: 8,
+    deadlineWeek: 30,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d5",
+    name: "출산 가방 준비 (병원 입원용)",
+    description: "출산 예정일 4주 전까지 병원 입원 가방을 준비하세요. 산모 옷, 세면도구, 아기 배냇저고리, 카시트(퇴원용) 등.",
+    stage: "pregnancy",
+    category: "document",
+    region: "전국",
+    deadline: "36주 이전",
+    applyUrl: "",
+    priority: "medium",
+    recommendedWeek: 32,
+    deadlineWeek: 38,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d6",
+    name: "카시트 설치 + 병원 이동 경로 확인",
+    description: "신생아용 카시트를 미리 설치하고, 집에서 병원까지 이동 경로와 소요 시간을 확인하세요. 야간 이동도 연습해보세요.",
+    stage: "pregnancy",
+    category: "document",
+    region: "전국",
+    deadline: "37주 이전",
+    applyUrl: "",
+    priority: "high",
+    recommendedWeek: 34,
+    deadlineWeek: 39,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d7",
+    name: "진통 시작 시 아빠 행동 매뉴얼 숙지",
+    description: "진통 간격 체크 방법, 병원 연락 시점, 입원 시 필요한 서류(신분증, 산모수첩), 주차 위치 등을 미리 숙지하세요.",
+    stage: "pregnancy",
+    category: "medical",
+    region: "전국",
+    deadline: "38주 이전",
+    applyUrl: "",
+    priority: "high",
+    recommendedWeek: 36,
+    deadlineWeek: 40,
+    forRole: "dad",
+  },
+  {
+    id: "bc-d8",
+    name: "산후조리 기간 가사 분담 계획 세우기",
+    description: "산후조리원 퇴소 후 최소 2주간 집안일, 요리, 장보기를 아빠가 담당하세요. 배달앱, 밀키트 등 미리 준비해두면 좋아요.",
+    stage: "birth",
+    category: "other",
+    region: "전국",
+    deadline: "출산 전 계획",
+    applyUrl: "",
+    priority: "medium",
+    recommendedWeek: 34,
+    deadlineWeek: 42,
+    forRole: "dad",
   },
 ];
 

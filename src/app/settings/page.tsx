@@ -45,7 +45,7 @@ import {
 } from "@/lib/notifications";
 
 export default function SettingsPage() {
-  const { dueDate, currentWeek, babyNickname, setDueDate, setWeekDirectly, setBabyNickname, reset } =
+  const { dueDate, currentWeek, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset } =
     usePregnancy();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<{
@@ -176,6 +176,28 @@ export default function SettingsPage() {
           </h2>
 
           <div className="flex flex-col gap-3">
+            <div>
+              <p className="text-xs text-muted mb-1">나는</p>
+              <div className="grid grid-cols-2 gap-2">
+                {(["mom", "dad"] as const).map((role) => (
+                  <button
+                    key={role}
+                    onClick={() => {
+                      setParentRole(role);
+                      showToast(role === "mom" ? "예비 엄마로 설정했어요" : "예비 아빠로 설정했어요", "success");
+                    }}
+                    className={`py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      parentRole === role
+                        ? "bg-primary text-white"
+                        : "bg-surface text-muted border border-card-border"
+                    }`}
+                  >
+                    {role === "mom" ? "🤰 예비 엄마" : "👨‍👧 예비 아빠"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div>
               <label htmlFor="baby-nickname" className="text-xs text-muted block mb-1">
                 태명
