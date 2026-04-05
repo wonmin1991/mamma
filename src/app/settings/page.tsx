@@ -20,6 +20,8 @@ import {
   Smartphone,
   MapPin,
   ChevronDown,
+  Bell,
+  BellOff,
 } from "lucide-react";
 import {
   exportAllData,
@@ -33,6 +35,14 @@ import { usePregnancy } from "@/contexts/PregnancyContext";
 import { useStore } from "@/store/useStore";
 import { exportToShareableString, importFromShareableString } from "@/lib/cloudSync";
 import { regions, getDistrictsByRegion } from "@/data/regions";
+import {
+  getNotificationSettings,
+  saveNotificationSettings,
+  requestPermission,
+  getPermissionStatus,
+  sendTestNotification,
+  type NotificationSettings,
+} from "@/lib/notifications";
 
 export default function SettingsPage() {
   const { dueDate, currentWeek, setDueDate, setWeekDirectly, reset } =
@@ -47,6 +57,8 @@ export default function SettingsPage() {
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [savedRegion, setSavedRegion] = useState("");
   const [savedDistrict, setSavedDistrict] = useState("");
+  const [notiSettings, setNotiSettings] = useState<NotificationSettings | null>(null);
+  const [notiPermission, setNotiPermission] = useState<string>("default");
   const theme = useStore((s) => s.theme);
   const setTheme = useStore((s) => s.setTheme);
 
@@ -55,6 +67,8 @@ export default function SettingsPage() {
       setSavedRegion(localStorage.getItem("mamma-benefit-region") || "");
       setSavedDistrict(localStorage.getItem("mamma-benefit-district") || "");
     } catch { /* ignore */ }
+    setNotiSettings(getNotificationSettings());
+    setNotiPermission(getPermissionStatus());
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
@@ -280,6 +294,95 @@ export default function SettingsPage() {
             시스템 설정을 선택하면 기기의 다크모드 설정에 자동으로 맞춰집니다.
           </p>
         </div>
+
+        {/* Notifications */}
+        {notiSettings && (
+          <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+            <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+              <Bell size={16} className="text-primary" />
+              알림 설정
+            </h2>
+
+            {notiPermission === "unsupported" ? (
+              <p className="text-xs text-muted">이 브라우저는 알림을 지원하지 않습니다.</p>
+            ) : notiPermission === "denied" ? (
+              <div className="flex items-start gap-2">
+                <BellOff size={14} className="text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-muted">
+                  알림 권한이 차단되었습니다. 브라우저 설정에서 알림 권한을 허용해주세요.
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {/* Enable toggle */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-foreground">알림 받기</p>
+                    <p className="text-xs text-muted mt-0.5">영양제 복용 알림을 받습니다</p>
+                  </div>
+                  <button
+                    onClick={async () => {
+                      if (!notiSettings.enabled) {
+                        const granted = await requestPermission();
+                        if (!granted) {
+                          showToast("알림 권한이 필요합니다", "error");
+                          setNotiPermission(getPermissionStatus());
+                          return;
+                        }
+                        setNotiPermission("granted");
+                      }
+                      const updated = { ...notiSettings, enabled: !notiSettings.enabled };
+                      saveNotificationSettings(updated);
+                      setNotiSettings(updated);
+                      showToast(updated.enabled ? "알림이 활성화되었습니다" : "알림이 비활성화되었습니다", "success");
+                    }}
+                    className={`w-12 h-7 rounded-full transition-colors relative ${
+                      notiSettings.enabled ? "bg-primary" : "bg-surface border border-card-border"
+                    }`}
+                  >
+                    <span className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform ${
+                      notiSettings.enabled ? "translate-x-5" : "translate-x-0.5"
+                    }`} />
+                  </button>
+                </div>
+
+                {notiSettings.enabled && (
+                  <>
+                    {/* Supplement time */}
+                    <div>
+                      <label htmlFor="noti-time" className="text-xs text-muted block mb-1">
+                        영양제 알림 시간
+                      </label>
+                      <input
+                        id="noti-time"
+                        type="time"
+                        value={notiSettings.supplementTime}
+                        onChange={(e) => {
+                          const updated = { ...notiSettings, supplementTime: e.target.value };
+                          saveNotificationSettings(updated);
+                          setNotiSettings(updated);
+                          showToast(`알림 시간이 ${e.target.value}로 변경되었습니다`, "success");
+                        }}
+                        className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary"
+                      />
+                    </div>
+
+                    {/* Test button */}
+                    <button
+                      onClick={async () => {
+                        const sent = await sendTestNotification();
+                        showToast(sent ? "테스트 알림을 보냈습니다" : "알림 전송에 실패했습니다", sent ? "success" : "error");
+                      }}
+                      className="text-xs text-primary font-medium text-left"
+                    >
+                      테스트 알림 보내기
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Data management */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">

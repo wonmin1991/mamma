@@ -1,4 +1,4 @@
-const CACHE_VERSION = "mamma-v4";
+const CACHE_VERSION = "mamma-v5";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const MAX_DYNAMIC_CACHE = 80;
@@ -74,6 +74,27 @@ async function trimCache(cacheName, maxItems) {
     await Promise.all(keys.slice(0, keys.length - maxItems).map((k) => cache.delete(k)));
   }
 }
+
+// ─── Notification click handler ──────────────────────────
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  const url = event.notification.data?.url || "/";
+
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      // 이미 열린 탭이 있으면 포커스
+      for (const client of clients) {
+        if (client.url.includes(url) && "focus" in client) {
+          return client.focus();
+        }
+      }
+      // 없으면 새 탭 열기
+      return self.clients.openWindow(url);
+    })
+  );
+});
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
