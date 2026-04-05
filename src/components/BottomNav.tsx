@@ -10,7 +10,8 @@ import {
   Users,
   ClipboardList,
   TrendingUp,
-  BookOpen,
+  Shield,
+  Settings2,
   type LucideIcon,
 } from "lucide-react";
 import { useBabyStore } from "@/store/useBabyStore";
@@ -26,15 +27,15 @@ const pregnancyNav: NavItem[] = [
   { href: "/restaurants", label: "맛집", icon: UtensilsCrossed },
   { href: "/guide", label: "가이드", icon: Baby },
   { href: "/tips", label: "꿀팁", icon: Lightbulb },
-  { href: "/community", label: "커뮤니티", icon: Users },
+  { href: "/community", label: "나의기록", icon: Users },
 ];
 
 const postnatalNav: NavItem[] = [
   { href: "/", label: "홈", icon: Home },
   { href: "/care-log", label: "육아기록", icon: ClipboardList },
   { href: "/growth", label: "성장", icon: TrendingUp },
-  { href: "/diary", label: "일기", icon: BookOpen },
-  { href: "/community", label: "커뮤니티", icon: Users },
+  { href: "/vaccination", label: "접종", icon: Shield },
+  { href: "/settings", label: "설정", icon: Settings2 },
 ];
 
 export default function BottomNav() {

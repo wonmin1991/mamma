@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -75,6 +75,12 @@ export default function CareLogPage() {
   const [formSide, setFormSide] = useState<"left" | "right" | "both">("left");
   const [formNote, setFormNote] = useState("");
 
+  // timer state
+  const [timerActive, setTimerActive] = useState(false);
+  const [timerType, setTimerType] = useState<CareLogType | null>(null);
+  const [timerStart, setTimerStart] = useState<Date | null>(null);
+  const [timerElapsed, setTimerElapsed] = useState(0);
+
   const dateStr = toDateStr(selectedDate);
 
   /* filtered & sorted logs */
@@ -94,6 +100,51 @@ export default function CareLogPage() {
       diapers: dayLogs.filter((l) => l.type.startsWith("diaper")).length,
     };
   }, [careLogs, dateStr]);
+
+  /* timer tick */
+  useEffect(() => {
+    if (!timerActive || !timerStart) return;
+    const id = setInterval(() => {
+      setTimerElapsed(Math.floor((Date.now() - timerStart.getTime()) / 1000));
+    }, 1000);
+    return () => clearInterval(id);
+  }, [timerActive, timerStart]);
+
+  const startTimer = (type: CareLogType) => {
+    setTimerType(type);
+    setTimerStart(new Date());
+    setTimerElapsed(0);
+    setTimerActive(true);
+  };
+
+  const stopTimer = () => {
+    if (!timerStart || !timerType) return;
+    const end = new Date();
+    const entry: {
+      type: CareLogType;
+      startTime: string;
+      endTime?: string;
+      side?: "left" | "right" | "both";
+      note?: string;
+    } = {
+      type: timerType,
+      startTime: timerStart.toISOString(),
+    };
+    if (timerType === "sleep" || timerType === "breast_feed") {
+      entry.endTime = end.toISOString();
+    }
+    addCareLog(entry);
+    setTimerActive(false);
+    setTimerType(null);
+    setTimerStart(null);
+    setTimerElapsed(0);
+  };
+
+  const formatElapsed = (s: number) => {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+  };
 
   /* date nav */
   const goPrev = () => setSelectedDate((d) => { const n = new Date(d); n.setDate(n.getDate() - 1); return n; });
@@ -203,6 +254,51 @@ export default function CareLogPage() {
             </div>
           ))}
         </div>
+
+        {/* ── Timer ── */}
+        {timerActive && timerType ? (
+          <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl border-2 border-primary/30 p-5">
+            <div className="text-center">
+              <p className="text-xs text-muted mb-1">
+                {CARE_LOG_TYPES.find((t) => t.id === timerType)?.emoji}{" "}
+                {CARE_LOG_TYPES.find((t) => t.id === timerType)?.label} 진행 중
+              </p>
+              <p className="text-4xl font-bold text-primary font-mono tabular-nums">
+                {formatElapsed(timerElapsed)}
+              </p>
+              <p className="text-xs text-muted mt-1">
+                시작: {timerStart ? formatTime(timerStart.toISOString()) : ""}
+              </p>
+            </div>
+            <button
+              onClick={stopTimer}
+              className="w-full mt-4 py-3 rounded-xl bg-red-500 text-white font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+            >
+              <X className="w-4 h-4" /> 종료 및 저장
+            </button>
+          </div>
+        ) : (
+          <div className="bg-card rounded-2xl border border-card-border p-4">
+            <h2 className="text-sm font-semibold text-muted mb-3 flex items-center gap-1.5">
+              <Clock className="w-4 h-4" /> 타이머로 기록
+            </h2>
+            <div className="grid grid-cols-2 gap-2">
+              {(["breast_feed", "sleep"] as CareLogType[]).map((type) => {
+                const info = CARE_LOG_TYPES.find((t) => t.id === type);
+                return (
+                  <button
+                    key={type}
+                    onClick={() => startTimer(type)}
+                    className="flex items-center gap-2 p-3 rounded-xl bg-surface hover:bg-surface/80 transition-colors border border-card-border"
+                  >
+                    <span className="text-xl">{info?.emoji}</span>
+                    <span className="text-xs font-medium">{info?.label} 시작</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* ── Quick Action Buttons ── */}
         <div className="bg-card rounded-2xl border border-card-border p-4">

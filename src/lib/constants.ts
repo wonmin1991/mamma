@@ -1,5 +1,6 @@
-export const BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://mamma.app";
+import { env } from "./env";
+
+export const BASE_URL = env.baseUrl;
 
 export const SITE_NAME = "맘마";
 export const SITE_DESCRIPTION =

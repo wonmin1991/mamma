@@ -14,6 +14,7 @@ import {
   Plus,
   X,
   Send,
+  Info,
 } from "lucide-react";
 import Link from "next/link";
 import { useStore } from "@/store/useStore";
@@ -113,13 +114,13 @@ export default function CommunityPage() {
             <Link href="/" className="p-1 -ml-1" aria-label="뒤로가기">
               <ChevronLeft size={22} className="text-foreground" />
             </Link>
-            <h1 className="text-lg font-bold text-foreground">커뮤니티</h1>
+            <h1 className="text-lg font-bold text-foreground">나의 기록</h1>
           </div>
           <button
             onClick={() => setShowForm(true)}
             className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary text-white text-xs font-medium"
           >
-            <Plus size={14} /> 글쓰기
+            <Plus size={14} /> 기록 추가
           </button>
         </div>
 
@@ -140,13 +141,20 @@ export default function CommunityPage() {
         </div>
       </header>
 
+        <div className="px-5 mt-2">
+          <p className="text-xs text-muted bg-surface rounded-xl px-3 py-2 flex items-start gap-1.5">
+            <Info size={12} className="flex-shrink-0 mt-0.5" />
+            이 기록은 이 기기에만 저장됩니다. 설정에서 백업할 수 있어요.
+          </p>
+        </div>
+
       {/* Post form modal */}
       {showForm && (
         <div ref={formFocusRef} className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" aria-labelledby="new-post-title">
           <button type="button" className="absolute inset-0 bg-black/40" onClick={() => setShowForm(false)} aria-label="닫기" />
           <div className="relative w-full max-w-lg bg-card rounded-t-3xl p-5 pb-8 animate-fade-in-up">
             <div className="flex items-center justify-between mb-4">
-              <h2 id="new-post-title" className="text-base font-bold text-foreground">새 글 작성</h2>
+              <h2 id="new-post-title" className="text-base font-bold text-foreground">새 기록 작성</h2>
               <button onClick={() => setShowForm(false)} className="p-1 text-muted" aria-label="닫기">
                 <X size={20} />
               </button>
@@ -198,7 +206,7 @@ export default function CommunityPage() {
               disabled={!formTitle.trim() || !formContent.trim()}
               className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
             >
-              <Send size={16} /> 게시하기
+              <Send size={16} /> 저장하기
             </button>
           </div>
         </div>
@@ -206,7 +214,7 @@ export default function CommunityPage() {
 
       {/* Posts list */}
       <section className="px-5 mt-3 pb-6">
-        <p className="text-xs text-muted mb-3">총 {filteredPosts.length}개의 글</p>
+        <p className="text-xs text-muted mb-3">총 {filteredPosts.length}개의 기록</p>
 
         <div className="flex flex-col gap-3">
           {filteredPosts.map((post, i) => {
@@ -258,8 +266,8 @@ export default function CommunityPage() {
         {filteredPosts.length === 0 && (
           <div className="text-center py-16">
             <p className="text-4xl mb-3">💬</p>
-            <p className="text-sm font-medium text-foreground">아직 글이 없어요</p>
-            <p className="text-xs text-muted mt-1">첫 번째 글을 작성해보세요!</p>
+            <p className="text-sm font-medium text-foreground">아직 기록이 없어요</p>
+            <p className="text-xs text-muted mt-1">첫 번째 기록을 남겨보세요!</p>
           </div>
         )}
       </section>

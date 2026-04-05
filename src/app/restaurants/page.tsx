@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { restaurants, CATEGORIES, AREA_GROUPS } from "@/data/mock";
-import { Star, MapPin, ChevronLeft, Search, X } from "lucide-react";
+import { Star, MapPin, ChevronLeft, Search, X, Navigation } from "lucide-react";
 import Link from "next/link";
 import BookmarkButton from "@/components/BookmarkButton";
 
@@ -11,17 +11,52 @@ export default function RestaurantsPage() {
   const [activeArea, setActiveArea] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [sortBy, setSortBy] = useState<"rating" | "distance">("rating");
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [locationLoading, setLocationLoading] = useState(false);
 
-  const filteredRestaurants = useMemo(() => restaurants.filter((r) => {
-    const matchCategory = activeCategory === "all" || r.category === activeCategory;
-    const matchArea = activeArea === "all" || r.region === activeArea;
-    const matchSearch =
-      !searchQuery ||
-      r.name.includes(searchQuery) ||
-      r.area.includes(searchQuery) ||
-      r.tags.some((t) => t.includes(searchQuery));
-    return matchCategory && matchArea && matchSearch;
-  }), [activeCategory, activeArea, searchQuery]);
+  const requestLocation = useCallback(() => {
+    if (!navigator.geolocation) return;
+    setLocationLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setSortBy("distance");
+        setLocationLoading(false);
+      },
+      () => setLocationLoading(false),
+      { timeout: 5000 }
+    );
+  }, []);
+
+  const filteredRestaurants = useMemo(() => {
+    const filtered = restaurants.filter((r) => {
+      const matchCategory = activeCategory === "all" || r.category === activeCategory;
+      const matchArea = activeArea === "all" || r.region === activeArea;
+      const matchSearch =
+        !searchQuery ||
+        r.name.includes(searchQuery) ||
+        r.area.includes(searchQuery) ||
+        r.tags.some((t) => t.includes(searchQuery));
+      return matchCategory && matchArea && matchSearch;
+    });
+    if (sortBy === "distance" && userLocation) {
+      // Simple heuristic: seoul=37.56, gyeonggi=37.40, incheon=37.45
+      const regionCoords: Record<string, { lat: number; lng: number }> = {
+        seoul: { lat: 37.5665, lng: 126.978 },
+        gyeonggi: { lat: 37.4138, lng: 127.5183 },
+        incheon: { lat: 37.4563, lng: 126.7052 },
+      };
+      return [...filtered].sort((a, b) => {
+        const ca = regionCoords[a.region] ?? regionCoords.seoul;
+        const cb = regionCoords[b.region] ?? regionCoords.seoul;
+        const da = Math.hypot(ca.lat - userLocation.lat, ca.lng - userLocation.lng);
+        const db = Math.hypot(cb.lat - userLocation.lat, cb.lng - userLocation.lng);
+        return da - db;
+      });
+    }
+    return [...filtered].sort((a, b) => b.rating - a.rating);
+  }, [activeCategory, activeArea, searchQuery, sortBy, userLocation]);
 
   return (
     <main className="flex flex-col">
@@ -105,6 +140,26 @@ export default function RestaurantsPage() {
               <span>{cat.emoji}</span>{cat.label}
             </button>
           ))}
+        </div>
+        {/* Sort options */}
+        <div className="flex items-center gap-2 mt-2">
+          <button
+            onClick={() => setSortBy("rating")}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+              sortBy === "rating" ? "bg-primary text-white" : "bg-surface text-muted"
+            }`}
+          >
+            <Star size={10} className="inline mr-1" />평점순
+          </button>
+          <button
+            onClick={() => { if (userLocation) setSortBy("distance"); else requestLocation(); }}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center gap-1 ${
+              sortBy === "distance" ? "bg-primary text-white" : "bg-surface text-muted"
+            }`}
+          >
+            <Navigation size={10} />
+            {locationLoading ? "위치 확인 중..." : "거리순"}
+          </button>
         </div>
       </header>
 

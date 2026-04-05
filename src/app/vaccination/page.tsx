@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronDown, ChevronUp, Shield, AlertCircle } from "lucide-react";
+import { ChevronLeft, ChevronDown, ChevronUp, Shield, AlertCircle, CalendarPlus } from "lucide-react";
+import { generateICS, downloadICS } from "@/lib/calendar";
 import { useBabyStore, getBabyAgeMonths } from "@/store/useBabyStore";
 import { VACCINATIONS } from "@/data/postnatal";
 
@@ -61,6 +62,27 @@ export default function VaccinationPage() {
     return "past";
   }
 
+  const handleCalendarExport = () => {
+    if (!baby) return;
+    const birthDate = new Date(baby.birthDate);
+    const events = VACCINATIONS.flatMap((vaccine) =>
+      vaccine.doses.map((dose) => {
+        const startDate = new Date(birthDate);
+        startDate.setMonth(startDate.getMonth() + dose.monthStart);
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 1);
+        return {
+          title: `[예방접종] ${vaccine.name} ${dose.doseNumber}차`,
+          description: `${vaccine.koreanName} - ${dose.description}`,
+          startDate,
+          endDate,
+        };
+      })
+    );
+    const ics = generateICS(events, `${baby.name} 예방접종 일정`);
+    downloadICS(ics, `${baby.name}-vaccination-schedule.ics`);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
       {/* Header */}
@@ -103,6 +125,17 @@ export default function VaccinationPage() {
               </span>
             </p>
           </div>
+        )}
+
+        {/* Calendar export */}
+        {baby && (
+          <button
+            onClick={handleCalendarExport}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-primary text-white font-medium text-sm active:scale-[0.98] transition-transform"
+          >
+            <CalendarPlus className="w-4 h-4" />
+            캘린더에 접종 일정 내보내기 (.ics)
+          </button>
         )}
 
         {/* Vaccine cards */}
