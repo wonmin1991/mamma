@@ -205,10 +205,18 @@ export default function SettingsPage() {
               <input
                 id="baby-nickname"
                 type="text"
-                value={babyNickname}
-                onChange={(e) => {
-                  setBabyNickname(e.target.value);
-                  showToast("태명이 변경되었습니다", "success");
+                defaultValue={babyNickname}
+                onBlur={(e) => {
+                  const val = e.target.value.trim();
+                  if (val && val !== babyNickname) {
+                    setBabyNickname(val);
+                    showToast("태명이 변경되었습니다", "success");
+                  } else if (!val) {
+                    e.target.value = babyNickname;
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") (e.target as HTMLInputElement).blur();
                 }}
                 placeholder="예: 콩이, 복덩이"
                 maxLength={10}
