@@ -133,6 +133,45 @@ function extractArea(address: string): string {
   return m ? m[1] : "";
 }
 
+// 카테고리+키워드 기반 임산부 포인트 자동 생성
+const PREGNANCY_PERKS_MAP: Record<string, string[]> = {
+  korean: ["따뜻한 한식 메뉴 위주", "저염식 요청 가능"],
+  western: ["스테이크 등 철분 보충 메뉴"],
+  japanese: ["익힌 메뉴 위주 선택 가능"],
+  chinese: ["뜨거운 음식 위주로 안전"],
+  cafe: ["디카페인 메뉴 제공 확인 필요"],
+  salad: ["신선한 채소·과일 섭취 가능", "유기농 재료 사용"],
+};
+
+const KEYWORD_PERKS: [RegExp, string][] = [
+  [/디카페인/i, "디카페인 메뉴 제공"],
+  [/유기농|자연식/i, "유기농 재료 사용"],
+  [/비건|채식/i, "채식 메뉴 제공"],
+  [/건강식|저염|저당/i, "건강식 메뉴 제공"],
+  [/한정식|코스/i, "코스 메뉴로 편안한 식사"],
+  [/개인실|룸/i, "개인실 이용 가능"],
+  [/주차/i, "주차 가능"],
+  [/삼계탕|미역국|죽/i, "임산부에게 좋은 보양식"],
+  [/브런치/i, "가벼운 브런치 메뉴"],
+  [/샐러드/i, "신선한 샐러드 메뉴"],
+];
+
+function generatePregnancyPerks(category: string, name: string, naverCategory: string): string[] {
+  const text = `${name} ${naverCategory}`;
+  const perks = new Set<string>();
+
+  // 카테고리 기본 포인트
+  const catPerks = PREGNANCY_PERKS_MAP[category];
+  if (catPerks) catPerks.forEach((p) => perks.add(p));
+
+  // 키워드 매칭 포인트
+  for (const [re, perk] of KEYWORD_PERKS) {
+    if (re.test(text)) perks.add(perk);
+  }
+
+  return [...perks].slice(0, 3);
+}
+
 const CATEGORY_EMOJIS: Record<string, string> = {
   korean: "🍚",
   western: "🍝",
@@ -204,7 +243,7 @@ async function crawlRestaurants(): Promise<SeedRestaurant[]> {
           description: "",
           rating: null,
           priceRange: "",
-          pregnancyPerks: [],
+          pregnancyPerks: generatePregnancyPerks(cat, name, item.category || ""),
           tags: [],
           emoji: CATEGORY_EMOJIS[cat] ?? "🍽️",
           verified: false,

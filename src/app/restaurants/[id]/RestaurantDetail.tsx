@@ -138,23 +138,25 @@ export default function RestaurantDetail({ restaurant: r }: Props) {
       </section>
 
       {/* Pregnancy perks */}
-      <section className="px-5 mt-4">
-        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
-          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-3">
-            <span className="text-lg">🤰</span> 임산부 포인트
-          </h2>
-          <div className="flex flex-col gap-2.5">
-            {r.pregnancyPerks.map((perk, i) => (
-              <div key={i} className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-full bg-primary-light text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  {i + 1}
-                </span>
-                <p className="text-sm text-foreground leading-relaxed">{perk}</p>
-              </div>
-            ))}
+      {r.pregnancyPerks.length > 0 && (
+        <section className="px-5 mt-4">
+          <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+            <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-3">
+              <span className="text-lg">🤰</span> 임산부 포인트
+            </h2>
+            <div className="flex flex-col gap-2.5">
+              {r.pregnancyPerks.map((perk, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-primary-light text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {i + 1}
+                  </span>
+                  <p className="text-sm text-foreground leading-relaxed">{perk}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Location */}
       <section className="px-5 mt-4">

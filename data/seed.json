@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "crawledAt": "2026-04-05T08:04:48.438Z",
+    "crawledAt": "2026-04-05T08:18:00.278Z",
     "note": "이 파일을 직접 편집하세요! 맛집의 description, rating, priceRange, pregnancyPerks, tags를 채운 뒤 verified: true로 변경하세요. npm run generate 으로 앱 데이터에 반영됩니다."
   },
   "restaurants": [
@@ -12,12 +12,15 @@
       "address": "서울특별시 노원구 동일로 1596 1층",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%8F%99%EC%9D%BC%EB%A1%9C%EC%A6%89%EC%84%9D%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EB%85%B8%EC%9B%90%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250526_36%2F1748258103626T4DA5_JPEG%2F%25C0%25BD%25B7%25E1_%25BB%25E7%25C0%25CC%25B4%25D9.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250526_125%2F1748258054945kVaOi_JPEG%2F%25C0%25BD%25B7%25E1_%25C4%25DD%25B6%25F3.jpg",
       "category": "korean",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -35,7 +38,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -48,12 +53,16 @@
       "address": "서울특별시 강남구 테헤란로4길 46 지하1층 비상가 104호",
       "telephone": "",
       "sourceUrl": "https://holapoke.imweb.me/",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F750_750_20250130031900_photo1_32046c762194.webp",
+      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20250130031900_photo1_32046c762194.webp",
       "category": "salad",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -71,7 +80,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -89,7 +102,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "스테이크 등 철분 보충 메뉴"
+      ],
       "tags": [],
       "emoji": "🍝",
       "verified": false
@@ -102,12 +117,16 @@
       "address": "서울특별시 강남구 선릉로72길 13 1층",
       "telephone": "",
       "sourceUrl": "https://www.threads.com/@keep_salad",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd2uja84sd90jmv.cloudfront.net%2Fposts%2FQaNt7vEn85ZSoL-nCktyGA%2Fms.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240410_90%2F1712752401218g26PN_JPEG%2F_KA_9488-2-306.jpg",
       "category": "salad",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -125,7 +144,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능",
+        "개인실 이용 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -143,7 +166,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -161,7 +186,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -179,7 +206,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -197,7 +227,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -215,7 +247,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -233,7 +267,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -251,7 +288,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -269,7 +309,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -287,7 +329,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -305,7 +350,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -323,7 +371,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -341,7 +392,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -359,7 +413,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -377,7 +434,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -395,7 +455,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -413,7 +476,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -431,7 +496,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -449,7 +516,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -462,12 +531,14 @@
       "address": "서울특별시 성동구 연무장3길 6 1층, B1층",
       "telephone": "",
       "sourceUrl": "https://smartstore.naver.com/lowkeycoffee",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5360%2F2025%2F10%2F14%2F0000034214_002_20251014054218348.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5360%2F2025%2F10%2F14%2F0000034214_001_20251014054218169.jpg",
       "category": "cafe",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -485,7 +556,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -498,12 +571,15 @@
       "address": "서울특별시 마포구 동교로52길 10-7",
       "telephone": "",
       "sourceUrl": "https://app.catchtable.co.kr/ct/shop/we.salad.you",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDNfMjQ2%2FMDAxNzY0NzExNTMwNDk5.oV-iUdA6XZkR-zxUobtCqcXkWlwfBseeBjgx6ad1r0kg.P5z2qr0butB5EEG8yRf_ti99DgYbcymgfjrE_ZfRKJcg.JPEG%2F1FC30C87-259B-41C3-B283-83499F73B882.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMDNfOTYg%2FMDAxNzY0NzExNTMyMTAy.awqOhdw_LUR_xM5TQglpyNJBQ0KdA4gnMTRr5hERkoEg.UG2KyUiaTa9trUDVVPuVYriRZ7ESzYkDWk3u3KyL67og.JPEG%2F78DAA497-7016-410E-A40E-06C9173919BC.jpg",
       "category": "western",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "스테이크 등 철분 보충 메뉴",
+        "가벼운 브런치 메뉴"
+      ],
       "tags": [],
       "emoji": "🍝",
       "verified": false
@@ -521,7 +597,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "스테이크 등 철분 보충 메뉴"
+      ],
       "tags": [],
       "emoji": "🍝",
       "verified": false
@@ -539,7 +617,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -557,7 +639,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -575,7 +659,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -593,7 +680,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -611,7 +701,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능",
+        "코스 메뉴로 편안한 식사"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -629,7 +723,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -647,7 +745,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -665,27 +767,13 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
-      "verified": false
-    },
-    {
-      "name": "아미스타",
-      "naverCategory": "음식점>카페,디저트",
-      "region": "gyeonggi",
-      "area": "수원시",
-      "address": "경기도 수원시 영통구 센트럴파크로127번길 80-3",
-      "telephone": "",
-      "sourceUrl": "https://map.naver.com/p/search/%EC%95%84%EB%AF%B8%EC%8A%A4%ED%83%80%20%EC%88%98%EC%9B%90%EC%8B%9C",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221109_105%2F1667960656699OtbdQ_JPEG%2F20221109_112137.jpg",
-      "category": "cafe",
-      "description": "",
-      "rating": null,
-      "priceRange": "",
-      "pregnancyPerks": [],
-      "tags": [],
-      "emoji": "☕",
       "verified": false
     },
     {
@@ -696,12 +784,15 @@
       "address": "경기도 김포시 봉화로 38 1층",
       "telephone": "",
       "sourceUrl": "https://blog.naver.com/varier79",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240608_106%2F1717853258862aD9iQ_JPEG%2FF9BCBC18-4E08-4665-B191-E0905E91A42F.jpeg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240609_217%2F1717893698996isu2i_JPEG%2FCABB115C-6426-48F4-8917-556D9CC412D8.jpeg",
       "category": "western",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "스테이크 등 철분 보충 메뉴",
+        "가벼운 브런치 메뉴"
+      ],
       "tags": [],
       "emoji": "🍝",
       "verified": false
@@ -719,7 +810,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -732,12 +827,15 @@
       "address": "경기도 파주시 와석순환로252번길 7-20 1층",
       "telephone": "",
       "sourceUrl": "https://www.instagram.com/real.sicdan_paju",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250520_128%2F1747671524682AArAi_PNG%2F6.png",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250520_190%2F17476703280967zKJM_PNG%2F1.png",
       "category": "western",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "스테이크 등 철분 보충 메뉴",
+        "가벼운 브런치 메뉴"
+      ],
       "tags": [],
       "emoji": "🍝",
       "verified": false
@@ -750,12 +848,16 @@
       "address": "인천광역시 강화군 화도면 해안남로 1182 마니산산채",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%A7%88%EB%8B%88%EC%82%B0%EC%82%B0%EC%B1%84%20%EA%B0%95%ED%99%94%EB%8F%84%EB%B3%B8%EC%A0%90%20%EA%B0%95%ED%99%94%EA%B5%B0",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfNTgg%2FMDAxNzY1NDM4MzQwMjM1.739_M0fjFWF88Gq40v_gTINx3xBpYGaXxtOoSnQpCngg.YVi0qw1dfhDqMCpcRjRv6BzIOoGHlsZXxjsEwKsoHEsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163218_091.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fpup-post-phinf.pstatic.net%2FMjAyNTEyMTFfMTQ4%2FMDAxNzY1NDM4MzM5MjAx.bJW5tXSc0iw2dJF9j2zmgV-r_ISxVFA1oO2DRSv0wEkg.dWcGkisnEqbwJgZ6l1oTQjqtK_ChhOqIyRC6u3t8jDsg.JPEG%2FPOST_IMAGE_ENCODING_20251211_163217_908.jpg",
       "category": "korean",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능",
+        "코스 메뉴로 편안한 식사"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -768,12 +870,16 @@
       "address": "인천광역시 미추홀구 용정공원로83번길 49 1층 147호",
       "telephone": "",
       "sourceUrl": "https://map.naver.com/p/search/%EB%A0%88%EC%9D%B4%EC%A7%80%EB%8B%A4%EC%9D%B4%EB%85%B8%20%ED%8F%AC%EC%BC%80%26amp%3B%EC%83%90%EB%9F%AC%EB%93%9C%20%EC%9A%A9%ED%98%84%EB%B3%B8%EC%A0%90%20%EB%AF%B8%EC%B6%94%ED%99%80%EA%B5%AC",
-      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_116%2F1705831400185sLYnl_JPEG%2F24225.jpg",
+      "imageUrl": "https://search.pstatic.net/common/?type=b150&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_121%2F1705831134357ebd0B_JPEG%2F24185.jpg",
       "category": "salad",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -791,7 +897,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -809,7 +919,11 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "신선한 채소·과일 섭취 가능",
+        "유기농 재료 사용",
+        "신선한 샐러드 메뉴"
+      ],
       "tags": [],
       "emoji": "🥗",
       "verified": false
@@ -827,7 +941,10 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "따뜻한 한식 메뉴 위주",
+        "저염식 요청 가능"
+      ],
       "tags": [],
       "emoji": "🍚",
       "verified": false
@@ -845,7 +962,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -863,7 +982,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -876,12 +997,14 @@
       "address": "인천광역시 연수구 랜드마크로 194 롱비치커피앤브래드 1층",
       "telephone": "",
       "sourceUrl": "https://www.instagram.com/longbeachcoffee_",
-      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo1_3e93cfbdf363.webp",
+      "imageUrl": "https://search.pstatic.net/sunny/?type=b150&src=https%3A%2F%2Fd12zq4w4guyljn.cloudfront.net%2F20260103162144_photo2_3e93cfbdf363.webp",
       "category": "cafe",
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -899,7 +1022,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -917,7 +1042,9 @@
       "description": "",
       "rating": null,
       "priceRange": "",
-      "pregnancyPerks": [],
+      "pregnancyPerks": [
+        "디카페인 메뉴 제공 확인 필요"
+      ],
       "tags": [],
       "emoji": "☕",
       "verified": false
@@ -1234,46 +1361,6 @@
       "source": "모피카의 작은 우주",
       "sourceUrl": "https://blog.naver.com/chubby_jellybean/223791209251",
       "postDate": "20250310",
-      "category": "mental"
-    },
-    {
-      "title": "전주 성인 피아노 첼로 바이올린 태교음악학원 추천...",
-      "summary": "다음에는 아마추어 콩쿨도 도전@@ 전주 성인 음악학원 전주 성인 피아노 전주 성인 첼로 전주 성인 바이올린 전주 취미 음악 전주 태교 음악 두 번의 태교 경험을 바탕으로, 진심으로 추천하는 전주 성인...",
-      "source": "RiPooH Kim",
-      "sourceUrl": "https://blog.naver.com/iloveripooh/224013508902",
-      "postDate": "20250918",
-      "category": "mental"
-    },
-    {
-      "title": "2026 구미 태교음악회 후기 구미강동문화회관 태교 음악 추천",
-      "summary": "시에서 태교음악회를 한다고 문자가 날라왔더라고요. 특히나 요즘 태교에 신경을 많이 쓰고 있는... 이런 분들께 추천해요 ▶ 구미에서 태교 음악 공연 찾는 분 ▶ 예비 부모 데이트도 하고 힐링이 필요한 분...",
-      "source": "하이진의 육아 & 일상",
-      "sourceUrl": "https://blog.naver.com/jin235689/224191791811",
-      "postDate": "20260222",
-      "category": "mental"
-    },
-    {
-      "title": "책이몽 자장가 스피커 아기클래식 신생아 출산선물 태교음악 굿굿",
-      "summary": "다양한 음악도 포함되어있어 아기와 함께 하는 신생아 출산선물, 태교음악으로 제격이구나 싶었다 추가로 영어가사집까지 제본책이 동봉되어있어서 육아하시는 분들을 위한 배려심을 느낄 수 있었으며...",
-      "source": "노마드잭슨의 N프로젝트",
-      "sourceUrl": "https://blog.naver.com/wortms0703/223817150034",
-      "postDate": "20250401",
-      "category": "mental"
-    },
-    {
-      "title": "신생아음악 태교음악 정서발달 추천리스트",
-      "summary": "오늘은 신생아 태교 음악으로 정서발달에 도움이 되는 곡들을 추천하려고해요! 물론 개인의 취향에 맞춰서 즐겨 듣고 기분이 좋다면 충분히 좋은 음악이지만요! 태교 음악 추천리스트 먼저 태교에 도움이 되는...",
-      "source": "오감발달 토순이네 긍정육아",
-      "sourceUrl": "https://blog.naver.com/rabbitmom_/223604379124",
-      "postDate": "20241002",
-      "category": "mental"
-    },
-    {
-      "title": "임신 14주차 태교음악 LIST 추천, 직접 연주해 본 14주 태교...",
-      "summary": "중요 ✔ 추천 음악 자장가 스타일 태교 때 듣던 음악 엄마가 불러주는 노래 첫 아이라 더 조심스러운 마음 첫 아이라서 그런지 모든 게 처음이고 모든 게 조심스러워요. 말 한마디 감정 하나 태교 음악 한...",
-      "source": "하콩맘",
-      "sourceUrl": "https://blog.naver.com/hacoodo/224195897195",
-      "postDate": "20260225",
       "category": "mental"
     },
     {
@@ -1804,6 +1891,30 @@
       "sourceType": "cafe",
       "sourceName": "레몬테라스 [인테리어,리폼,DIY,요리,...",
       "sourceUrl": "http://cafe.naver.com/remonterrace/34050911",
+      "postDate": ""
+    },
+    {
+      "title": "위고비 병원마다 가격 차이 너무 커요;;",
+      "summary": "혹시 합리적인 가격에 처방받을 수 있는 병원 아시는 분 계실까요? 위고비 가격 비교해서 메리트 좋으면 1... 알러지/출산/해외여행/한약같이/피부/토/탈모약/췌장암/분할투약/증량부작용/온누리상품권/부작용무기력증...",
+      "sourceType": "cafe",
+      "sourceName": "위고비&마운자로 다이어트 모임",
+      "sourceUrl": "http://cafe.naver.com/pokfake/6706",
+      "postDate": ""
+    },
+    {
+      "title": "임신 중절수술 비용 차이 비교한다면 토닥톡",
+      "summary": "그러나 시대가 변화하여 이제 출산을 할지 말지는 여성의 선택이 되었습니다. 2021년에 낙태죄가... 병원 광고만 많고 진짜 필요한 정보는 찾기 힘드니까요. 그렇다고 지인이나 친구한테 임신 중절수술을 잘 하는 병원이...",
+      "sourceType": "cafe",
+      "sourceName": "지후맘-임신, 출산, 육아정보, 체험단...",
+      "sourceUrl": "http://cafe.naver.com/1msanbu/3188100",
+      "postDate": ""
+    },
+    {
+      "title": "출산 전 장거리이사)경험있으신 분 ㅠㅠ 팁좀 주세요",
+      "summary": "평생 서울경기를 떠나 살아본 적이 없는데.. 남편이 발령이 나면서 이사를 가야할 거 같아요 3월 중순부터... 아닌가 출산병원부터 다 옮겨야하니 낳고 가는게 맞나…? 정말 전혀 모르겠네요 ㅋㅋㅋ 혹시 아래 제...",
+      "sourceType": "cafe",
+      "sourceName": "맘이베베 (핫딜, 육아, 놀이)",
+      "sourceUrl": "http://cafe.naver.com/skybluezw4rh/12992607",
       "postDate": ""
     },
     {
