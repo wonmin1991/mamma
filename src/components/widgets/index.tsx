@@ -545,9 +545,11 @@ function BenefitCalcWidget() {
   let savedRegion = "";
   try { savedRegion = localStorage.getItem("mamma-benefit-region") || ""; } catch {}
 
+  // 전국 공통 혜택 총액 (부부 모두 육아휴직 사용 가정)
   const totalOneTime = 200 + 100; // 첫만남 + 국민행복카드
   const totalYearly = 1200 + 600 + 120; // 부모급여0세 + 1세 + 아동수당
-  const totalEstimate = totalOneTime + totalYearly;
+  const sixSixBonus = (250 * 2 + 300 * 2 + 350 * 2); // 6+6 부모육아휴직 6개월 상한
+  const totalEstimate = totalOneTime + totalYearly + sixSixBonus;
 
   return (
     <Link href="/benefits" className="block">
@@ -564,12 +566,15 @@ function BenefitCalcWidget() {
         <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
           약 {totalEstimate.toLocaleString()}만원+
         </p>
-        <div className="flex gap-3 mt-2">
+        <div className="flex gap-3 mt-2 flex-wrap">
           <div className="text-[11px] text-muted">
             일시금 <span className="text-foreground font-medium">{totalOneTime}만원</span>
           </div>
           <div className="text-[11px] text-muted">
             연간 <span className="text-foreground font-medium">{totalYearly}만원</span>
+          </div>
+          <div className="text-[11px] text-muted">
+            6+6 육아휴직 <span className="text-foreground font-medium">{sixSixBonus}만원</span>
           </div>
         </div>
         <p className="text-[10px] text-muted mt-2">
