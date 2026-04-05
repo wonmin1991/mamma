@@ -3,10 +3,12 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
-import ThemeToggle from "@/components/ThemeToggle";
 import { PregnancyProvider } from "@/contexts/PregnancyContext";
 import OnboardingModal from "@/components/OnboardingModal";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
+import AutoBackupAlert from "@/components/AutoBackupAlert";
+import NativeInit from "@/components/NativeInit";
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -80,11 +82,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ServiceWorkerRegister />
+        <NativeInit />
         <PregnancyProvider>
+          <MedicalDisclaimer />
           <OnboardingModal />
-          <div className="fixed top-3 right-4 z-50 flex items-center gap-1.5">
-            <ThemeToggle />
-          </div>
+          <AutoBackupAlert />
           <div className="flex-1 mx-auto w-full max-w-lg pb-20">{children}</div>
           <BottomNav />
         </PregnancyProvider>

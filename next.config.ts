@@ -11,22 +11,28 @@ const securityHeaders = [
   },
 ];
 
+const isStaticExport = process.env.STATIC_EXPORT === "true";
+
 const nextConfig: NextConfig = {
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-      {
-        source: "/sw.js",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
-          { key: "Service-Worker-Allowed", value: "/" },
-        ],
-      },
-    ];
-  },
+  ...(isStaticExport
+    ? { output: "export", trailingSlash: true }
+    : {
+        async headers() {
+          return [
+            {
+              source: "/(.*)",
+              headers: securityHeaders,
+            },
+            {
+              source: "/sw.js",
+              headers: [
+                { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+                { key: "Service-Worker-Allowed", value: "/" },
+              ],
+            },
+          ];
+        },
+      }),
 };
 
 export default nextConfig;
