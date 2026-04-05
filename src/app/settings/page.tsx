@@ -18,6 +18,8 @@ import {
   Cloud,
   Copy,
   Smartphone,
+  MapPin,
+  ChevronDown,
 } from "lucide-react";
 import {
   exportAllData,
@@ -30,6 +32,7 @@ import {
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { useStore } from "@/store/useStore";
 import { exportToShareableString, importFromShareableString } from "@/lib/cloudSync";
+import { regions, getDistrictsByRegion } from "@/data/regions";
 
 export default function SettingsPage() {
   const { dueDate, currentWeek, setDueDate, setWeekDirectly, reset } =
@@ -42,10 +45,16 @@ export default function SettingsPage() {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [storageInfo, setStorageInfo] = useState(() => getStorageUsage());
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [savedRegion, setSavedRegion] = useState("");
+  const [savedDistrict, setSavedDistrict] = useState("");
   const theme = useStore((s) => s.theme);
   const setTheme = useStore((s) => s.setTheme);
 
   useEffect(() => {
+    try {
+      setSavedRegion(localStorage.getItem("mamma-benefit-region") || "");
+      setSavedDistrict(localStorage.getItem("mamma-benefit-district") || "");
+    } catch { /* ignore */ }
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
@@ -183,6 +192,61 @@ export default function SettingsPage() {
                 ))}
               </select>
             </div>
+          </div>
+        </div>
+
+        {/* Region */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+            <MapPin size={16} className="text-primary" />
+            거주 지역
+          </h2>
+          <p className="text-xs text-muted mb-3">
+            지역별 출산/육아 혜택을 맞춤 제공합니다
+          </p>
+
+          <div className="flex flex-col gap-3">
+            <div className="relative">
+              <select
+                value={savedRegion}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setSavedRegion(v);
+                  setSavedDistrict("");
+                  localStorage.setItem("mamma-benefit-region", v);
+                  localStorage.removeItem("mamma-benefit-district");
+                  showToast("지역이 변경되었습니다", "success");
+                }}
+                className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
+              >
+                <option value="">시/도 선택</option>
+                {regions.map((r) => (
+                  <option key={r.code} value={r.name}>{r.name}</option>
+                ))}
+              </select>
+              <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+            </div>
+
+            {savedRegion && getDistrictsByRegion(savedRegion).length > 1 && (
+              <div className="relative">
+                <select
+                  value={savedDistrict}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setSavedDistrict(v);
+                    localStorage.setItem("mamma-benefit-district", v);
+                    showToast("지역이 변경되었습니다", "success");
+                  }}
+                  className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
+                >
+                  <option value="">시/군/구 선택</option>
+                  {getDistrictsByRegion(savedRegion).map((d) => (
+                    <option key={d.code} value={d.name}>{d.name}</option>
+                  ))}
+                </select>
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+              </div>
+            )}
           </div>
         </div>
 
