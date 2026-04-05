@@ -21,8 +21,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { regions, getDistrictsByRegion } from "@/data/regions";
-import { benefits, benefitsMeta, babyPackages, type BenefitItem } from "@/data/benefits";
+import { benefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, type BenefitItem } from "@/data/benefits";
 import { trackLink, logClick } from "@/lib/affiliate";
+import { useStore } from "@/store/useStore";
+import { CheckCircle2, Circle, ClipboardCheck, Heart } from "lucide-react";
 
 const CATEGORY_CONFIG: Record<string, { icon: LucideIcon; label: string; color: string; bg: string }> = {
   money: { icon: Banknote, label: "지원금/수당", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
@@ -346,6 +348,9 @@ export default function BenefitsPage() {
           })}
         </div>
 
+        {/* Benefits Checklist */}
+        <BenefitChecklistSection />
+
         {/* Baby Packages / Welcome Kits */}
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-3">
@@ -466,5 +471,131 @@ export default function BenefitsPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+// ─── 혜택 체크리스트 섹션 ────────────────────────────────
+
+const PRIORITY_STYLE = {
+  high: { label: "필수", color: "text-red-500", bg: "bg-red-50 dark:bg-red-900/20" },
+  medium: { label: "권장", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-900/20" },
+  low: { label: "선택", color: "text-muted", bg: "bg-surface" },
+};
+
+function BenefitChecklistSection() {
+  const benefitChecked = useStore((s) => s.benefitChecked);
+  const toggleBenefitCheck = useStore((s) => s.toggleBenefitCheck);
+  const [stageFilter, setStageFilter] = useState("all");
+
+  const filtered = useMemo(
+    () => benefitChecklist.filter((item) => stageFilter === "all" || item.stage === stageFilter),
+    [stageFilter]
+  );
+
+  const checkedCount = benefitChecked.length;
+  const totalCount = benefitChecklist.length;
+  const progress = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
+
+  return (
+    <div className="mt-6">
+      <div className="flex items-center gap-2 mb-3">
+        <ClipboardCheck size={18} className="text-primary" />
+        <h2 className="text-base font-bold text-foreground">혜택 신청 체크리스트</h2>
+      </div>
+      <p className="text-xs text-muted mb-4">
+        시기별로 신청해야 할 혜택을 정리했어요. 하나씩 체크해보세요!
+      </p>
+
+      {/* Progress */}
+      <div className="bg-card rounded-2xl border border-card-border shadow-sm p-4 mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-bold text-primary">{progress}%</span>
+          <span className="text-xs text-muted">{checkedCount}/{totalCount}건 완료</span>
+        </div>
+        <div className="h-2 bg-surface rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        {checkedCount > 0 && (
+          <p className="text-[11px] text-muted mt-2 flex items-center gap-1">
+            <Heart size={10} className="text-primary" />
+            체크할 때마다 +1 하트 획득!
+          </p>
+        )}
+      </div>
+
+      {/* Stage filter */}
+      <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-5 px-5 pb-2 mb-3">
+        {CHECKLIST_STAGES.map((stage) => {
+          const count = stage.id === "all"
+            ? totalCount
+            : benefitChecklist.filter((i) => i.stage === stage.id).length;
+          return (
+            <button
+              key={stage.id}
+              onClick={() => setStageFilter(stage.id)}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                stageFilter === stage.id
+                  ? "bg-primary text-white"
+                  : "bg-card border border-card-border text-muted"
+              }`}
+            >
+              {stage.emoji} {stage.label} ({count})
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Checklist items */}
+      <div className="flex flex-col gap-2">
+        {filtered.map((item) => {
+          const isChecked = benefitChecked.includes(item.id);
+          const priority = PRIORITY_STYLE[item.priority];
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => toggleBenefitCheck(item.id)}
+              className={`w-full text-left p-4 rounded-2xl border transition-all active:scale-[0.99] ${
+                isChecked
+                  ? "bg-surface border-card-border opacity-70"
+                  : "bg-card border-card-border shadow-sm"
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-0.5">
+                  {isChecked ? (
+                    <CheckCircle2 size={20} className="text-primary" />
+                  ) : (
+                    <Circle size={20} className="text-muted" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${priority.bg} ${priority.color}`}>
+                      {priority.label}
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-surface text-muted font-medium">
+                      {item.region}
+                    </span>
+                  </div>
+                  <p className={`text-sm font-semibold leading-snug ${isChecked ? "line-through text-muted" : "text-foreground"}`}>
+                    {item.name}
+                  </p>
+                  <p className={`text-xs mt-1 leading-relaxed ${isChecked ? "text-muted/60" : "text-muted"}`}>
+                    {item.description}
+                  </p>
+                  <p className="text-[11px] text-muted mt-1.5">
+                    {item.deadline}
+                  </p>
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }

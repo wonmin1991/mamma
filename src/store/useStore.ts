@@ -54,6 +54,11 @@ interface AppState {
   togglePostLike: (postId: number) => void;
   isPostLiked: (postId: number) => boolean;
 
+  // Benefit Checklist
+  benefitChecked: string[];
+  toggleBenefitCheck: (itemId: string) => void;
+  isBenefitChecked: (itemId: string) => boolean;
+
   // Theme
   theme: "light" | "dark" | "system";
   setTheme: (theme: "light" | "dark" | "system") => void;
@@ -157,6 +162,22 @@ export const useStore = create<AppState>()(
         }
       },
       isPostLiked: (postId) => get().likedPosts.includes(postId),
+
+      // --- Benefit Checklist ---
+      benefitChecked: [],
+      toggleBenefitCheck: (itemId) => {
+        const checked = get().benefitChecked;
+        if (checked.includes(itemId)) {
+          set({ benefitChecked: checked.filter((id) => id !== itemId) });
+        } else {
+          set({
+            benefitChecked: [...checked, itemId],
+            hearts: get().hearts + 1,
+            totalHeartsEarned: get().totalHeartsEarned + 1,
+          });
+        }
+      },
+      isBenefitChecked: (itemId) => get().benefitChecked.includes(itemId),
 
       // --- Theme ---
       theme: "system",
@@ -285,6 +306,7 @@ export const useStore = create<AppState>()(
         coupleMessages: state.coupleMessages,
         coupleCode: state.coupleCode,
         checkedItems: state.checkedItems,
+        benefitChecked: state.benefitChecked,
         ownedItems: state.ownedItems,
         placedItems: state.placedItems,
         activeWallpaper: state.activeWallpaper,
