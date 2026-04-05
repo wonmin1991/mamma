@@ -1,4 +1,4 @@
-import { restaurants, tips } from "@/data/mock";
+import { restaurants, tips, sampleCommunityPosts } from "@/data/mock";
 import type { MetadataRoute } from "next";
 import { BASE_URL } from "@/lib/constants";
 
@@ -37,16 +37,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/supplements`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/community`,
       lastModified: new Date(),
       changeFrequency: "daily" as const,
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/nursery`,
+      url: `${BASE_URL}/care-log`,
+      lastModified: new Date(),
+      changeFrequency: "daily" as const,
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/growth`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/vaccination`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/milestones`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/baby-food`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/diary`,
+      lastModified: new Date(),
+      changeFrequency: "daily" as const,
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/nursery`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/couple`,
@@ -72,6 +114,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.2,
     },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.1,
+    },
   ];
 
   const restaurantPages = restaurants.map((r) => ({
@@ -88,5 +136,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...restaurantPages, ...tipPages];
+  const communityPages = sampleCommunityPosts.map((p) => ({
+    url: `${BASE_URL}/community/${p.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [...staticPages, ...restaurantPages, ...tipPages, ...communityPages];
 }
