@@ -64,6 +64,7 @@ interface SeedRestaurant {
   address: string;
   telephone: string;
   sourceUrl: string;
+  imageUrl: string;
   // 아래 필드는 사용자가 직접 편집
   category: string;
   description: string;
@@ -158,6 +159,16 @@ const RESTAURANT_QUERIES = [
   "디카페인 카페 인천 송도",
 ];
 
+async function searchImage(query: string): Promise<string> {
+  try {
+    const data = await naverSearch("image" as "local", query, 1, "sim");
+    const item = data.items[0];
+    return item?.thumbnail || item?.link || "";
+  } catch {
+    return "";
+  }
+}
+
 async function crawlRestaurants(): Promise<SeedRestaurant[]> {
   console.log("  맛집 크롤링...");
   const seen = new Set<string>();
@@ -187,7 +198,8 @@ async function crawlRestaurants(): Promise<SeedRestaurant[]> {
           area,
           address: addr,
           telephone: item.telephone || "",
-          sourceUrl: item.link || `https://map.naver.com/v5/search/${encodeURIComponent(name + " " + addr)}`,
+          sourceUrl: item.link || `https://map.naver.com/p/search/${encodeURIComponent(name + " " + area)}`,
+          imageUrl: "",
           category: cat,
           description: "",
           rating: null,
@@ -204,6 +216,15 @@ async function crawlRestaurants(): Promise<SeedRestaurant[]> {
     }
     await sleep(200);
   }
+
+  // 이미지 검색 (rate limit 고려해서 순차 처리)
+  console.log(`    이미지 검색 중... (${results.length}개)`);
+  for (const r of results) {
+    r.imageUrl = await searchImage(`${r.name} ${r.area} 맛집`);
+    await sleep(100);
+  }
+  const withImage = results.filter((r) => r.imageUrl).length;
+  console.log(`    이미지 ${withImage}/${results.length}개 확보`);
 
   console.log(`    총 ${results.length}개\n`);
   return results;
@@ -447,6 +468,7 @@ function generateCrawledTS(seed: SeedData) {
     pregnancyPerks: ${J(perks)},
     address: ${J(r.address)}, savedCount: 0,
     sourceUrl: ${J(r.sourceUrl)},
+    imageUrl: ${J(r.imageUrl || "")},
   }`;
   });
 

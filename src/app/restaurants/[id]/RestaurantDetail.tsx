@@ -56,8 +56,12 @@ export default function RestaurantDetail({ restaurant: r }: Props) {
   return (
     <main className="flex flex-col">
       {/* Header image area */}
-      <div className="relative h-56 bg-gradient-to-br from-surface-rose via-surface-violet to-surface-amber flex items-center justify-center">
-        <span className="text-8xl">{r.emoji}</span>
+      <div className="relative h-56 bg-gradient-to-br from-surface-rose via-surface-violet to-surface-amber flex items-center justify-center overflow-hidden">
+        {r.imageUrl ? (
+          <img src={r.imageUrl} alt={r.name} className="w-full h-full object-cover" />
+        ) : (
+          <span className="text-8xl">{r.emoji}</span>
+        )}
         <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 pt-12">
           <Link
             href="/restaurants"
@@ -161,7 +165,7 @@ export default function RestaurantDetail({ restaurant: r }: Props) {
           <p className="text-sm text-muted mb-4">{r.address}</p>
           <div className="flex flex-col gap-2">
             <a
-              href={`https://map.naver.com/v5/search/${encodeURIComponent(r.name + " " + r.address)}`}
+              href={`https://map.naver.com/p/search/${encodeURIComponent(r.name + " " + r.area)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-500 dark:bg-emerald-600 text-white text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"

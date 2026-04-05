@@ -174,8 +174,12 @@ export default function RestaurantsPage() {
               className="block bg-card rounded-2xl border border-card-border shadow-sm overflow-hidden animate-fade-in-up"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              <div className="h-36 bg-gradient-to-br from-surface-rose to-surface-amber flex items-center justify-center relative">
-                <span className="text-6xl">{r.emoji}</span>
+              <div className="h-36 bg-gradient-to-br from-surface-rose to-surface-amber flex items-center justify-center relative overflow-hidden">
+                {r.imageUrl ? (
+                  <img src={r.imageUrl} alt={r.name} className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <span className="text-6xl">{r.emoji}</span>
+                )}
                 <div className="absolute top-3 right-3">
                   <BookmarkButton itemId={String(r.id)} itemType="restaurant" />
                 </div>

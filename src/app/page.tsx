@@ -187,8 +187,12 @@ export default function Home() {
               href={`/restaurants/${r.id}`}
               className="flex-shrink-0 w-56 bg-card rounded-2xl border border-card-border shadow-sm overflow-hidden"
             >
-              <div className="h-28 bg-gradient-to-br from-hero-from to-hero-to flex items-center justify-center">
-                <span className="text-5xl">{r.emoji}</span>
+              <div className="h-28 bg-gradient-to-br from-hero-from to-hero-to flex items-center justify-center overflow-hidden">
+                {r.imageUrl ? (
+                  <img src={r.imageUrl} alt={r.name} className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <span className="text-5xl">{r.emoji}</span>
+                )}
               </div>
               <div className="p-3.5">
                 <div className="flex items-start justify-between">

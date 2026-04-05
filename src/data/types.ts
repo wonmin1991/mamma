@@ -13,6 +13,7 @@ export interface Restaurant {
   address: string;
   savedCount: number;
   sourceUrl?: string;
+  imageUrl?: string;
 }
 
 export interface Tip {
