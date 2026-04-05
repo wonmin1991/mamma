@@ -176,9 +176,37 @@ function ChecklistWidget() {
 
 // ─── Quick Tip Widget ────────────────────────────────────
 
+// 주차별 우선 추천 카테고리
+function getRecommendedCategories(week: number): string[] {
+  if (week <= 4) return ["nutrition", "hospital", "mental"];       // 임신 극초기: 엽산, 병원, 마음
+  if (week <= 13) return ["nutrition", "exercise", "hospital"];    // 초기: 영양제, 가벼운 운동, 검진
+  if (week <= 20) return ["exercise", "nutrition", "mental"];      // 중기 전반: 운동, 영양, 태교
+  if (week <= 27) return ["product", "exercise", "nutrition"];     // 중기 후반: 출산 준비물, 운동
+  if (week <= 35) return ["product", "postpartum", "hospital"];    // 후기 전반: 준비물, 산후조리원
+  return ["postpartum", "product", "hospital"];                     // 후기 후반: 산후조리, 출산 준비
+}
+
 function QuickTipWidget() {
-  const dayIndex = new Date().getDate() % tips.length;
-  const tip = tips[dayIndex];
+  const { currentWeek } = usePregnancy();
+  const categories = getRecommendedCategories(currentWeek);
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+
+  // 우선 카테고리 순서대로 팁 찾기, 같은 카테고리 내에서는 날짜로 로테이션
+  let tip = tips[0];
+  for (const cat of categories) {
+    const catTips = tips.filter((t) => t.category === cat);
+    if (catTips.length > 0) {
+      tip = catTips[dayOfYear % catTips.length];
+      break;
+    }
+  }
+
+  const categoryLabel = categories[0] === "nutrition" ? "영양"
+    : categories[0] === "exercise" ? "운동"
+    : categories[0] === "mental" ? "마음건강"
+    : categories[0] === "hospital" ? "병원"
+    : categories[0] === "product" ? "출산준비"
+    : categories[0] === "postpartum" ? "산후조리" : "꿀팁";
 
   return (
     <Link href={`/tips/${tip.id}`} className="block">
@@ -189,7 +217,7 @@ function QuickTipWidget() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[10px] text-muted flex items-center gap-1 mb-0.5">
-              <Lightbulb size={10} /> 오늘의 꿀팁
+              <Lightbulb size={10} /> {currentWeek}주차 추천 · {categoryLabel}
             </p>
             <p className="text-sm font-semibold text-foreground leading-snug line-clamp-2">
               {tip.title}
