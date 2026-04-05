@@ -46,7 +46,7 @@ import {
 } from "@/lib/notifications";
 
 export default function SettingsPage() {
-  const { dueDate, currentWeek, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset } =
+  const { dueDate, currentWeek, babyNickname, parentRole, childOrder, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder, reset } =
     usePregnancy();
   const babyMode = useBabyStore((s) => s.mode);
   const isPostnatal = babyMode === "postnatal";
@@ -200,6 +200,28 @@ export default function SettingsPage() {
                       ? isPostnatal ? "👩‍👧 엄마" : "🤰 예비 엄마"
                       : isPostnatal ? "👨‍👧 아빠" : "👨‍👧 예비 아빠"
                     }
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs text-muted mb-1">몇 번째 아이</p>
+              <div className="grid grid-cols-4 gap-2">
+                {[1, 2, 3, 4].map((n) => (
+                  <button
+                    key={n}
+                    onClick={() => {
+                      setChildOrder(n);
+                      showToast(`${n === 1 ? "첫째" : n === 2 ? "둘째" : n === 3 ? "셋째" : "넷째+"}로 설정했어요`, "success");
+                    }}
+                    className={`py-2 rounded-xl text-xs font-medium transition-all ${
+                      childOrder === n
+                        ? "bg-primary text-white"
+                        : "bg-surface text-muted border border-card-border"
+                    }`}
+                  >
+                    {n === 1 ? "첫째" : n === 2 ? "둘째" : n === 3 ? "셋째" : "넷째+"}
                   </button>
                 ))}
               </div>

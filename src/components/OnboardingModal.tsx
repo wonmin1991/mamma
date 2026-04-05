@@ -7,12 +7,12 @@ import { useFocusTrap } from "@/lib/useFocusTrap";
 import ScrollDatePicker from "@/components/ScrollDatePicker";
 import { regions, getDistrictsByRegion } from "@/data/regions";
 
-type Step = "welcome" | "role" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
+type Step = "welcome" | "role" | "childOrder" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
 
 const REGION_STORAGE_KEY = "mamma-benefit-region";
 
 export default function OnboardingModal() {
-  const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname, setParentRole } = usePregnancy();
+  const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder } = usePregnancy();
   const [step, setStep] = useState<Step>("welcome");
   const today = new Date();
   const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 4).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
@@ -108,7 +108,7 @@ export default function OnboardingModal() {
 
             <div className="flex gap-3">
               <button
-                onClick={() => { setParentRole("mom"); setStep("method"); }}
+                onClick={() => { setParentRole("mom"); setStep("childOrder"); }}
                 className="flex-1 flex flex-col items-center gap-3 p-5 rounded-2xl border border-card-border bg-surface hover:border-primary transition-colors"
               >
                 <span className="text-4xl">🤰</span>
@@ -119,7 +119,7 @@ export default function OnboardingModal() {
               </button>
 
               <button
-                onClick={() => { setParentRole("dad"); setStep("method"); }}
+                onClick={() => { setParentRole("dad"); setStep("childOrder"); }}
                 className="flex-1 flex flex-col items-center gap-3 p-5 rounded-2xl border border-card-border bg-surface hover:border-secondary transition-colors"
               >
                 <span className="text-4xl">👨‍👧</span>
@@ -128,6 +128,37 @@ export default function OnboardingModal() {
                   <p className="text-[11px] text-muted mt-1">아빠가 할 일 가이드</p>
                 </div>
               </button>
+            </div>
+          </div>
+        )}
+
+        {step === "childOrder" && (
+          <div className="p-8">
+            <h2 className="text-lg font-bold text-foreground text-center mb-2">
+              몇 번째 아이인가요?
+            </h2>
+            <p className="text-xs text-muted text-center mb-6">
+              자녀 순서에 따라 혜택 금액이 달라져요
+            </p>
+
+            <div className="grid grid-cols-4 gap-2">
+              {[1, 2, 3, 4].map((n) => (
+                <button
+                  key={n}
+                  onClick={() => { setChildOrder(n); setStep("method"); }}
+                  className="flex flex-col items-center gap-1.5 py-4 rounded-2xl border border-card-border bg-surface hover:border-primary transition-colors"
+                >
+                  <span className="text-2xl">{n === 1 ? "👶" : n === 2 ? "👶👶" : n === 3 ? "👶👶👶" : "👶+"}</span>
+                  <span className="text-xs font-medium text-foreground">
+                    {n === 1 ? "첫째" : n === 2 ? "둘째" : n === 3 ? "셋째" : "넷째+"}
+                  </span>
+                  {n >= 2 && (
+                    <span className="text-[10px] text-primary font-medium">
+                      {n === 2 ? "+100만원" : n >= 3 ? "다자녀 혜택" : ""}
+                    </span>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
         )}

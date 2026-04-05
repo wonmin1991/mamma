@@ -544,16 +544,18 @@ function CheckupWidget() {
 // ─── Benefit Calculator Widget ───────────────────────────
 
 function BenefitCalcWidget() {
-  const { currentWeek } = usePregnancy();
+  const { currentWeek, childOrder } = usePregnancy();
 
   let savedRegion = "";
   try { savedRegion = localStorage.getItem("mamma-benefit-region") || ""; } catch {}
 
-  // 전국 공통 혜택 총액 (부부 모두 육아휴직 사용, 2026년 기준)
-  const totalOneTime = 200 + 100; // 첫만남(첫째) + 국민행복카드
+  // 자녀 순서에 따라 금액 차등 (2026년 기준)
+  const firstMeet = childOrder >= 2 ? 300 : 200; // 첫만남이용권 (둘째 이상 300만원)
+  const totalOneTime = firstMeet + 100; // 첫만남 + 국민행복카드
   const totalYearly = 1200 + 600 + 120; // 부모급여0세 + 1세 + 아동수당
   const sixSixBonus = (250 + 250 + 300 + 350 + 400 + 450); // 6+6 부모육아휴직 6개월 상한
-  const totalEstimate = totalOneTime + totalYearly + sixSixBonus;
+  const multiChildBonus = childOrder >= 3 ? 200 : 0; // 다자녀 추가 혜택 (전기·가스 할인 등 연간 환산)
+  const totalEstimate = totalOneTime + totalYearly + sixSixBonus + multiChildBonus;
 
   return (
     <Link href="/benefits" className="block">
@@ -572,17 +574,17 @@ function BenefitCalcWidget() {
         </p>
         <div className="flex gap-3 mt-2 flex-wrap">
           <div className="text-[11px] text-muted">
-            일시금 <span className="text-foreground font-medium">{totalOneTime}만원</span>
+            첫만남 <span className="text-foreground font-medium">{firstMeet}만원</span>
           </div>
           <div className="text-[11px] text-muted">
             연간 <span className="text-foreground font-medium">{totalYearly}만원</span>
           </div>
           <div className="text-[11px] text-muted">
-            6+6 육아휴직 <span className="text-foreground font-medium">{sixSixBonus}만원</span>
+            6+6 <span className="text-foreground font-medium">{sixSixBonus}만원</span>
           </div>
         </div>
         <p className="text-[10px] text-muted mt-2">
-          * 지자체 출산축하금 별도{savedRegion ? ` — ${savedRegion} 혜택 보기 →` : " (지역 설정 시 상세 확인)"}
+          * {childOrder >= 2 ? `${childOrder === 2 ? "둘째" : "셋째+"} 기준` : "첫째 기준"} · 지자체 축하금 별도{savedRegion ? ` — ${savedRegion} →` : ""}
         </p>
       </div>
     </Link>

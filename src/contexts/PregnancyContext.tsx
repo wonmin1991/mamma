@@ -13,6 +13,8 @@ interface PregnancyData {
   isOnboarded: boolean;
   babyNickname: string;
   parentRole: ParentRole;
+  /** 현재 임신 포함 자녀 수 (1=첫째, 2=둘째...) */
+  childOrder: number;
 }
 
 interface PregnancyContextValue extends PregnancyData {
@@ -20,6 +22,7 @@ interface PregnancyContextValue extends PregnancyData {
   setWeekDirectly: (week: number) => void;
   setBabyNickname: (name: string) => void;
   setParentRole: (role: ParentRole) => void;
+  setChildOrder: (n: number) => void;
   reset: () => void;
 }
 
@@ -50,6 +53,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
   const [isOnboarded, setIsOnboarded] = useState(true);
   const [babyNickname, setBabyNicknameState] = useState("아기");
   const [parentRole, setParentRoleState] = useState<ParentRole>("mom");
+  const [childOrder, setChildOrderState] = useState(1);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -59,6 +63,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
         const saved = JSON.parse(raw);
         if (saved.babyNickname) setBabyNicknameState(saved.babyNickname);
         if (saved.parentRole) setParentRoleState(saved.parentRole);
+        if (saved.childOrder) setChildOrderState(saved.childOrder);
         if (saved.dueDate) {
           const calc = calculateFromDueDate(saved.dueDate);
           /* eslint-disable react-hooks/set-state-in-effect -- client-only localStorage hydration */
@@ -122,6 +127,11 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     saveToStorage({ parentRole: role });
   }, [saveToStorage]);
 
+  const setChildOrder = useCallback((n: number) => {
+    setChildOrderState(Math.max(1, n));
+    saveToStorage({ childOrder: Math.max(1, n) });
+  }, [saveToStorage]);
+
   const reset = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setDueDateState(null);
@@ -130,12 +140,13 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
     setDaysUntilDue(0);
     setBabyNicknameState("아기");
     setParentRoleState("mom");
+    setChildOrderState(1);
     setIsOnboarded(false);
   }, []);
 
   const value = useMemo(
-    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset }),
-    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, reset]
+    () => ({ dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, childOrder, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder, reset }),
+    [dueDate, currentWeek, currentDay, daysUntilDue, isOnboarded, babyNickname, parentRole, childOrder, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder, reset]
   );
 
   if (!loaded) {
