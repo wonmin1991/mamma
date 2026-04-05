@@ -545,10 +545,10 @@ function BenefitCalcWidget() {
   let savedRegion = "";
   try { savedRegion = localStorage.getItem("mamma-benefit-region") || ""; } catch {}
 
-  // 전국 공통 혜택 총액 (부부 모두 육아휴직 사용 가정)
-  const totalOneTime = 200 + 100; // 첫만남 + 국민행복카드
+  // 전국 공통 혜택 총액 (부부 모두 육아휴직 사용, 2026년 기준)
+  const totalOneTime = 200 + 100; // 첫만남(첫째) + 국민행복카드
   const totalYearly = 1200 + 600 + 120; // 부모급여0세 + 1세 + 아동수당
-  const sixSixBonus = (250 * 2 + 300 * 2 + 350 * 2); // 6+6 부모육아휴직 6개월 상한
+  const sixSixBonus = (250 + 250 + 300 + 350 + 400 + 450); // 6+6 부모육아휴직 6개월 상한
   const totalEstimate = totalOneTime + totalYearly + sixSixBonus;
 
   return (
