@@ -28,7 +28,7 @@ function calculateFromDueDate(dueDate: string): { week: number; day: number; day
   const diffMs = due.getTime() - now.getTime();
   const daysUntilDue = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
   const totalDays = 280 - daysUntilDue;
-  const week = Math.max(1, Math.min(40, Math.floor(totalDays / 7) + 1));
+  const week = Math.max(0, Math.min(40, Math.floor(totalDays / 7)));
   const day = Math.max(0, totalDays % 7);
 
   return { week, day, daysUntilDue: Math.max(0, daysUntilDue) };
