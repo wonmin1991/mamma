@@ -109,6 +109,32 @@ export default function BenefitsPage() {
     localStorage.setItem(STORAGE_KEY, selectedRegion);
   }, [selectedRegion, mounted]);
 
+  const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
+
+  const filteredBenefits = useMemo(() => {
+    return benefits.filter((b) => {
+      if (selectedRegion && !matchesRegion(b, selectedRegion)) return false;
+      if (selectedCategory && b.category !== selectedCategory) return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        const text = `${b.name} ${b.summary} ${b.content} ${b.organization}`.toLowerCase();
+        if (!text.includes(q)) return false;
+      }
+      return true;
+    });
+  }, [selectedRegion, selectedCategory, searchQuery]);
+
+  const categoryCounts = useMemo(() => {
+    const regionFiltered = benefits.filter((b) =>
+      selectedRegion ? matchesRegion(b, selectedRegion) : true
+    );
+    const counts = new Map<string, number>();
+    for (const b of regionFiltered) {
+      counts.set(b.category, (counts.get(b.category) ?? 0) + 1);
+    }
+    return counts;
+  }, [selectedRegion]);
+
   if (!mounted) {
     return (
       <main className="flex flex-col">
@@ -126,39 +152,6 @@ export default function BenefitsPage() {
       </main>
     );
   }
-
-  const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
-
-  const filteredBenefits = useMemo(() => {
-    return benefits.filter((b) => {
-      // 지역 필터
-      if (selectedRegion && !matchesRegion(b, selectedRegion)) return false;
-
-      // 카테고리 필터
-      if (selectedCategory && b.category !== selectedCategory) return false;
-
-      // 검색어 필터
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        const text = `${b.name} ${b.summary} ${b.content} ${b.organization}`.toLowerCase();
-        if (!text.includes(q)) return false;
-      }
-
-      return true;
-    });
-  }, [selectedRegion, selectedCategory, searchQuery]);
-
-  // 카테고리별 건수
-  const categoryCounts = useMemo(() => {
-    const regionFiltered = benefits.filter((b) =>
-      selectedRegion ? matchesRegion(b, selectedRegion) : true
-    );
-    const counts = new Map<string, number>();
-    for (const b of regionFiltered) {
-      counts.set(b.category, (counts.get(b.category) ?? 0) + 1);
-    }
-    return counts;
-  }, [selectedRegion]);
 
   return (
     <main className="flex flex-col">
