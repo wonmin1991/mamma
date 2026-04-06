@@ -67,6 +67,24 @@ else
   warn "benefits.ts - ID 재할당 로직 없음 (API 데이터와 중복 가능)"
 fi
 
+# ── 2b. React Hook 규칙 검사 ─────────────────────────────
+echo ""
+echo "2️⃣b React Hook 규칙 검사 (early return 뒤의 Hook)"
+
+# "use client" 파일에서 early return 후 useMemo/useCallback 호출 패턴 탐지
+HOOK_VIOLATION=0
+for FILE in $(grep -rl '"use client"' $SRC --include="*.tsx" 2>/dev/null); do
+  # return (...) 패턴 이후에 useMemo/useCallback이 나오는지 체크
+  if awk '/^  if .* return \(/{found=1} found && /useMemo|useCallback/{print FILENAME":"NR": "$0; found=0}' "$FILE" 2>/dev/null | grep -q .; then
+    RESULT=$(awk '/^  if .* return \(/{found=1} found && /useMemo|useCallback/{print FILENAME":"NR": "$0; found=0}' "$FILE" 2>/dev/null)
+    fail "Hook 규칙 위반 가능: $RESULT"
+    HOOK_VIOLATION=1
+  fi
+done
+if [ $HOOK_VIOLATION -eq 0 ]; then
+  pass "early return 뒤에 Hook 호출 없음"
+fi
+
 # ── 3. React key 검사 ───────────────────────────────────
 echo ""
 echo "3️⃣  React key 패턴 검사"
