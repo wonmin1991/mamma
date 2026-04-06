@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 
 export default function MedicalDisclaimer() {
-  const [dismissed, setDismissed] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem("mamma-disclaimer-accepted") !== null
-  );
+  const [dismissed, setDismissed] = useState(true); // default true to avoid flash
+
+  useEffect(() => {
+    setDismissed(localStorage.getItem("mamma-disclaimer-accepted") !== null);
+  }, []);
 
   const accept = () => {
     localStorage.setItem("mamma-disclaimer-accepted", "1");

@@ -38,6 +38,9 @@ interface PlacedItem {
 }
 
 interface AppState {
+  // Hydration
+  _hydrated: boolean;
+
   // Bookmarks
   bookmarks: BookmarkItem[];
   toggleBookmark: (itemId: string, itemType: "restaurant" | "tip") => void;
@@ -124,6 +127,9 @@ function getToday() {
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
+      // --- Hydration ---
+      _hydrated: false,
+
       // --- Bookmarks ---
       bookmarks: [],
       toggleBookmark: (itemId, itemType) => {
@@ -337,6 +343,9 @@ export const useStore = create<AppState>()(
     }),
     {
       name: "mamma-store",
+      onRehydrateStorage: () => (state) => {
+        if (state) state._hydrated = true;
+      },
       partialize: (state) => ({
         bookmarks: state.bookmarks,
         recentlyViewed: state.recentlyViewed,

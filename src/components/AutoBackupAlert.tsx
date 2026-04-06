@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Download, X, Clock } from "lucide-react";
 import { exportAllData } from "@/lib/storage";
 
@@ -47,8 +47,14 @@ function computeInitial(): { show: boolean; days: number | null } {
 }
 
 export default function AutoBackupAlert() {
-  const [show, setShow] = useState(() => computeInitial().show);
-  const [days] = useState(() => computeInitial().days);
+  const [show, setShow] = useState(false);
+  const [days, setDays] = useState<number | null>(null);
+
+  useEffect(() => {
+    const initial = computeInitial();
+    setShow(initial.show);
+    setDays(initial.days);
+  }, []);
 
   const handleBackup = () => {
     const data = exportAllData();

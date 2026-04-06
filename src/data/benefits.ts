@@ -540,7 +540,8 @@ export const benefits: BenefitItem[] = (() => {
   if (apiBenefits.length === 0) return _defaultBenefits;
   const manualNames = new Set(_defaultBenefits.map((b) => b.name));
   const unique = apiBenefits.filter((b) => !manualNames.has(b.name));
-  return [..._defaultBenefits, ...unique];
+  // Re-assign unique IDs to avoid duplicates between manual and API data
+  return [..._defaultBenefits, ...unique].map((b, i) => ({ ...b, id: i + 1 }));
 })();
 
 // ─── 육아 패키지 / 웰컴키트 ─────────────────────────────
