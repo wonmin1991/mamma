@@ -49,14 +49,22 @@ export default function Home() {
       </section>
 
       <section className="px-5 mt-4">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
+          <Link
+            href="/ultrasound"
+            className="bg-gradient-to-br from-surface-sky to-surface-violet rounded-2xl border border-card-border p-4 active:scale-[0.98] transition-transform"
+          >
+            <span className="text-2xl block mb-2">📸</span>
+            <p className="text-sm font-bold text-foreground">초음파 앨범</p>
+            <p className="text-xs text-muted mt-0.5">주차별 사진 기록</p>
+          </Link>
           <Link
             href="/nursery"
             className="bg-gradient-to-br from-surface-violet to-surface-rose rounded-2xl border border-card-border p-4 active:scale-[0.98] transition-transform"
           >
             <span className="text-2xl block mb-2">🏠</span>
             <p className="text-sm font-bold text-foreground">아기방 꾸미기</p>
-            <p className="text-xs text-muted mt-0.5">하트로 아기방을 꾸며보세요</p>
+            <p className="text-xs text-muted mt-0.5">하트로 꾸미기</p>
           </Link>
           <Link
             href="/couple"
@@ -64,7 +72,7 @@ export default function Home() {
           >
             <span className="text-2xl block mb-2">👫</span>
             <p className="text-sm font-bold text-foreground">부부 모드</p>
-            <p className="text-xs text-muted mt-0.5">함께 출산을 준비하세요</p>
+            <p className="text-xs text-muted mt-0.5">함께 준비하기</p>
           </Link>
         </div>
       </section>

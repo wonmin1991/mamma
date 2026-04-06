@@ -13,10 +13,15 @@ interface BabyProfile {
   gender?: "M" | "F";
 }
 
+export type AppMode = "pregnancy" | "postnatal" | "infertility";
+
 interface BabyState {
+  // Hydration
+  _hydrated: boolean;
+
   // Mode
-  mode: "pregnancy" | "postnatal";
-  setMode: (mode: "pregnancy" | "postnatal") => void;
+  mode: AppMode;
+  setMode: (mode: AppMode) => void;
 
   // Baby Profile
   baby: BabyProfile | null;
@@ -45,6 +50,21 @@ interface BabyState {
   addDiaryEntry: (entry: Omit<DiaryEntry, "id" | "createdAt">) => void;
   updateDiaryEntry: (id: string, updates: Partial<Pick<DiaryEntry, "title" | "content" | "mood">>) => void;
   deleteDiaryEntry: (id: string) => void;
+
+  // Ultrasound Photos
+  ultrasoundPhotos: UltrasoundPhoto[];
+  addUltrasoundPhoto: (photo: Omit<UltrasoundPhoto, "id" | "createdAt">) => void;
+  deleteUltrasoundPhoto: (id: string) => void;
+}
+
+export interface UltrasoundPhoto {
+  id: string;
+  week: number;
+  imageData: string; // base64 data URI
+  memo?: string;
+  hospital?: string;
+  date: string; // ISO date string
+  createdAt: string;
 }
 
 function uid() {
@@ -63,6 +83,9 @@ function todayStr() {
 export const useBabyStore = create<BabyState>()(
   persist(
     (set, get) => ({
+      // ─── Hydration ───
+      _hydrated: false,
+
       // ─── Mode ───
       mode: "pregnancy",
       setMode: (mode) => set({ mode }),
@@ -146,9 +169,26 @@ export const useBabyStore = create<BabyState>()(
       deleteDiaryEntry: (id) => {
         set({ diaryEntries: get().diaryEntries.filter((e) => e.id !== id) });
       },
+
+      // ─── Ultrasound Photos ───
+      ultrasoundPhotos: [],
+      addUltrasoundPhoto: (photo) => {
+        const entry: UltrasoundPhoto = {
+          ...photo,
+          id: uid(),
+          createdAt: new Date().toISOString(),
+        };
+        set({ ultrasoundPhotos: [entry, ...get().ultrasoundPhotos] });
+      },
+      deleteUltrasoundPhoto: (id) => {
+        set({ ultrasoundPhotos: get().ultrasoundPhotos.filter((p) => p.id !== id) });
+      },
     }),
     {
       name: "mamma-baby",
+      onRehydrateStorage: () => (state) => {
+        if (state) state._hydrated = true;
+      },
       partialize: (state) => ({
         mode: state.mode,
         baby: state.baby,
@@ -156,6 +196,7 @@ export const useBabyStore = create<BabyState>()(
         growthRecords: state.growthRecords,
         milestones: state.milestones,
         diaryEntries: state.diaryEntries,
+        ultrasoundPhotos: state.ultrasoundPhotos,
       }),
     }
   )

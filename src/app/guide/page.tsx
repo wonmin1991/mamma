@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { weeklyGuide } from "@/data/mock";
-import { ChevronLeft, ChevronRight, Apple, Ban, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Apple, Ban, Sparkles, Camera } from "lucide-react";
 import Link from "next/link";
 import GuideWeekSync from "@/components/GuideWeekSync";
 
@@ -179,6 +179,21 @@ export default function GuidePage() {
             ))}
           </div>
         </div>
+
+        {/* Ultrasound CTA */}
+        <Link
+          href={`/ultrasound`}
+          className="mt-4 flex items-center gap-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl border border-card-border p-4 active:scale-[0.98] transition-transform"
+        >
+          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <Camera size={20} className="text-primary" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-foreground">{week.week}주 초음파 사진 기록하기</p>
+            <p className="text-[11px] text-muted mt-0.5">병원에서 받은 초음파 사진을 앨범에 추가해보세요</p>
+          </div>
+          <ChevronRight size={16} className="text-muted flex-shrink-0" />
+        </Link>
 
         {/* Mom changes */}
         <div className="mt-4 bg-card rounded-2xl border border-card-border shadow-sm p-5">

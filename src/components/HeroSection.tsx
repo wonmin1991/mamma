@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
-import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle } from "lucide-react";
+import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle, Camera } from "lucide-react";
 import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
 
@@ -103,6 +103,15 @@ export default function HeroSection() {
             </div>
           )}
         </div>
+      </Link>
+
+      {/* Ultrasound quick link */}
+      <Link href="/ultrasound" className="flex items-center gap-3 mt-3 bg-card/80 backdrop-blur-sm rounded-xl px-4 py-3 border border-card-border shadow-sm">
+        <Camera size={18} className="text-primary flex-shrink-0" />
+        <p className="text-xs font-medium text-foreground flex-1">
+          {currentWeek}주 초음파 사진을 기록해보세요
+        </p>
+        <ChevronRight size={14} className="text-muted flex-shrink-0" />
       </Link>
     </section>
   );
