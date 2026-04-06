@@ -22,6 +22,7 @@ import {
   ChevronDown,
   Bell,
   BellOff,
+  Settings2,
 } from "lucide-react";
 import {
   exportAllData,
@@ -49,14 +50,16 @@ export default function SettingsPage() {
   const { dueDate, currentWeek, babyNickname, parentRole, childOrder, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder, reset } =
     usePregnancy();
   const babyMode = useBabyStore((s) => s.mode);
+  const setMode = useBabyStore((s) => s.setMode);
   const isPostnatal = babyMode === "postnatal";
+  const isInfertility = babyMode === "infertility";
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<{
     message: string;
     type: "success" | "error";
   } | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
-  const [storageInfo, setStorageInfo] = useState(() => getStorageUsage());
+  const [storageInfo, setStorageInfo] = useState({ used: "0 KB", keys: 0 });
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [savedRegion, setSavedRegion] = useState("");
   const [savedDistrict, setSavedDistrict] = useState("");
@@ -72,6 +75,7 @@ export default function SettingsPage() {
     } catch { /* ignore */ }
     setNotiSettings(getNotificationSettings());
     setNotiPermission(getPermissionStatus());
+    setStorageInfo(getStorageUsage());
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
@@ -171,7 +175,39 @@ export default function SettingsPage() {
       </header>
 
       <section className="px-5 pb-8 flex flex-col gap-5">
+        {/* Mode selection */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+            <Settings2 size={16} className="text-primary" />
+            앱 모드
+          </h2>
+          <div className="grid grid-cols-3 gap-2">
+            {([
+              { value: "pregnancy" as const, label: "임신 중", emoji: "🤰" },
+              { value: "infertility" as const, label: "난임 준비", emoji: "🌱" },
+              { value: "postnatal" as const, label: "출산 후", emoji: "👶" },
+            ]).map(({ value, label, emoji }) => (
+              <button
+                key={value}
+                onClick={() => {
+                  setMode(value);
+                  showToast(`${label} 모드로 변경했어요`, "success");
+                }}
+                className={`flex flex-col items-center gap-1.5 py-3 rounded-xl text-sm font-medium transition-all ${
+                  babyMode === value
+                    ? "bg-primary text-white shadow-sm"
+                    : "bg-surface text-muted border border-card-border"
+                }`}
+              >
+                <span className="text-lg">{emoji}</span>
+                <span className="text-xs">{label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Pregnancy info */}
+        {!isInfertility && (
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
           <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
             <Calendar size={16} className="text-primary" />
@@ -285,6 +321,7 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Region */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
@@ -615,7 +652,7 @@ export default function SettingsPage() {
           <p className="text-2xl mb-2">🤰</p>
           <p className="text-sm font-bold text-foreground">맘마 v0.1.0</p>
           <p className="text-xs text-muted mt-1">
-            임산부를 위한 모든 정보를 한곳에서
+            임신·난임·육아 정보를 한곳에서
           </p>
           <Link
             href="/privacy"

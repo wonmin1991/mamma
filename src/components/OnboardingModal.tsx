@@ -6,16 +6,20 @@ import { Baby, Calendar, ChevronRight, Sparkles, MapPin, ChevronDown, Heart } fr
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import ScrollDatePicker from "@/components/ScrollDatePicker";
 import { regions, getDistrictsByRegion } from "@/data/regions";
+import { useBabyStore } from "@/store/useBabyStore";
 
-type Step = "welcome" | "role" | "childOrder" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
+type Step = "welcome" | "pathSelect" | "role" | "childOrder" | "method" | "dueDate" | "weekSelect" | "babyName" | "region" | "done";
 
 const REGION_STORAGE_KEY = "mamma-benefit-region";
 
 export default function OnboardingModal() {
   const { isOnboarded, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder } = usePregnancy();
+  const mode = useBabyStore((s) => s.mode);
+  const setMode = useBabyStore((s) => s.setMode);
   const [step, setStep] = useState<Step>("welcome");
-  const today = new Date();
-  const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 4).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const futureDate = new Date();
+  futureDate.setMonth(futureDate.getMonth() + 4);
+  const defaultDate = `${futureDate.getFullYear()}-${String(futureDate.getMonth() + 1).padStart(2, "0")}-${String(futureDate.getDate()).padStart(2, "0")}`;
   const [dateInput, setDateInput] = useState(defaultDate);
   const [weekInput, setWeekInput] = useState(16);
   const handleDateChange = useCallback((date: string) => setDateInput(date), []);
@@ -80,7 +84,7 @@ export default function OnboardingModal() {
               간단한 정보를 알려주세요.
             </p>
             <button
-              onClick={() => setStep("role")}
+              onClick={() => setStep("pathSelect")}
               className="mt-6 w-full py-3.5 rounded-2xl bg-primary text-white font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
             >
               시작하기 <ChevronRight size={16} />
@@ -94,6 +98,51 @@ export default function OnboardingModal() {
             >
               나중에 설정할게요
             </button>
+          </div>
+        )}
+
+        {step === "pathSelect" && (
+          <div className="p-8">
+            <h2 className="text-lg font-bold text-foreground text-center mb-2">
+              어떤 도움이 필요하세요?
+            </h2>
+            <p className="text-xs text-muted text-center mb-6">
+              상황에 맞는 맞춤 정보를 제공해드려요
+            </p>
+
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => { setMode("pregnancy"); setStep("role"); }}
+                className="flex items-center gap-4 p-4 rounded-2xl border border-card-border bg-surface hover:border-primary transition-colors text-left"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">🤰</span>
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-sm text-foreground">임신 중이에요</p>
+                  <p className="text-xs text-muted mt-0.5">주차별 가이드, 혜택, 맛집 정보</p>
+                </div>
+                <ChevronRight size={16} className="text-muted" />
+              </button>
+
+              <button
+                onClick={() => {
+                  setMode("infertility");
+                  setWeekDirectly(1);
+                  setStep("region");
+                }}
+                className="flex items-center gap-4 p-4 rounded-2xl border border-card-border bg-surface hover:border-secondary transition-colors text-left"
+              >
+                <div className="w-12 h-12 rounded-xl bg-secondary-light flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">🌱</span>
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-sm text-foreground">난임 준비 중이에요</p>
+                  <p className="text-xs text-muted mt-0.5">시술 가이드, 지원금, 멘탈 관리</p>
+                </div>
+                <ChevronRight size={16} className="text-muted" />
+              </button>
+            </div>
           </div>
         )}
 
@@ -331,7 +380,9 @@ export default function OnboardingModal() {
               거주 지역을 알려주세요
             </h2>
             <p className="text-xs text-muted text-center mb-6">
-              지역별 출산/육아 혜택 정보를 맞춤 제공해드려요
+              {mode === "infertility"
+                ? "지역별 난임 지원 혜택을 맞춤 제공해드려요"
+                : "지역별 출산/육아 혜택 정보를 맞춤 제공해드려요"}
             </p>
 
             <div className="flex flex-col gap-3">
@@ -394,9 +445,19 @@ export default function OnboardingModal() {
               설정 완료!
             </h2>
             <p className="text-sm text-muted mt-2 leading-relaxed">
-              맞춤 임신 정보를 준비했어요.
-              <br />
-              건강한 임신 생활을 응원합니다!
+              {mode === "infertility" ? (
+                <>
+                  난임 지원 정보를 준비했어요.
+                  <br />
+                  함께 응원할게요!
+                </>
+              ) : (
+                <>
+                  맞춤 임신 정보를 준비했어요.
+                  <br />
+                  건강한 임신 생활을 응원합니다!
+                </>
+              )}
             </p>
           </div>
         )}

@@ -22,9 +22,13 @@ import {
 } from "lucide-react";
 import { regions, getDistrictsByRegion } from "@/data/regions";
 import { benefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, type BenefitItem } from "@/data/benefits";
+import { infertilityBenefits } from "@/data/infertility";
 import { trackLink, logClick } from "@/lib/affiliate";
 import { useStore } from "@/store/useStore";
-import { CheckCircle2, Circle, ClipboardCheck, Heart } from "lucide-react";
+import { useBabyStore } from "@/store/useBabyStore";
+import { CheckCircle2, Circle, ClipboardCheck, Heart, Syringe } from "lucide-react";
+
+// Tab is determined client-side only via useEffect to avoid hydration mismatch
 
 const CATEGORY_CONFIG: Record<string, { icon: LucideIcon; label: string; color: string; bg: string }> = {
   money: { icon: Banknote, label: "지원금/수당", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
@@ -75,22 +79,53 @@ function matchesRegion(benefit: BenefitItem, regionName: string): boolean {
 }
 
 export default function BenefitsPage() {
+  const [mounted, setMounted] = useState(false);
+  const appMode = useBabyStore((s) => s.mode);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [initialized, setInitialized] = useState(false);
+  const [activeTab, setActiveTab] = useState<"general" | "infertility">("general");
 
   useEffect(() => {
     setSelectedRegion(loadSavedRegion());
-    setInitialized(true);
+    // Determine tab client-side only
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("tab") === "infertility") {
+      setActiveTab("infertility");
+    }
+    setMounted(true);
   }, []);
 
+  // React to mode change after Zustand hydration
   useEffect(() => {
-    if (!initialized) return;
+    if (!mounted) return;
+    if (appMode === "infertility") setActiveTab("infertility");
+  }, [appMode, mounted]);
+
+  useEffect(() => {
+    if (!mounted) return;
     localStorage.setItem(STORAGE_KEY, selectedRegion);
-  }, [selectedRegion, initialized]);
+  }, [selectedRegion, mounted]);
+
+  if (!mounted) {
+    return (
+      <main className="flex flex-col">
+        <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md px-5 pt-12 pb-3">
+          <div className="flex items-center gap-2">
+            <Link href="/" className="p-1 -ml-1" aria-label="뒤로가기">
+              <ChevronLeft size={22} className="text-foreground" />
+            </Link>
+            <h1 className="text-lg font-bold text-foreground">혜택</h1>
+          </div>
+        </header>
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      </main>
+    );
+  }
 
   const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
 
@@ -133,11 +168,44 @@ export default function BenefitsPage() {
           <Link href="/" className="p-1 -ml-1" aria-label="뒤로가기">
             <ChevronLeft size={22} className="text-foreground" />
           </Link>
-          <h1 className="text-lg font-bold text-foreground">임산부/육아 혜택</h1>
+          <h1 className="text-lg font-bold text-foreground">
+            {activeTab === "infertility" ? "난임 지원 혜택" : "임산부/육아 혜택"}
+          </h1>
+        </div>
+
+        {/* Tab switcher */}
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={() => setActiveTab("general")}
+            className={`flex-1 py-2 rounded-xl text-xs font-medium transition-all ${
+              activeTab === "general"
+                ? "bg-primary text-white"
+                : "bg-surface text-muted border border-card-border"
+            }`}
+          >
+            🤰 임산부/육아
+          </button>
+          <button
+            onClick={() => setActiveTab("infertility")}
+            className={`flex-1 py-2 rounded-xl text-xs font-medium transition-all ${
+              activeTab === "infertility"
+                ? "bg-primary text-white"
+                : "bg-surface text-muted border border-card-border"
+            }`}
+          >
+            🌱 난임 지원
+          </button>
         </div>
       </header>
 
       <section className="px-5 pb-8 flex flex-col gap-4">
+        {/* ── 난임 지원 혜택 탭 ── */}
+        {activeTab === "infertility" && (
+          <InfertilityBenefitsSection expandedId={expandedId} setExpandedId={setExpandedId} />
+        )}
+
+        {/* ── 일반 혜택 탭 ── */}
+        {activeTab === "general" && (<>
         {/* Region Selector */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
           <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
@@ -272,7 +340,15 @@ export default function BenefitsPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full ${cat.bg} font-medium ${cat.color}`}>
+                      <span
+                        role="button"
+                        onClick={(e) => { e.stopPropagation(); setSelectedCategory(selectedCategory === benefit.category ? "" : benefit.category); }}
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-medium cursor-pointer transition-colors ${
+                          selectedCategory === benefit.category
+                            ? "bg-primary text-white"
+                            : `${cat.bg} ${cat.color}`
+                        }`}
+                      >
                         {cat.label}
                       </span>
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-surface text-muted font-medium">
@@ -348,10 +424,13 @@ export default function BenefitsPage() {
           })}
         </div>
 
-        {/* Benefits Checklist */}
+        {/* Benefits Checklist - only when no category filter */}
+        {!selectedCategory && !searchQuery && (
         <BenefitChecklistSection />
+        )}
 
-        {/* Baby Packages / Welcome Kits */}
+        {/* Baby Packages / Welcome Kits - only when no category filter */}
+        {!selectedCategory && !searchQuery && (
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-3">
             <Package size={18} className="text-secondary" />
@@ -461,6 +540,7 @@ export default function BenefitsPage() {
             })}
           </div>
         </div>
+        )}
 
         {/* Info footer */}
         <div className="bg-surface rounded-2xl p-4 mt-2">
@@ -473,6 +553,7 @@ export default function BenefitsPage() {
             마지막 업데이트: {benefitsMeta.fetchedAt.slice(0, 10)}
           </p>
         </div>
+        </>)}
       </section>
     </main>
   );
@@ -601,5 +682,131 @@ function BenefitChecklistSection() {
         })}
       </div>
     </div>
+  );
+}
+
+// ─── 난임 지원 혜택 섹션 ────────────────────────────────
+
+function InfertilityBenefitsSection({
+  expandedId,
+  setExpandedId,
+}: {
+  expandedId: number | null;
+  setExpandedId: (id: number | null) => void;
+}) {
+  return (
+    <>
+      <div className="bg-gradient-to-r from-secondary/10 to-primary/10 rounded-2xl p-4 border border-card-border">
+        <div className="flex items-center gap-2 mb-1">
+          <Syringe size={16} className="text-secondary" />
+          <span className="text-sm font-bold text-foreground">난임 시술 지원 혜택</span>
+        </div>
+        <p className="text-xs text-muted">
+          정부에서 지원하는 난임 관련 혜택을 한눈에 확인하세요.
+        </p>
+      </div>
+
+      <p className="text-xs text-muted">
+        총 <span className="font-semibold text-foreground">{infertilityBenefits.length}</span>건의 난임 지원 혜택
+      </p>
+
+      <div className="flex flex-col gap-3">
+        {infertilityBenefits.map((benefit) => {
+          const isExpanded = expandedId === benefit.id;
+
+          return (
+            <div
+              key={benefit.id}
+              className="bg-card rounded-2xl border border-card-border shadow-sm overflow-hidden"
+            >
+              <button
+                onClick={() => setExpandedId(isExpanded ? null : benefit.id)}
+                className="w-full p-4 text-left flex items-start gap-3"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+                  <Syringe size={20} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-secondary/10 font-medium text-secondary">
+                      난임 지원
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-surface text-muted font-medium">
+                      {benefit.region}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-sm text-foreground leading-snug line-clamp-2">
+                    {benefit.name}
+                  </h3>
+                  <p className="text-xs text-muted mt-1 line-clamp-2">
+                    {benefit.summary}
+                  </p>
+                  <p className="text-[11px] text-muted mt-1.5">{benefit.organization}</p>
+                </div>
+                <ChevronDown
+                  size={16}
+                  className={`text-muted flex-shrink-0 mt-1 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {isExpanded && (
+                <div className="px-4 pb-4 pt-0 border-t border-card-border">
+                  {benefit.content && (
+                    <div className="mt-3">
+                      <h4 className="text-xs font-semibold text-foreground mb-1">지원 내용</h4>
+                      <p className="text-xs text-muted leading-relaxed whitespace-pre-wrap">{benefit.content}</p>
+                    </div>
+                  )}
+                  {benefit.criteria && (
+                    <div className="mt-3">
+                      <h4 className="text-xs font-semibold text-foreground mb-1">지원 대상</h4>
+                      <p className="text-xs text-muted leading-relaxed whitespace-pre-wrap">{benefit.criteria}</p>
+                    </div>
+                  )}
+                  {benefit.howToApply && (
+                    <div className="mt-3">
+                      <h4 className="text-xs font-semibold text-foreground mb-1">신청 방법</h4>
+                      <p className="text-xs text-muted leading-relaxed whitespace-pre-wrap">{benefit.howToApply}</p>
+                    </div>
+                  )}
+                  <div className="flex gap-2 mt-3">
+                    {benefit.applyUrl && (
+                      <a
+                        href={benefit.applyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
+                      >
+                        <ExternalLink size={14} />
+                        신청 바로가기
+                      </a>
+                    )}
+                    {benefit.contact && (
+                      <a
+                        href={`tel:${benefit.contact.replace(/[^0-9-]/g, "")}`}
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-surface border border-card-border text-sm font-medium text-foreground transition-all active:scale-[0.98]"
+                      >
+                        <Phone size={14} />
+                        문의
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="bg-surface rounded-2xl p-4 mt-2">
+        <p className="text-xs text-muted leading-relaxed">
+          난임 지원 혜택 정보는 보건복지부 및 관련 기관 공시 기준입니다.
+          실제 지원 금액과 조건은 해당 기관에 직접 확인해주세요.
+        </p>
+        <p className="text-[11px] text-muted mt-1">
+          마지막 업데이트: 2026-01
+        </p>
+      </div>
+    </>
   );
 }

@@ -13,6 +13,8 @@ import {
   TrendingUp,
   Shield,
   Settings2,
+  Heart,
+  BookOpen,
   type LucideIcon,
 } from "lucide-react";
 import { useBabyStore } from "@/store/useBabyStore";
@@ -39,11 +41,20 @@ const postnatalNav: NavItem[] = [
   { href: "/settings", label: "설정", icon: Settings2 },
 ];
 
+const infertilityNav: NavItem[] = [
+  { href: "/", label: "홈", icon: Home },
+  { href: "/infertility-guide", label: "가이드", icon: BookOpen },
+  { href: "/infertility-tips", label: "꿀팁", icon: Heart },
+  { href: "/benefits", label: "지원금", icon: Gift },
+  { href: "/settings", label: "설정", icon: Settings2 },
+];
+
 export default function BottomNav() {
   const pathname = usePathname();
+  const hydrated = useBabyStore((s) => s._hydrated);
   const mode = useBabyStore((s) => s.mode);
 
-  const navItems = mode === "postnatal" ? postnatalNav : pregnancyNav;
+  const navItems = !hydrated ? pregnancyNav : mode === "infertility" ? infertilityNav : mode === "postnatal" ? postnatalNav : pregnancyNav;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-t border-card-border">
