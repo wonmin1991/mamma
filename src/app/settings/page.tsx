@@ -45,6 +45,8 @@ import {
   sendTestNotification,
   type NotificationSettings,
 } from "@/lib/notifications";
+import { useAuth } from "@/contexts/AuthContext";
+import { LogIn, LogOut, User } from "lucide-react";
 
 export default function SettingsPage() {
   const { dueDate, currentWeek, babyNickname, parentRole, childOrder, setDueDate, setWeekDirectly, setBabyNickname, setParentRole, setChildOrder, reset } =
@@ -67,6 +69,7 @@ export default function SettingsPage() {
   const [notiPermission, setNotiPermission] = useState<string>("default");
   const theme = useStore((s) => s.theme);
   const setTheme = useStore((s) => s.setTheme);
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     try {
@@ -175,6 +178,51 @@ export default function SettingsPage() {
       </header>
 
       <section className="px-5 pb-8 flex flex-col gap-5">
+        {/* Account */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
+          <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">
+            <User size={16} className="text-primary" />
+            계정
+          </h2>
+          {user ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                {user.user_metadata?.avatar_url ? (
+                  <img src={user.user_metadata.avatar_url} alt="" className="w-10 h-10 rounded-full" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center">
+                    <User size={18} className="text-primary" />
+                  </div>
+                )}
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split("@")[0]}
+                  </p>
+                  <p className="text-[11px] text-muted">{user.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={async () => {
+                  await signOut();
+                  showToast("로그아웃되었습니다", "success");
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface text-muted text-xs font-medium border border-card-border"
+              >
+                <LogOut size={12} />
+                로그아웃
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-sm font-medium transition-all active:scale-[0.98]"
+            >
+              <LogIn size={16} />
+              로그인 / 회원가입
+            </Link>
+          )}
+        </div>
+
         {/* Mode selection */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
           <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">

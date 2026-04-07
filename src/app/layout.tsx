@@ -9,6 +9,7 @@ import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import AutoBackupAlert from "@/components/AutoBackupAlert";
 import NativeInit from "@/components/NativeInit";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -83,6 +84,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ServiceWorkerRegister />
         <NativeInit />
+        <AuthProvider>
         <PregnancyProvider>
           <MedicalDisclaimer />
           <OnboardingModal />
@@ -90,6 +92,7 @@ export default function RootLayout({
           <div className="flex-1 mx-auto w-full max-w-lg pb-20">{children}</div>
           <BottomNav />
         </PregnancyProvider>
+        </AuthProvider>
       </body>
     </html>
   );
