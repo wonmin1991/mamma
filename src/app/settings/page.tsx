@@ -706,6 +706,21 @@ export default function SettingsPage() {
           )}
         </div>
 
+        {/* Feedback */}
+        <Link
+          href="/feedback"
+          className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl border border-card-border p-5 flex items-center gap-3 active:scale-[0.98] transition-transform"
+        >
+          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <span className="text-lg">💬</span>
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-foreground">의견 보내기</p>
+            <p className="text-[11px] text-muted mt-0.5">불편한 점, 원하는 기능, 틀린 정보 제보</p>
+          </div>
+          <ChevronLeft size={16} className="text-muted rotate-180" />
+        </Link>
+
         {/* App info */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5 text-center">
           <p className="text-2xl mb-2">🤰</p>
