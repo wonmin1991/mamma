@@ -375,6 +375,9 @@ interface WeekDetail {
   avoid: string[];
 }
 
+// 출처: ACOG, Mayo Clinic, Cleveland Clinic, NHS, 대한산부인과학회
+// 검증일: 2026-04-08
+// ⚠️ 주차별 발달 정보는 일반적 기준이며 개인차가 있습니다.
 const WEEK_DETAILS: [number, number, WeekDetail][] = [
   [1, 1, {
     dev: [
