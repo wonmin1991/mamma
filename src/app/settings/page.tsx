@@ -69,7 +69,7 @@ export default function SettingsPage() {
   const [notiPermission, setNotiPermission] = useState<string>("default");
   const theme = useStore((s) => s.theme);
   const setTheme = useStore((s) => s.setTheme);
-  const { user, signOut } = useAuth();
+  const { user, syncing, signOut, syncNow } = useAuth();
 
   useEffect(() => {
     try {
@@ -201,16 +201,27 @@ export default function SettingsPage() {
                   <p className="text-[11px] text-muted">{user.email}</p>
                 </div>
               </div>
-              <button
-                onClick={async () => {
-                  await signOut();
-                  showToast("로그아웃되었습니다", "success");
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface text-muted text-xs font-medium border border-card-border"
-              >
-                <LogOut size={12} />
-                로그아웃
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={async () => {
+                    await syncNow();
+                    showToast("클라우드에 동기화했어요", "success");
+                  }}
+                  disabled={syncing}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-primary-light text-primary text-[11px] font-medium"
+                >
+                  {syncing ? "동기화 중..." : "동기화"}
+                </button>
+                <button
+                  onClick={async () => {
+                    await signOut();
+                    showToast("로그아웃되었습니다", "success");
+                  }}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-surface text-muted text-[11px] font-medium border border-card-border"
+                >
+                  <LogOut size={11} />
+                </button>
+              </div>
             </div>
           ) : (
             <Link
