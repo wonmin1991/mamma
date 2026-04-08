@@ -21,7 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { regions, getDistrictsByRegion } from "@/data/regions";
-import { benefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, type BenefitItem } from "@/data/benefits";
+import { defaultBenefits, loadAllBenefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, type BenefitItem } from "@/data/benefits";
 import { infertilityBenefits } from "@/data/infertility";
 import { trackLink, logClick } from "@/lib/affiliate";
 import { useStore } from "@/store/useStore";
@@ -87,15 +87,17 @@ export default function BenefitsPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"general" | "infertility">("general");
+  const [allBenefits, setAllBenefits] = useState<BenefitItem[]>(defaultBenefits);
 
   useEffect(() => {
     setSelectedRegion(loadSavedRegion());
-    // Determine tab client-side only
     const params = new URLSearchParams(window.location.search);
     if (params.get("tab") === "infertility") {
       setActiveTab("infertility");
     }
     setMounted(true);
+    // Lazy load full benefits data (2.8MB) in background
+    loadAllBenefits().then(setAllBenefits);
   }, []);
 
   // React to mode change after Zustand hydration
@@ -112,7 +114,7 @@ export default function BenefitsPage() {
   const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
 
   const filteredBenefits = useMemo(() => {
-    return benefits.filter((b) => {
+    return allBenefits.filter((b) => {
       if (selectedRegion && !matchesRegion(b, selectedRegion)) return false;
       if (selectedCategory && b.category !== selectedCategory) return false;
       if (searchQuery) {
@@ -122,10 +124,10 @@ export default function BenefitsPage() {
       }
       return true;
     });
-  }, [selectedRegion, selectedCategory, searchQuery]);
+  }, [allBenefits, selectedRegion, selectedCategory, searchQuery]);
 
   const categoryCounts = useMemo(() => {
-    const regionFiltered = benefits.filter((b) =>
+    const regionFiltered = allBenefits.filter((b) =>
       selectedRegion ? matchesRegion(b, selectedRegion) : true
     );
     const counts = new Map<string, number>();
@@ -133,7 +135,7 @@ export default function BenefitsPage() {
       counts.set(b.category, (counts.get(b.category) ?? 0) + 1);
     }
     return counts;
-  }, [selectedRegion]);
+  }, [allBenefits, selectedRegion]);
 
   if (!mounted) {
     return (
@@ -260,7 +262,7 @@ export default function BenefitsPage() {
             }`}
           >
             <Filter size={12} className="inline mr-1 -mt-0.5" />
-            전체 ({selectedRegion ? filteredBenefits.length : benefits.length})
+            전체 ({selectedRegion ? filteredBenefits.length : allBenefits.length})
           </button>
           {Object.entries(CATEGORY_CONFIG).map(([key, config]) => {
             const count = categoryCounts.get(key) ?? 0;

@@ -1,9 +1,7 @@
 // 임산부/육아 혜택 데이터
 // `npm run fetch-benefits` 실행 시 benefits-api.ts가 갱신됩니다.
 // 이 파일의 수동 데이터 + API 데이터가 합쳐져서 사용됩니다.
-
-// API에서 가져온 데이터 (benefits-api.ts가 있으면 import)
-import { benefits as apiBenefits } from "./benefits-api";
+// ⚠️ benefits-api.ts (2.8MB)는 lazy load로 분리되어 초기 번들에 포함되지 않습니다.
 
 export interface BenefitItem {
   id: number;
@@ -531,18 +529,34 @@ const _defaultBenefits: BenefitItem[] = [
 
 export const benefitsMeta = {
   fetchedAt: "2025-01-01T00:00:00.000Z",
-  totalFromApi: apiBenefits.length,
-  filteredCount: _defaultBenefits.length + apiBenefits.length,
+  defaultCount: _defaultBenefits.length,
 };
 
-// API 데이터가 있으면 합쳐서 사용 (중복 제거)
-export const benefits: BenefitItem[] = (() => {
-  if (apiBenefits.length === 0) return _defaultBenefits;
-  const manualNames = new Set(_defaultBenefits.map((b) => b.name));
-  const unique = apiBenefits.filter((b) => !manualNames.has(b.name));
-  // Re-assign unique IDs to avoid duplicates between manual and API data
-  return [..._defaultBenefits, ...unique].map((b, i) => ({ ...b, id: i + 1 }));
-})();
+// 기본 혜택 (번들에 포함 — 가벼움)
+export const defaultBenefits: BenefitItem[] = _defaultBenefits;
+
+// API 혜택 lazy load (2.8MB — 필요 시에만 로드)
+let _cachedAllBenefits: BenefitItem[] | null = null;
+
+export async function loadAllBenefits(): Promise<BenefitItem[]> {
+  if (_cachedAllBenefits) return _cachedAllBenefits;
+  try {
+    const { benefits: apiBenefits } = await import("./benefits-api");
+    if (apiBenefits.length === 0) {
+      _cachedAllBenefits = _defaultBenefits;
+    } else {
+      const manualNames = new Set(_defaultBenefits.map((b) => b.name));
+      const unique = apiBenefits.filter((b: BenefitItem) => !manualNames.has(b.name));
+      _cachedAllBenefits = [..._defaultBenefits, ...unique].map((b, i) => ({ ...b, id: i + 1 }));
+    }
+  } catch {
+    _cachedAllBenefits = _defaultBenefits;
+  }
+  return _cachedAllBenefits;
+}
+
+// 동기 접근 (이전 호환용 — lazy load 전까지 기본 혜택만 반환)
+export const benefits: BenefitItem[] = _defaultBenefits;
 
 // ─── 육아 패키지 / 웰컴키트 ─────────────────────────────
 

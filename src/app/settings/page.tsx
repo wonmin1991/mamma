@@ -728,12 +728,14 @@ export default function SettingsPage() {
           <p className="text-xs text-muted mt-1">
             임신·난임·육아 정보를 한곳에서
           </p>
-          <Link
-            href="/privacy"
-            className="inline-block mt-3 text-[11px] text-muted underline underline-offset-2"
-          >
-            개인정보 처리방침
-          </Link>
+          <div className="flex gap-3 justify-center mt-3">
+            <Link href="/terms" className="text-[11px] text-muted underline underline-offset-2">
+              이용약관
+            </Link>
+            <Link href="/privacy" className="text-[11px] text-muted underline underline-offset-2">
+              개인정보 처리방침
+            </Link>
+          </div>
         </div>
       </section>
 

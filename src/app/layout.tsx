@@ -10,6 +10,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import AutoBackupAlert from "@/components/AutoBackupAlert";
 import NativeInit from "@/components/NativeInit";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Analytics } from "@vercel/analytics/next";
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -84,6 +85,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ServiceWorkerRegister />
         <NativeInit />
+        <Analytics />
         <AuthProvider>
         <PregnancyProvider>
           <MedicalDisclaimer />
