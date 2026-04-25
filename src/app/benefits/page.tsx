@@ -103,6 +103,28 @@ export default function BenefitsPage() {
     setMounted(true);
     /* eslint-enable react-hooks/set-state-in-effect */
     loadAllBenefits().then(setAllBenefits);
+
+    // 다른 페이지(settings 등)에서 region이 바뀌면 동기화
+    // - storage 이벤트: 다른 탭/창의 변경
+    // - mamma:region-change: 같은 탭 내 다른 페이지의 변경 (settings에서 dispatch)
+    // - visibilitychange/focus: 백그라운드 → 포어그라운드 복귀
+    const syncRegion = () => {
+      const latest = loadSavedRegion();
+      setSelectedRegion((prev) => (prev === latest ? prev : latest));
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") syncRegion();
+    };
+    window.addEventListener("focus", syncRegion);
+    window.addEventListener("storage", syncRegion);
+    window.addEventListener("mamma:region-change", syncRegion);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("focus", syncRegion);
+      window.removeEventListener("storage", syncRegion);
+      window.removeEventListener("mamma:region-change", syncRegion);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, []);
 
   // React to mode change after Zustand hydration
@@ -264,8 +286,13 @@ export default function BenefitsPage() {
               <select
                 value={selectedRegion}
                 onChange={(e) => {
-                  setSelectedRegion(e.target.value);
+                  const v = e.target.value;
+                  setSelectedRegion(v);
                   setSelectedDistrict("");
+                  try {
+                    localStorage.setItem(STORAGE_KEY, v);
+                    window.dispatchEvent(new Event("mamma:region-change"));
+                  } catch { /* ignore */ }
                 }}
                 className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
               >

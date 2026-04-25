@@ -402,6 +402,7 @@ export default function SettingsPage() {
                   setSavedDistrict("");
                   localStorage.setItem("mamma-benefit-region", v);
                   localStorage.removeItem("mamma-benefit-district");
+                  window.dispatchEvent(new Event("mamma:region-change"));
                   showToast("지역이 변경되었습니다", "success");
                 }}
                 className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
