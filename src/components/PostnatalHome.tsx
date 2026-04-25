@@ -14,8 +14,23 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 import { useBabyStore, getBabyAgeLabel, generateInsights, type Insight } from "@/store/useBabyStore";
-import { CARE_LOG_TYPES } from "@/data/postnatal";
+import { CARE_LOG_TYPES, type CareLogEntry } from "@/data/postnatal";
 import { useMemo } from "react";
+
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function computeSummary(logs: CareLogEntry[]) {
+  const today = todayStr();
+  const todayLogs = logs.filter((l) => l.startTime.split("T")[0] === today);
+  return {
+    feeds: todayLogs.filter((l) => l.type === "breast_feed" || l.type === "bottle_feed").length,
+    sleeps: todayLogs.filter((l) => l.type === "sleep").length,
+    diapers: todayLogs.filter((l) => l.type.startsWith("diaper")).length,
+  };
+}
 
 const quickLinks = [
   { href: "/care-log", label: "육아기록", emoji: "📋", bg: "bg-surface-rose", icon: ClipboardList },
@@ -42,7 +57,7 @@ export default function PostnatalHome() {
   const careLogs = useBabyStore((s) => s.careLogs);
   const setMode = useBabyStore((s) => s.setMode);
 
-  const summary = useBabyStore((s) => s.getTodaySummary());
+  const summary = useMemo(() => computeSummary(careLogs), [careLogs]);
   const insights = useMemo(() => generateInsights(careLogs), [careLogs]);
 
   if (!baby) return null;
