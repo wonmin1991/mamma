@@ -365,9 +365,30 @@ export default function BenefitsPage() {
           </div>
         )}
 
-        {/* Benefit Cards */}
-        <div className="flex flex-col gap-3">
-          {filteredBenefits.map((benefit) => {
+        {/* 전국 혜택 / 지역 혜택 그룹핑 */}
+        {(() => {
+          const national = filteredBenefits.filter((b) => b.region === "전국");
+          const local = filteredBenefits.filter((b) => b.region !== "전국");
+          const showSplit = selectedRegion !== "" && (national.length > 0 || local.length > 0);
+          const groups = showSplit
+            ? [
+                { key: "national" as const, title: "🇰🇷 전국 공통 혜택", subtitle: "모든 지역에서 신청 가능", items: national },
+                { key: "local" as const, title: `📍 ${selectedRegion} 지역 혜택`, subtitle: "거주지 기반 추가 지원", items: local },
+              ]
+            : [{ key: "all" as const, title: "", subtitle: "", items: filteredBenefits }];
+
+          return groups.map((group) => (
+            <div key={group.key} className="flex flex-col gap-3">
+              {group.title && (
+                <div className="mt-2 mb-1">
+                  <h3 className="text-sm font-bold text-foreground">{group.title} <span className="text-xs text-muted font-normal">({group.items.length})</span></h3>
+                  {group.subtitle && <p className="text-[11px] text-muted mt-0.5">{group.subtitle}</p>}
+                </div>
+              )}
+              {group.items.length === 0 ? (
+                <p className="text-xs text-muted text-center py-4">해당 그룹에 혜택이 없습니다</p>
+              ) : (
+                group.items.map((benefit) => {
             const cat = CATEGORY_CONFIG[benefit.category] ?? CATEGORY_CONFIG.other;
             const CatIcon = cat.icon;
             const isExpanded = expandedId === benefit.id;
@@ -467,8 +488,11 @@ export default function BenefitsPage() {
                 )}
               </div>
             );
-          })}
-        </div>
+                })
+              )}
+            </div>
+          ));
+        })()}
 
         {/* Benefits Checklist - only when no category filter */}
         {!selectedCategory && !searchQuery && (
