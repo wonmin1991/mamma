@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { ChevronLeft, Mail, Lock, Eye, EyeOff, Check } from "lucide-react";
 
 export default function LoginPage() {
   const { user, loading, signInWithEmail, signUpWithEmail, signInWithGoogle, signInWithKakao } = useAuth();
@@ -13,6 +13,8 @@ export default function LoginPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -39,9 +41,24 @@ export default function LoginPage() {
       setError("이메일과 비밀번호를 입력해주세요");
       return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("올바른 이메일 형식이 아니에요");
+      return;
+    }
     if (password.length < 6) {
       setError("비밀번호는 6자 이상이어야 해요");
       return;
+    }
+
+    if (mode === "signup") {
+      if (password !== passwordConfirm) {
+        setError("비밀번호가 일치하지 않아요");
+        return;
+      }
+      if (!agreed) {
+        setError("이용약관·개인정보 처리방침에 동의해주세요");
+        return;
+      }
     }
 
     setSubmitting(true);
@@ -50,12 +67,25 @@ export default function LoginPage() {
       if (result.error) {
         setError(result.error === "User already registered" ? "이미 가입된 이메일이에요" : result.error);
       } else {
-        setSuccess("인증 이메일을 보냈어요! 메일함을 확인해주세요.");
+        setSuccess("인증 이메일을 보냈어요! 메일함의 링크를 클릭한 뒤 로그인해주세요.");
+        setPassword("");
+        setPasswordConfirm("");
+        // 인증 완료 후 로그인 모드로 자동 전환 (사용자가 메일 확인 후)
+        setTimeout(() => {
+          setMode("login");
+          setSuccess(null);
+        }, 5000);
       }
     } else {
       const result = await signInWithEmail(email, password);
       if (result.error) {
-        setError(result.error === "Invalid login credentials" ? "이메일 또는 비밀번호가 맞지 않아요" : result.error);
+        if (result.error === "Invalid login credentials") {
+          setError("이메일 또는 비밀번호가 맞지 않아요");
+        } else if (result.error.toLowerCase().includes("email not confirmed")) {
+          setError("이메일 인증이 필요해요. 메일함을 확인해주세요.");
+        } else {
+          setError(result.error);
+        }
       }
     }
     setSubmitting(false);
@@ -117,6 +147,43 @@ export default function LoginPage() {
               </button>
             </div>
 
+            {mode === "signup" && (
+              <>
+                <div className="relative">
+                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="비밀번호 확인"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    className="w-full pl-10 pr-10 py-3.5 rounded-2xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary"
+                    autoComplete="new-password"
+                  />
+                </div>
+                <label className="flex items-start gap-2 px-1 cursor-pointer select-none">
+                  <span
+                    className={`flex-shrink-0 mt-0.5 w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                      agreed ? "bg-primary border-primary" : "bg-surface border-card-border"
+                    }`}
+                  >
+                    {agreed && <Check size={11} className="text-white" strokeWidth={3} />}
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                    className="sr-only"
+                  />
+                  <span className="text-[11px] text-muted leading-relaxed">
+                    <Link href="/terms" target="_blank" className="text-primary underline">이용약관</Link>
+                    {" 및 "}
+                    <Link href="/privacy" target="_blank" className="text-primary underline">개인정보 처리방침</Link>
+                    에 동의합니다 (필수)
+                  </span>
+                </label>
+              </>
+            )}
+
             {error && (
               <p className="text-xs text-red-500 px-1">{error}</p>
             )}
@@ -138,7 +205,13 @@ export default function LoginPage() {
           </form>
 
           <button
-            onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(null); setSuccess(null); }}
+            onClick={() => {
+              setMode(mode === "login" ? "signup" : "login");
+              setError(null);
+              setSuccess(null);
+              setPasswordConfirm("");
+              setAgreed(false);
+            }}
             className="w-full text-center mt-3 text-xs text-muted"
           >
             {mode === "login"
