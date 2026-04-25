@@ -21,7 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { regions, getDistrictsByRegion } from "@/data/regions";
-import { defaultBenefits, loadAllBenefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, type BenefitItem } from "@/data/benefits";
+import { defaultBenefits, loadAllBenefits, benefitsMeta, babyPackages, benefitChecklist, CHECKLIST_STAGES, filterBenefitsByStage, type BenefitItem, type BenefitStage } from "@/data/benefits";
 import { infertilityBenefits } from "@/data/infertility";
 import { trackLink, logClick } from "@/lib/affiliate";
 import { useStore } from "@/store/useStore";
@@ -88,6 +88,7 @@ export default function BenefitsPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"general" | "infertility">("general");
   const [allBenefits, setAllBenefits] = useState<BenefitItem[]>(defaultBenefits);
+  const [stageFilter, setStageFilter] = useState<BenefitStage | "all">("all");
 
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- localStorage/URL hydration on mount */
@@ -104,8 +105,15 @@ export default function BenefitsPage() {
   // React to mode change after Zustand hydration
   useEffect(() => {
     if (!mounted) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing tab to external store
-    if (appMode === "infertility") setActiveTab("infertility");
+    /* eslint-disable react-hooks/set-state-in-effect -- syncing tab/stage to external store */
+    if (appMode === "infertility") {
+      setActiveTab("infertility");
+    } else if (appMode === "pregnancy") {
+      setStageFilter("pregnancy");
+    } else if (appMode === "postnatal") {
+      setStageFilter("postnatal");
+    }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [appMode, mounted]);
 
   useEffect(() => {
@@ -116,7 +124,8 @@ export default function BenefitsPage() {
   const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
 
   const filteredBenefits = useMemo(() => {
-    return allBenefits.filter((b) => {
+    const stageFiltered = filterBenefitsByStage(allBenefits, stageFilter);
+    return stageFiltered.filter((b) => {
       if (selectedRegion && !matchesRegion(b, selectedRegion)) return false;
       if (selectedCategory && b.category !== selectedCategory) return false;
       if (searchQuery) {
@@ -126,18 +135,18 @@ export default function BenefitsPage() {
       }
       return true;
     });
-  }, [allBenefits, selectedRegion, selectedCategory, searchQuery]);
+  }, [allBenefits, stageFilter, selectedRegion, selectedCategory, searchQuery]);
 
   const categoryCounts = useMemo(() => {
-    const regionFiltered = allBenefits.filter((b) =>
+    const stageThenRegion = filterBenefitsByStage(allBenefits, stageFilter).filter((b) =>
       selectedRegion ? matchesRegion(b, selectedRegion) : true
     );
     const counts = new Map<string, number>();
-    for (const b of regionFiltered) {
+    for (const b of stageThenRegion) {
       counts.set(b.category, (counts.get(b.category) ?? 0) + 1);
     }
     return counts;
-  }, [allBenefits, selectedRegion]);
+  }, [allBenefits, stageFilter, selectedRegion]);
 
   if (!mounted) {
     return (
@@ -203,6 +212,31 @@ export default function BenefitsPage() {
 
         {/* ── 일반 혜택 탭 ── */}
         {activeTab === "general" && (<>
+        {/* Stage Filter — 출산 전 / 출산 후 / 전체 */}
+        <div className="bg-card rounded-2xl border border-card-border shadow-sm p-2 flex gap-1.5">
+          {([
+            { id: "pregnancy" as const, label: "출산 전", emoji: "🤰" },
+            { id: "postnatal" as const, label: "출산 후", emoji: "👶" },
+            { id: "all" as const, label: "전체", emoji: "📋" },
+          ]).map((s) => {
+            const active = stageFilter === s.id;
+            return (
+              <button
+                key={s.id}
+                onClick={() => setStageFilter(s.id)}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  active
+                    ? "bg-primary text-white shadow-sm"
+                    : "bg-surface text-muted hover:text-foreground"
+                }`}
+              >
+                <span className="text-sm">{s.emoji}</span>
+                {s.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Region Selector */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-5">
           <h2 className="font-bold text-sm text-foreground flex items-center gap-2 mb-4">

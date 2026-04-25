@@ -558,6 +558,50 @@ export async function loadAllBenefits(): Promise<BenefitItem[]> {
 // 동기 접근 (이전 호환용 — lazy load 전까지 기본 혜택만 반환)
 export const benefits: BenefitItem[] = _defaultBenefits;
 
+// ─── 단계 분류 (출산 전 / 출산 후 / 둘 다) ──────────────────
+export type BenefitStage = "pregnancy" | "postnatal" | "both";
+
+const PREGNANCY_KEYWORDS = [
+  "임신", "임산부", "산모", "산전", "분만", "출산준비", "엽산", "철분", "기형아",
+  "산부인과", "초음파", "태아", "고위험임신", "난임", "보건소 등록",
+];
+
+const POSTNATAL_KEYWORDS = [
+  "영유아", "영아", "유아", "어린이집", "유치원", "육아", "아동", "돌봄",
+  "보육", "예방접종", "수유", "이유식", "신생아", "기저귀", "분유",
+  "양육수당", "부모급여", "아동수당", "다자녀", "아이돌봄",
+];
+
+const BOTH_KEYWORDS = ["첫만남", "출산", "산후", "출산축하", "장려금", "건강보험"];
+
+/** 혜택의 단계를 추론합니다. */
+export function inferBenefitStage(b: BenefitItem): BenefitStage {
+  const text = `${b.name} ${b.summary}`;
+
+  // 카테고리 우선 분기
+  if (b.category === "education") return "postnatal";
+  if (b.category === "childcare") return "postnatal";
+
+  const hasPreg = PREGNANCY_KEYWORDS.some((k) => text.includes(k));
+  const hasPost = POSTNATAL_KEYWORDS.some((k) => text.includes(k));
+  const hasBoth = BOTH_KEYWORDS.some((k) => text.includes(k));
+
+  if (hasBoth) return "both";
+  if (hasPreg && hasPost) return "both";
+  if (hasPreg) return "pregnancy";
+  if (hasPost) return "postnatal";
+  return "both";
+}
+
+/** 주어진 단계에 해당하는 혜택만 필터링 (both는 어느 단계에도 노출). */
+export function filterBenefitsByStage(list: BenefitItem[], stage: BenefitStage | "all"): BenefitItem[] {
+  if (stage === "all") return list;
+  return list.filter((b) => {
+    const s = inferBenefitStage(b);
+    return s === stage || s === "both";
+  });
+}
+
 // ─── 육아 패키지 / 웰컴키트 ─────────────────────────────
 
 export interface BabyPackage {
