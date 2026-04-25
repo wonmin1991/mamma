@@ -8,7 +8,7 @@ import { useBabyStore, getBabyAgeMonths } from "@/store/useBabyStore";
 import { env } from "@/lib/env";
 import { isNative } from "@/lib/native";
 import { BASE_URL } from "@/lib/constants";
-import { consumeChat, getRemainingChats } from "@/lib/chatRateLimit";
+import { canSendChat, consumeChat, getRemainingChats } from "@/lib/chatRateLimit";
 import { MAX_USER_MESSAGE_LENGTH } from "@/lib/chatSystemPrompt";
 import type { ChatContext } from "@/lib/chatSystemPrompt";
 
@@ -62,7 +62,7 @@ export default function ChatPage() {
       setError(`${MAX_USER_MESSAGE_LENGTH}자 이내로 입력해주세요.`);
       return;
     }
-    if (!consumeChat()) {
+    if (!canSendChat()) {
       setError(`오늘 무료 사용량 ${env.chatDailyLimit}회를 모두 사용했어요. 내일 다시 만나요!`);
       return;
     }
@@ -72,7 +72,6 @@ export default function ChatPage() {
     setMessages([...newHistory, { role: "assistant", content: "" }]);
     setInput("");
     setLoading(true);
-    setRemaining(getRemainingChats());
 
     const ctx: ChatContext = {
       mode,
@@ -99,6 +98,7 @@ export default function ChatPage() {
       const decoder = new TextDecoder();
       let buffer = "";
       let assistant = "";
+      let consumed = false;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -115,6 +115,11 @@ export default function ChatPage() {
             const parsed = JSON.parse(data) as { delta?: string; error?: string };
             if (parsed.error) throw new Error(parsed.error);
             if (parsed.delta) {
+              if (!consumed) {
+                consumeChat();
+                consumed = true;
+                setRemaining(getRemainingChats());
+              }
               assistant += parsed.delta;
               setMessages((prev) => {
                 const copy = prev.slice();

@@ -31,14 +31,20 @@ export function getRemainingChats(): number {
   return Math.max(0, limit - read().count);
 }
 
-export function consumeChat(): boolean {
+/** 사용 가능 여부만 체크 (카운트 변경 없음) */
+export function canSendChat(): boolean {
   const limit = env.chatDailyLimit;
   if (limit <= 0) return true;
+  return read().count < limit;
+}
+
+/** 실제 사용 카운트 1 증가 (API 호출 성공 후에만 호출) */
+export function consumeChat(): void {
+  const limit = env.chatDailyLimit;
+  if (limit <= 0) return;
   const usage = read();
-  if (usage.count >= limit) return false;
   const next: Usage = { date: todayStr(), count: usage.count + 1 };
   try {
     localStorage.setItem(KEY, JSON.stringify(next));
   } catch { /* ignore */ }
-  return true;
 }
