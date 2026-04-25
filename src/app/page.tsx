@@ -17,6 +17,8 @@ import { BabyOnboardingTrigger } from "@/components/BabyOnboarding";
 import HeroSection from "@/components/HeroSection";
 import DailyReward from "@/components/DailyReward";
 import HomeWidgets from "@/components/HomeWidgets";
+import LiveActivityCard from "@/components/LiveActivityCard";
+import DailyBrief from "@/components/DailyBrief";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
 
 const sourceIcons = {
@@ -34,6 +36,12 @@ export default function Home() {
     <main className="flex flex-col">
       {/* Hero — personalized pregnancy info */}
       <HeroSection />
+
+      {/* 진행 중 활동 (태동 측정/수유 타이머 등) */}
+      <LiveActivityCard />
+
+      {/* AI 오늘의 한 줄 (Claude Haiku, 일 1회) */}
+      <DailyBrief />
 
       {/* Widgets */}
       <section className="px-5 mt-5">

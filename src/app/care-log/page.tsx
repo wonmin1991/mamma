@@ -111,10 +111,17 @@ export default function CareLogPage() {
   }, [timerActive, timerStart]);
 
   const startTimer = (type: CareLogType) => {
+    const start = new Date();
     setTimerType(type);
-    setTimerStart(new Date());
+    setTimerStart(start);
     setTimerElapsed(0);
     setTimerActive(true);
+    try {
+      localStorage.setItem(
+        "mamma-active-care-timer",
+        JSON.stringify({ type, startedAt: start.getTime() })
+      );
+    } catch { /* ignore */ }
   };
 
   const stopTimer = () => {
@@ -138,6 +145,9 @@ export default function CareLogPage() {
     setTimerType(null);
     setTimerStart(null);
     setTimerElapsed(0);
+    try {
+      localStorage.removeItem("mamma-active-care-timer");
+    } catch { /* ignore */ }
   };
 
   const formatElapsed = (s: number) => {

@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
 import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle, Camera } from "lucide-react";
 import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
+import { buildGreeting, type Greeting } from "@/lib/dynamicGreeting";
 
 export default function HeroSection() {
   const { currentWeek, currentDay, daysUntilDue, dueDate, isOnboarded, babyNickname, parentRole } = usePregnancy();
@@ -14,15 +16,27 @@ export default function HeroSection() {
   const weekInfo = weeklyGuide[weekIdx];
 
   const baby = useBabyStore((s) => s.baby);
+  const mode = useBabyStore((s) => s.mode);
   const setMode = useBabyStore((s) => s.setMode);
   const trimesterLabel = weekInfo.trimester === 1 ? "초기" : weekInfo.trimester === 2 ? "중기" : "후기";
+
+  // 시간대·모드·주차 결합 동적 인사말 (마운트 시 1회 시간 캡처해 매분 바뀌지 않게)
+  const [hour, setHour] = useState<number | null>(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- capture hour on mount
+    setHour(new Date().getHours());
+  }, []);
+  const greeting: Greeting | null = useMemo(() => {
+    if (hour === null) return null;
+    return buildGreeting({ mode, hour, currentWeek, daysUntilDue, babyNickname, parentRole });
+  }, [hour, mode, currentWeek, daysUntilDue, babyNickname, parentRole]);
 
   return (
     <section className="relative px-5 pt-14 pb-8 bg-gradient-to-br from-hero-from via-hero-via to-hero-to">
       <div className="animate-fade-in-up">
         <div className="flex items-center justify-between">
           <p className="text-sm text-primary font-medium mb-1">
-            {parentRole === "dad" ? "오늘도 든든한 아빠 ✨" : "오늘도 건강하세요 ✨"}
+            {greeting?.label ?? (parentRole === "dad" ? "오늘도 든든한 아빠 ✨" : "오늘도 건강하세요 ✨")}
           </p>
           <div className="flex items-center gap-1">
             <Link
@@ -53,10 +67,8 @@ export default function HeroSection() {
         <h1 className="text-2xl font-bold text-foreground leading-tight">
           맘마<span className="text-primary">.</span>
         </h1>
-        <p className="text-sm text-muted mt-2 leading-relaxed">
-          임산부에게 필요한 맛집, 건강 정보,
-          <br />
-          주차별 가이드를 한곳에서 만나보세요.
+        <p className="text-sm text-muted mt-2 leading-relaxed min-h-[2.5rem]">
+          {greeting?.message ?? "임산부에게 필요한 맛집, 건강 정보, 주차별 가이드를 한곳에서 만나보세요."}
         </p>
       </div>
 

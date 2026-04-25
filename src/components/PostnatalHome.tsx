@@ -13,9 +13,12 @@ import {
   ChevronRight,
   ArrowLeftRight,
 } from "lucide-react";
-import { useBabyStore, getBabyAgeLabel, generateInsights, type Insight } from "@/store/useBabyStore";
+import { useBabyStore, getBabyAgeLabel, generateInsights, getBabyAgeMonths, type Insight } from "@/store/useBabyStore";
 import { CARE_LOG_TYPES, type CareLogEntry } from "@/data/postnatal";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { buildGreeting, type Greeting } from "@/lib/dynamicGreeting";
+import LiveActivityCard from "./LiveActivityCard";
+import DailyBrief from "./DailyBrief";
 
 function todayStr() {
   const d = new Date();
@@ -60,6 +63,21 @@ export default function PostnatalHome() {
   const summary = useMemo(() => computeSummary(careLogs), [careLogs]);
   const insights = useMemo(() => generateInsights(careLogs), [careLogs]);
 
+  const [hour, setHour] = useState<number | null>(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- capture hour on mount
+    setHour(new Date().getHours());
+  }, []);
+  const greeting: Greeting | null = useMemo(() => {
+    if (hour === null || !baby) return null;
+    return buildGreeting({
+      mode: "postnatal",
+      hour,
+      babyNickname: baby.name,
+      babyAgeMonths: getBabyAgeMonths(baby.birthDate),
+    });
+  }, [hour, baby]);
+
   if (!baby) return null;
 
   const ageLabel = getBabyAgeLabel(baby.birthDate);
@@ -70,7 +88,7 @@ export default function PostnatalHome() {
       <section className="relative px-5 pt-14 pb-8 bg-gradient-to-br from-hero-from via-hero-via to-hero-to">
         <div className="animate-fade-in-up">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-primary font-medium mb-1">오늘도 화이팅! 💪</p>
+            <p className="text-sm text-primary font-medium mb-1">{greeting?.label ?? "오늘도 화이팅! 💪"}</p>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setMode("pregnancy")}
@@ -87,6 +105,9 @@ export default function PostnatalHome() {
           <h1 className="text-2xl font-bold text-foreground leading-tight">
             맘마<span className="text-primary">.</span>
           </h1>
+          {greeting && (
+            <p className="text-xs text-muted mt-1.5 leading-relaxed">{greeting.message}</p>
+          )}
         </div>
 
         {/* Baby card */}
@@ -118,6 +139,9 @@ export default function PostnatalHome() {
           </div>
         </div>
       </section>
+
+      <LiveActivityCard />
+      <DailyBrief />
 
       {/* Quick actions */}
       <section className="px-5 -mt-1">
