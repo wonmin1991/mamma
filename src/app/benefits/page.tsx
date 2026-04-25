@@ -62,6 +62,7 @@ const REGION_SHORT_NAMES: Record<string, string[]> = {
 };
 
 const STORAGE_KEY = "mamma-benefit-region";
+const DISTRICT_KEY = "mamma-benefit-district";
 
 function loadSavedRegion(): string {
   if (typeof window === "undefined") return "";
@@ -70,6 +71,24 @@ function loadSavedRegion(): string {
   } catch {
     return "";
   }
+}
+
+function loadSavedDistrict(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return localStorage.getItem(DISTRICT_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+
+/** 혜택이 특정 시/군/구를 명시하는지 검사 (이름·요약·내용·주관기관에서 키워드 매칭) */
+function matchesDistrict(b: BenefitItem, district: string): boolean {
+  if (!district) return false;
+  // "용인시" → "용인" 으로도 매칭
+  const stripped = district.replace(/(시|군|구)$/, "");
+  const text = `${b.name} ${b.summary} ${b.content} ${b.organization}`;
+  return text.includes(district) || (stripped.length >= 2 && text.includes(stripped));
 }
 
 function matchesRegion(benefit: BenefitItem, regionName: string): boolean {
@@ -96,6 +115,7 @@ export default function BenefitsPage() {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- localStorage/URL hydration on mount */
     setSelectedRegion(loadSavedRegion());
+    setSelectedDistrict(loadSavedDistrict());
     const params = new URLSearchParams(window.location.search);
     if (params.get("tab") === "infertility") {
       setActiveTab("infertility");
@@ -109,8 +129,10 @@ export default function BenefitsPage() {
     // - mamma:region-change: 같은 탭 내 다른 페이지의 변경 (settings에서 dispatch)
     // - visibilitychange/focus: 백그라운드 → 포어그라운드 복귀
     const syncRegion = () => {
-      const latest = loadSavedRegion();
-      setSelectedRegion((prev) => (prev === latest ? prev : latest));
+      const latestRegion = loadSavedRegion();
+      const latestDistrict = loadSavedDistrict();
+      setSelectedRegion((prev) => (prev === latestRegion ? prev : latestRegion));
+      setSelectedDistrict((prev) => (prev === latestDistrict ? prev : latestDistrict));
     };
     const onVisibility = () => {
       if (document.visibilityState === "visible") syncRegion();
@@ -291,6 +313,7 @@ export default function BenefitsPage() {
                   setSelectedDistrict("");
                   try {
                     localStorage.setItem(STORAGE_KEY, v);
+                    localStorage.removeItem(DISTRICT_KEY);
                     window.dispatchEvent(new Event("mamma:region-change"));
                   } catch { /* ignore */ }
                 }}
@@ -308,7 +331,15 @@ export default function BenefitsPage() {
               <div className="relative flex-1">
                 <select
                   value={selectedDistrict}
-                  onChange={(e) => setSelectedDistrict(e.target.value)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setSelectedDistrict(v);
+                    try {
+                      if (v) localStorage.setItem(DISTRICT_KEY, v);
+                      else localStorage.removeItem(DISTRICT_KEY);
+                      window.dispatchEvent(new Event("mamma:region-change"));
+                    } catch { /* ignore */ }
+                  }}
                   className="w-full px-3 py-2.5 rounded-xl bg-surface border border-card-border text-sm text-foreground focus:outline-none focus:border-primary appearance-none"
                 >
                   <option value="">전체 구/군</option>
@@ -392,15 +423,30 @@ export default function BenefitsPage() {
           </div>
         )}
 
-        {/* 전국 혜택 / 지역 혜택 그룹핑 */}
+        {/* 전국 / 시군구 / 광역 3단 그룹핑 */}
         {(() => {
           const national = filteredBenefits.filter((b) => b.region === "전국");
-          const local = filteredBenefits.filter((b) => b.region !== "전국");
-          const showSplit = selectedRegion !== "" && (national.length > 0 || local.length > 0);
+          const regional = filteredBenefits.filter((b) => b.region !== "전국");
+          // 시/군/구 키워드가 본문에 있으면 시군구 그룹, 없으면 광역 그룹
+          const districtItems = selectedDistrict
+            ? regional.filter((b) => matchesDistrict(b, selectedDistrict))
+            : [];
+          const provinceItems = selectedDistrict
+            ? regional.filter((b) => !matchesDistrict(b, selectedDistrict))
+            : regional;
+          const showSplit = selectedRegion !== "" && (national.length > 0 || regional.length > 0);
           const groups = showSplit
             ? [
                 { key: "national" as const, title: "🇰🇷 전국 공통 혜택", subtitle: "모든 지역에서 신청 가능", items: national },
-                { key: "local" as const, title: `📍 ${selectedRegion} 지역 혜택`, subtitle: "거주지 기반 추가 지원", items: local },
+                ...(selectedDistrict
+                  ? [{ key: "district" as const, title: `🏘 ${selectedDistrict} 혜택`, subtitle: "시/군/구 직접 운영", items: districtItems }]
+                  : []),
+                {
+                  key: "province" as const,
+                  title: `🏛 ${selectedRegion}${selectedDistrict ? " 광역" : ""} 혜택`,
+                  subtitle: selectedDistrict ? `${selectedRegion} 도/시 차원의 통합 지원` : "거주지 기반 추가 지원",
+                  items: provinceItems,
+                },
               ]
             : [{ key: "all" as const, title: "", subtitle: "", items: filteredBenefits }];
 
