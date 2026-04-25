@@ -1151,21 +1151,31 @@ export const benefitChecklist: BenefitCheckItem[] = [
   },
 ];
 
-/** 현재 주차에 신청해야 할 혜택 반환 (권장 시작~마감 범위) */
-export function getBenefitsForWeek(week: number): BenefitCheckItem[] {
+/** 사용자 지역과 혜택 region 문자열이 매칭되는지 (전국 혜택은 항상 매칭) */
+export function matchesRegion(benefitRegion: string, userRegion?: string | null): boolean {
+  if (!userRegion) return true;
+  if (benefitRegion === "전국") return true;
+  return benefitRegion.includes(userRegion);
+}
+
+/** 현재 주차에 신청해야 할 혜택 반환 (권장 시작~마감 범위, 지역 필터 옵션) */
+export function getBenefitsForWeek(week: number, userRegion?: string | null): BenefitCheckItem[] {
   return benefitChecklist.filter((b) => {
-    if (b.recommendedWeek === 0 && b.deadlineWeek === 0) return false; // 상시 항목 제외
-    if (week < b.recommendedWeek) return false; // 아직 이른 항목
-    if (b.deadlineWeek > 0 && week > b.deadlineWeek) return false; // 마감 지난 항목
+    if (b.recommendedWeek === 0 && b.deadlineWeek === 0) return false;
+    if (week < b.recommendedWeek) return false;
+    if (b.deadlineWeek > 0 && week > b.deadlineWeek) return false;
+    if (!matchesRegion(b.region, userRegion)) return false;
     return true;
   });
 }
 
-/** 긴급한 혜택 반환 (마감 3주 이내) */
-export function getUrgentBenefits(week: number): BenefitCheckItem[] {
+/** 긴급한 혜택 반환 (마감 3주 이내, 지역 필터 옵션) */
+export function getUrgentBenefits(week: number, userRegion?: string | null): BenefitCheckItem[] {
   return benefitChecklist.filter((b) => {
     if (b.deadlineWeek === 0) return false;
     const remaining = b.deadlineWeek - week;
-    return remaining >= 0 && remaining <= 3 && week >= b.recommendedWeek;
+    if (remaining < 0 || remaining > 3 || week < b.recommendedWeek) return false;
+    if (!matchesRegion(b.region, userRegion)) return false;
+    return true;
   });
 }

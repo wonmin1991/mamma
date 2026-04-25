@@ -10,6 +10,7 @@ import {
   Shield,
 } from "lucide-react";
 import { emergencyGuide, SEVERITY_CONFIG } from "@/data/emergency";
+import MedicalReviewBadge, { DEFAULT_REVIEWS } from "@/components/MedicalReviewBadge";
 
 export default function EmergencyPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -147,6 +148,10 @@ export default function EmergencyPage() {
             응급의료포털 바로가기 →
           </a>
         </div>
+      </section>
+
+      <section className="px-5 mt-6 mb-4">
+        <MedicalReviewBadge review={DEFAULT_REVIEWS.emergency} />
       </section>
     </main>
   );

@@ -6,6 +6,7 @@ import { weeklyGuide } from "@/data/mock";
 import { ChevronLeft, ChevronRight, Apple, Ban, Sparkles, Camera } from "lucide-react";
 import Link from "next/link";
 import GuideWeekSync from "@/components/GuideWeekSync";
+import MedicalReviewBadge, { DEFAULT_REVIEWS } from "@/components/MedicalReviewBadge";
 
 const trimesterColors = {
   1: { bg: "bg-surface-rose", border: "border-primary-light", text: "text-primary", badge: "bg-primary-light text-primary" },
@@ -252,6 +253,10 @@ export default function GuidePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="px-5 mt-6 mb-4">
+        <MedicalReviewBadge review={DEFAULT_REVIEWS.guide} />
       </section>
     </main>
   );

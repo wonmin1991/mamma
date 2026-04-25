@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { infertilityGuide } from "@/data/infertility";
+import MedicalReviewBadge, { DEFAULT_REVIEWS } from "@/components/MedicalReviewBadge";
 
 export default function InfertilityGuidePage() {
   return (
@@ -87,6 +88,10 @@ export default function InfertilityGuidePage() {
             </Link>
           </div>
         </div>
+      </section>
+
+      <section className="px-5 mt-6 mb-4">
+        <MedicalReviewBadge review={DEFAULT_REVIEWS.infertility} />
       </section>
     </main>
   );

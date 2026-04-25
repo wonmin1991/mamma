@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "@/store/useStore";
+import { joinCoupleChannel, leaveCoupleChannel, broadcastCoupleEvent, onCoupleEvent, isCoupleConnected } from "@/lib/coupleRealtime";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { birthChecklist, CHECKLIST_CATEGORIES } from "@/data/nurseryItems";
 import {
@@ -23,8 +24,11 @@ const MESSAGE_EMOJIS = ["❤️", "🥰", "💪", "🤗", "👶", "🍼", "✨",
 export default function CouplePage() {
   const {
     coupleEnabled, partners, activePartner, coupleMessages, coupleCode, checkedItems,
-    enableCouple, switchPartner, addCoupleMessage, toggleCheckItem, hearts,
+    enableCouple, switchPartner, addCoupleMessage, addCoupleMessageFrom, toggleCheckItem, setCheckItem, hearts,
   } = useStore();
+  const [partnerCodeInput, setPartnerCodeInput] = useState("");
+  const [connected, setConnected] = useState(false);
+  const [partnerOnline, setPartnerOnline] = useState(false);
   const { currentWeek } = usePregnancy();
 
   const [tab, setTab] = useState<"message" | "checklist">("message");
@@ -39,9 +43,46 @@ export default function CouplePage() {
 
   const handleSendMessage = () => {
     if (!msgText.trim()) return;
-    addCoupleMessage(sanitizeTrim(msgText, 500), msgEmoji);
+    const text = sanitizeTrim(msgText, 500);
+    addCoupleMessage(text, msgEmoji);
+    broadcastCoupleEvent({ type: "message", text, emoji: msgEmoji, sender: activePartner, ts: new Date().toISOString() });
     setMsgText("");
     setMsgEmoji(undefined);
+  };
+
+  // Realtime: 페어 코드가 있으면 채널 join + 이벤트 수신
+  useEffect(() => {
+    if (!coupleEnabled || !coupleCode) return;
+    const ok = joinCoupleChannel(coupleCode, activePartner);
+    /* eslint-disable-next-line react-hooks/set-state-in-effect -- subscribing to external system */
+    setConnected(ok && isCoupleConnected());
+    const unsub = onCoupleEvent((evt) => {
+      if (evt.type === "message" && evt.sender !== activePartner) {
+        addCoupleMessageFrom(evt.sender, evt.text, evt.emoji);
+      } else if (evt.type === "checkitem" && evt.sender !== activePartner) {
+        setCheckItem(evt.itemId, evt.checked);
+      } else if (evt.type === "presence" && evt.sender !== activePartner) {
+        setPartnerOnline(evt.online);
+      }
+    });
+    return () => {
+      unsub();
+      leaveCoupleChannel();
+      setConnected(false);
+    };
+  }, [coupleEnabled, coupleCode, activePartner, addCoupleMessageFrom, setCheckItem]);
+
+  const handleJoinPartner = () => {
+    const code = partnerCodeInput.trim().toUpperCase();
+    if (!code || code.length < 4) return;
+    useStore.setState({ coupleCode: code });
+    setPartnerCodeInput("");
+  };
+
+  const handleToggleCheckSync = (itemId: string) => {
+    const isChecked = checkedItems.includes(itemId);
+    toggleCheckItem(itemId);
+    broadcastCoupleEvent({ type: "checkitem", itemId, checked: !isChecked, sender: activePartner, ts: new Date().toISOString() });
   };
 
   const handleSetup = () => {
@@ -195,12 +236,34 @@ export default function CouplePage() {
       {tab === "message" && (
         <section className="px-5 mt-3 pb-6 flex flex-col">
           {coupleCode && (
-            <button
-              onClick={copyCode}
-              className="flex items-center justify-center gap-2 mb-3 py-2 rounded-xl bg-surface-violet border border-card-border text-xs text-secondary"
-            >
-              <Copy size={12} /> 커플 코드: <span className="font-bold">{coupleCode}</span>
-            </button>
+            <div className="mb-3 space-y-2">
+              <button
+                onClick={copyCode}
+                className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-surface-violet border border-card-border text-xs text-secondary"
+              >
+                <Copy size={12} /> 커플 코드: <span className="font-bold">{coupleCode}</span>
+                <span className={`ml-2 inline-flex items-center gap-1 text-[10px] ${connected ? "text-emerald-600" : "text-muted"}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${connected ? (partnerOnline ? "bg-emerald-500 animate-pulse" : "bg-emerald-400") : "bg-gray-400"}`} />
+                  {connected ? (partnerOnline ? "파트너 온라인" : "실시간 동기화 중") : "오프라인"}
+                </span>
+              </button>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={partnerCodeInput}
+                  onChange={(e) => setPartnerCodeInput(e.target.value.toUpperCase().slice(0, 8))}
+                  placeholder="파트너 코드 입력 (예: ABCD12)"
+                  className="flex-1 px-3 py-2 rounded-xl bg-surface border border-card-border text-xs uppercase tracking-wider focus:outline-none focus:border-primary"
+                />
+                <button
+                  onClick={handleJoinPartner}
+                  disabled={partnerCodeInput.trim().length < 4}
+                  className="px-3 py-2 rounded-xl bg-primary text-white text-xs font-medium disabled:opacity-40"
+                >
+                  연결
+                </button>
+              </div>
+            </div>
           )}
 
           {coupleMessages.length === 0 && (
@@ -325,7 +388,7 @@ export default function CouplePage() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => toggleCheckItem(item.id)}
+                  onClick={() => handleToggleCheckSync(item.id)}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border text-left transition-all ${
                     isChecked
                       ? "bg-surface-emerald border-emerald-200 dark:border-emerald-800"

@@ -9,6 +9,7 @@ import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import AutoBackupAlert from "@/components/AutoBackupAlert";
 import NativeInit from "@/components/NativeInit";
+import AIChatFab from "@/components/AIChatFab";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Analytics } from "@vercel/analytics/next";
 import { BASE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
@@ -92,6 +93,7 @@ export default function RootLayout({
           <OnboardingModal />
           <AutoBackupAlert />
           <div className="flex-1 mx-auto w-full max-w-lg pb-20">{children}</div>
+          <AIChatFab />
           <BottomNav />
         </PregnancyProvider>
         </AuthProvider>

@@ -49,6 +49,12 @@
 | 성장 일기 | `/diary` | useBabyStore | 완료 |
 | 회원가입/로그인 | `/login` | Supabase Auth | 완료 |
 | 피드백 | `/feedback` | Supabase DB | 완료 |
+| AI 임신·육아 상담 | `/chat` | Claude Haiku 4.5 | 완료 (Tier1-#1) |
+| 산전 케어 (태동+검진) | `/prenatal-care` | kickCounter.ts + checkups.ts | 완료 (Tier2-#5) |
+| 의료진 감수 배지 | 5개 의료 페이지 | MedicalReviewBadge | 완료 (Tier1-#3) |
+| 주차+지역 혜택 알림 | 알림 설정 토글 | notifications.ts | 완료 (Tier1-#2) |
+| 성장 곡선 WHO 백분위 | `/growth` | WHO LMS + 추정 | 완료 (Tier2-#7) |
+| 부부 실시간 동기화 | `/couple` | Supabase Realtime broadcast | 완료 (Tier2-#4) |
 
 ### 인프라
 
@@ -95,10 +101,13 @@ NEXT_PUBLIC_VAPID_KEY             # 웹 푸시 알림
 | Supabase | 인증 + DB (user_data, feedback) | 활성 |
 | Naver API | 맛집/팁/큐레이션 크롤링 | 활성 |
 | 공공데이터포털 | 정부 혜택 3,000+건 | API 키 갱신 필요 |
+| 질병관리청 예방접종 API | 예방접종 일정 자동 갱신 | 승인 대기 (2026-04-13 신청) |
+| 건보심평원 병원평가 API | 산부인과/소아과 평가 정보 | 승인 대기 (2026-04-13 신청) |
+| 식약처 건강기능식품 API | 임산부 영양제 인증 정보 | 승인 대기 (2026-04-13 신청) |
 | Vercel | 웹 호스팅 + Analytics | 활성 |
 | Sentry | 에러 모니터링 | DSN 설정 필요 |
 | Google Play | Android 앱 배포 | AAB 준비 완료 |
-| Capacitor | iOS/Android 네이티브 | SDK 연동 완료 |
+| Capacitor | Android 네이티브 | SDK 연동 완료 |
 
 ---
 
@@ -134,18 +143,16 @@ NEXT_PUBLIC_VAPID_KEY             # 웹 푸시 알림
 
 ## 남은 할 일
 
-### 출시 (필수)
-- [ ] Google Play Console 앱 만들기 + AAB 업로드
+### Android 출시 (필수)
+- [ ] Google Play Console 개발자 계정 등록 ($25)
+- [ ] 앱 만들기 + AAB 업로드
 - [ ] 스토어 등록정보 입력 (이름/설명/아이콘)
 - [ ] 스크린샷 5장 캡처 및 업로드
 - [ ] 콘텐츠 등급/데이터 안전 양식 작성
+- [ ] 내부 테스트 → 비공개 테스트 → 프로덕션 출시
 - [ ] Google Play 검토 제출
 
-### iOS 출시
-- [ ] Apple Developer 계정 등록 ($99/년)
-- [ ] iOS 빌드 및 App Store 제출
-
-### 기능 보완
+### 출시 후 기능 보완
 - [ ] 소셜 로그인 설정 (Google/Kakao OAuth Provider)
 - [ ] Sentry DSN 설정 및 활성화
 

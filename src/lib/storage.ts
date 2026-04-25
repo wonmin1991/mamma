@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   REPORTS: "mamma-reports",
   THEME: "mamma-theme",
   BABY: "mamma-baby",
+  BENEFIT_REGION: "mamma-benefit-region",
 } as const;
 
 const ALL_KEYS = Object.values(STORAGE_KEYS);

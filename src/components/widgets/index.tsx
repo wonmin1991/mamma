@@ -47,6 +47,7 @@ export const WIDGET_REGISTRY: WidgetDef[] = [
   { id: "todayTodo", name: "오늘의 할 일", description: "검진, 영양제, 혜택을 한눈에", emoji: "📋" },
   { id: "checkup", name: "검진 일정", description: "이번 주차 필수 검진 안내", emoji: "🩺" },
   { id: "benefitCalc", name: "혜택 계산기", description: "총 받을 수 있는 금액 계산", emoji: "💰" },
+  { id: "kickCounter", name: "태동 카운터", description: "후기 임신 태동 10회 측정 (28주~)", emoji: "👶" },
 ];
 
 // ─── D-Day Widget ────────────────────────────────────────
@@ -518,7 +519,7 @@ function CheckupWidget() {
   const isCurrent = current.includes(item);
 
   return (
-    <Link href="/guide" className="block">
+    <Link href="/prenatal-care" className="block">
       <div className={`rounded-2xl border shadow-sm p-4 ${
         isCurrent && item.priority === "essential"
           ? "bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-900/50"
@@ -536,6 +537,39 @@ function CheckupWidget() {
         {item.cost && (
           <p className="text-xs text-primary font-medium mt-1.5">예상 비용: {item.cost}</p>
         )}
+      </div>
+    </Link>
+  );
+}
+
+// ─── Kick Counter Widget (28주~ 후기 임신) ────────────────
+
+function KickCounterWidget() {
+  const { currentWeek } = usePregnancy();
+  if (currentWeek < 28) {
+    return (
+      <div className="bg-card rounded-2xl border border-card-border p-4">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+          <span className="text-base">👶</span>
+          태동 카운터
+        </h3>
+        <p className="text-xs text-muted mt-1">28주차부터 측정을 권장해요. 현재 {currentWeek}주차.</p>
+      </div>
+    );
+  }
+
+  return (
+    <Link href="/prenatal-care" className="block">
+      <div className="bg-gradient-to-br from-rose-50 to-amber-50 dark:from-rose-900/20 dark:to-amber-900/20 rounded-2xl border border-card-border p-4">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
+            <span className="text-base">👶</span>
+            태동 카운터
+          </h3>
+          <ChevronRight size={14} className="text-muted" />
+        </div>
+        <p className="text-xs text-foreground">하루 1회, 태동 10회까지 측정해보세요.</p>
+        <p className="text-[11px] text-muted mt-1">2시간 이내 10회 미만이면 즉시 병원 연락</p>
       </div>
     </Link>
   );
@@ -603,6 +637,7 @@ const WIDGET_COMPONENTS: Record<string, () => ReactElement> = {
   todayTodo: TodayTodoWidget,
   checkup: CheckupWidget,
   benefitCalc: BenefitCalcWidget,
+  kickCounter: KickCounterWidget,
 };
 
 export function WidgetArea() {

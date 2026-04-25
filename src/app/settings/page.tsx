@@ -540,6 +540,29 @@ export default function SettingsPage() {
                       />
                     </div>
 
+                    {/* Benefit reminder toggle */}
+                    <div className="flex items-center justify-between pt-1 border-t border-card-border">
+                      <div>
+                        <p className="text-sm font-medium text-foreground">혜택 마감 알림</p>
+                        <p className="text-xs text-muted mt-0.5">주차+지역 기반 신청 마감 D-day 알림 (매일 오전 10시)</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const updated = { ...notiSettings, benefitReminder: !notiSettings.benefitReminder };
+                          saveNotificationSettings(updated);
+                          setNotiSettings(updated);
+                          showToast(updated.benefitReminder ? "혜택 알림이 활성화되었습니다" : "혜택 알림이 비활성화되었습니다", "success");
+                        }}
+                        className={`w-12 h-7 rounded-full transition-colors relative ${
+                          notiSettings.benefitReminder ? "bg-primary" : "bg-surface border border-card-border"
+                        }`}
+                      >
+                        <span className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform ${
+                          notiSettings.benefitReminder ? "translate-x-5" : "translate-x-0.5"
+                        }`} />
+                      </button>
+                    </div>
+
                     {/* Test button */}
                     <button
                       onClick={async () => {

@@ -9,6 +9,7 @@ export interface NotificationSettings {
   supplementReminder: boolean;
   supplementTime: string; // "HH:MM" 형식
   weeklyGuideReminder: boolean;
+  benefitReminder: boolean;
 }
 
 const DEFAULT_SETTINGS: NotificationSettings = {
@@ -16,6 +17,7 @@ const DEFAULT_SETTINGS: NotificationSettings = {
   supplementReminder: true,
   supplementTime: "09:00",
   weeklyGuideReminder: true,
+  benefitReminder: true,
 };
 
 export function getNotificationSettings(): NotificationSettings {
@@ -29,11 +31,10 @@ export function getNotificationSettings(): NotificationSettings {
 
 export function saveNotificationSettings(settings: NotificationSettings) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-  if (settings.enabled && settings.supplementReminder) {
-    scheduleSupplementReminder(settings.supplementTime);
-  } else {
-    cancelAllReminders();
-  }
+  cancelAllReminders();
+  if (!settings.enabled) return;
+  if (settings.supplementReminder) scheduleSupplementReminder(settings.supplementTime);
+  if (settings.benefitReminder) scheduleBenefitReminder();
 }
 
 /** 브라우저 알림 권한 요청 */
@@ -169,21 +170,24 @@ async function showBenefitNotification() {
       currentWeek = pregData.manualWeek;
     }
 
-    // 이번 주 신청해야 하는데 아직 안 한 혜택 찾기
+    // 사용자 지역 (설정 페이지에서 저장)
+    const userRegion = localStorage.getItem("mamma-benefit-region") || null;
+
     const { getBenefitsForWeek, getUrgentBenefits } = await import("@/data/benefits");
-    const urgent = getUrgentBenefits(currentWeek).filter((b) => !checkedItems.includes(b.id));
-    const available = getBenefitsForWeek(currentWeek).filter((b) => !checkedItems.includes(b.id));
+    const urgent = getUrgentBenefits(currentWeek, userRegion).filter((b) => !checkedItems.includes(b.id));
+    const available = getBenefitsForWeek(currentWeek, userRegion).filter((b) => !checkedItems.includes(b.id));
 
     if (urgent.length > 0) {
       const item = urgent[0];
       const remainWeeks = item.deadlineWeek - currentWeek;
+      const dDay = remainWeeks <= 0 ? "D-DAY" : `D-${remainWeeks * 7}일`;
       const reg = await navigator.serviceWorker?.ready;
       if (reg) {
-        await reg.showNotification("⚡ 마감 임박 혜택!", {
-          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} — ${remainWeeks}주 후 마감! 지금 신청하세요.`,
+        await reg.showNotification(`⚡ ${dDay} · 마감 임박 혜택`, {
+          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} — ${remainWeeks <= 0 ? "오늘이 마지막!" : `${remainWeeks}주 후 마감`}. 지금 신청하세요.`,
           icon: "/icon-192.png",
           badge: "/icon-192.png",
-          tag: "benefit-urgent",
+          tag: `benefit-urgent-${item.id}`,
           data: { url: "/benefits" },
         } as NotificationOptions);
       }
@@ -191,8 +195,8 @@ async function showBenefitNotification() {
       const item = available[0];
       const reg = await navigator.serviceWorker?.ready;
       if (reg) {
-        await reg.showNotification("🎁 이번 주 신청 가능한 혜택", {
-          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} — ${available.length}건의 혜택이 대기 중이에요.`,
+        await reg.showNotification(`🎁 이번 주 ${userRegion ?? ""} 신청 가능 혜택`.trim(), {
+          body: `${item.name}${item.amount ? ` (${item.amount})` : ""} 외 ${available.length - 1}건. 탭하여 확인하세요.`,
           icon: "/icon-192.png",
           badge: "/icon-192.png",
           tag: "benefit-reminder",

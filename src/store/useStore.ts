@@ -97,7 +97,9 @@ interface AppState {
   enableCouple: (momName: string, dadName: string) => void;
   switchPartner: () => void;
   addCoupleMessage: (text: string, emoji?: string) => void;
+  addCoupleMessageFrom: (from: "mom" | "dad", text: string, emoji?: string) => void;
   toggleCheckItem: (itemId: string) => void;
+  setCheckItem: (itemId: string, checked: boolean) => void;
 
   // Nursery
   ownedItems: string[];
@@ -301,6 +303,21 @@ export const useStore = create<AppState>()(
           emoji,
         };
         set({ coupleMessages: [msg, ...get().coupleMessages].slice(0, 100) });
+      },
+      addCoupleMessageFrom: (from, text, emoji) => {
+        const msg: CoupleMessage = {
+          id: Date.now() + Math.floor(Math.random() * 1000),
+          from,
+          text,
+          createdAt: new Date().toISOString(),
+          emoji,
+        };
+        set({ coupleMessages: [msg, ...get().coupleMessages].slice(0, 100) });
+      },
+      setCheckItem: (itemId, checked) => {
+        const list = get().checkedItems;
+        if (checked && !list.includes(itemId)) set({ checkedItems: [...list, itemId] });
+        else if (!checked && list.includes(itemId)) set({ checkedItems: list.filter((id) => id !== itemId) });
       },
       toggleCheckItem: (itemId) => {
         const checked = get().checkedItems;

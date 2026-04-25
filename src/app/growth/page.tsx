@@ -142,6 +142,42 @@ export default function GrowthPage() {
     return entry ? entry[percentile] : null;
   }
 
+  /** WHO 표준 대비 백분위 추정 (선형 보간) */
+  function estimatePercentile(month: number, value: number): { rank: string; interpretation: string; color: string } | null {
+    if (!whoData) return null;
+    const entry = whoData.find((d) => d.month === month) ?? whoData[Math.min(month, whoData.length - 1)];
+    if (!entry) return null;
+    const ps: Array<[number, keyof typeof entry]> = [[3, "p3"], [15, "p15"], [50, "p50"], [85, "p85"], [97, "p97"]];
+    let rankNum = 50;
+    if (value <= (entry.p3 as number)) rankNum = 3;
+    else if (value >= (entry.p97 as number)) rankNum = 97;
+    else {
+      for (let i = 0; i < ps.length - 1; i++) {
+        const lo = entry[ps[i][1]] as number;
+        const hi = entry[ps[i + 1][1]] as number;
+        if (value >= lo && value <= hi) {
+          const frac = (value - lo) / (hi - lo || 1);
+          rankNum = ps[i][0] + frac * (ps[i + 1][0] - ps[i][0]);
+          break;
+        }
+      }
+    }
+    const rank = `${Math.round(rankNum)}백분위`;
+    if (rankNum < 3) return { rank, interpretation: "또래 하위 3% 미만 — 소아과 상담 권장", color: "text-red-500" };
+    if (rankNum < 15) return { rank, interpretation: "또래보다 작지만 정상 범위 (3~15백분위)", color: "text-amber-600" };
+    if (rankNum <= 85) return { rank, interpretation: "또래 평균 범위 (15~85백분위)", color: "text-emerald-600" };
+    if (rankNum <= 97) return { rank, interpretation: "또래보다 크지만 정상 범위 (85~97백분위)", color: "text-amber-600" };
+    return { rank, interpretation: "또래 상위 3% 초과 — 소아과 상담 권장", color: "text-red-500" };
+  }
+
+  const percentileInfo = (() => {
+    if (!latestRecord || !baby) return null;
+    const month = getMonthFromDate(latestRecord.date, baby.birthDate);
+    const val = getRecordValue(latestRecord, activeTab);
+    if (val === undefined) return null;
+    return estimatePercentile(month, val);
+  })();
+
   function toPercent(value: number): number {
     return ((value - yRange.min) / (yRange.max - yRange.min)) * 100;
   }
@@ -236,6 +272,20 @@ export default function GrowthPage() {
             <h2 className="font-semibold">성장 차트</h2>
             <span className="text-xs text-muted ml-auto">WHO 백분위 기준</span>
           </div>
+
+          {percentileInfo && (
+            <div className="mb-3 rounded-xl bg-surface p-3 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] text-muted">WHO 표준 대비</p>
+                <p className={`text-base font-bold ${percentileInfo.color}`}>
+                  {TAB_CONFIG.find((t) => t.key === activeTab)?.label.replace(/\(.+\)/, "").trim()} {percentileInfo.rank}
+                </p>
+              </div>
+              <p className={`text-xs ${percentileInfo.color} text-right max-w-[55%]`}>
+                {percentileInfo.interpretation}
+              </p>
+            </div>
+          )}
 
           {growthRecords.length < 2 ? (
             <p className="text-muted text-sm text-center py-8">

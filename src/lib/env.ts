@@ -26,6 +26,11 @@ export const env = {
   // Push notifications (future)
   pushNotificationsEnabled: process.env.NEXT_PUBLIC_PUSH_ENABLED === "true",
   vapidPublicKey: process.env.NEXT_PUBLIC_VAPID_KEY ?? "",
+
+  // Claude API (AI 임신 상담 챗봇)
+  anthropicApiKey: process.env.ANTHROPIC_API_KEY ?? "",
+  chatModel: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001",
+  chatDailyLimit: Number(process.env.NEXT_PUBLIC_CHAT_DAILY_LIMIT ?? "5"),
 } as const;
 
 export type Env = typeof env;

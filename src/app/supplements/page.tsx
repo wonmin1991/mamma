@@ -19,6 +19,7 @@ import {
   SUPPLEMENT_PHASES,
   type Supplement,
 } from "@/data/supplements";
+import MedicalReviewBadge, { DEFAULT_REVIEWS } from "@/components/MedicalReviewBadge";
 
 const PRIORITY_STYLE = {
   essential: { label: "일반 권장", color: "text-rose-500", bg: "bg-rose-50 dark:bg-rose-900/20" },
@@ -242,6 +243,10 @@ export default function SupplementsPage() {
               본 정보는 일반적인 권장 사항이며 의학적 처방을 대체하지 않습니다.
             </p>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <MedicalReviewBadge review={DEFAULT_REVIEWS.supplements} />
         </div>
       </section>
     </main>

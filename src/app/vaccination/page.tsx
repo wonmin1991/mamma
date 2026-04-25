@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronDown, ChevronUp, Shield, AlertCircle, CalendarPlus 
 import { generateICS, downloadICS } from "@/lib/calendar";
 import { useBabyStore, getBabyAgeMonths } from "@/store/useBabyStore";
 import { VACCINATIONS } from "@/data/postnatal";
+import MedicalReviewBadge, { DEFAULT_REVIEWS } from "@/components/MedicalReviewBadge";
 
 type DoseStatus = "upcoming" | "current" | "past";
 
@@ -272,6 +273,10 @@ export default function VaccinationPage() {
               </div>
             );
           })}
+        </div>
+
+        <div className="px-5 mt-6 mb-4">
+          <MedicalReviewBadge review={DEFAULT_REVIEWS.vaccination} />
         </div>
       </main>
     </div>
