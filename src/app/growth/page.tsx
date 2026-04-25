@@ -170,13 +170,15 @@ export default function GrowthPage() {
     return { rank, interpretation: "또래 상위 3% 초과 — 소아과 상담 권장", color: "text-red-500" };
   }
 
-  const percentileInfo = (() => {
+  const percentileInfo = useMemo(() => {
     if (!latestRecord || !baby) return null;
     const month = getMonthFromDate(latestRecord.date, baby.birthDate);
     const val = getRecordValue(latestRecord, activeTab);
     if (val === undefined) return null;
     return estimatePercentile(month, val);
-  })();
+    // estimatePercentile is closure over whoData which derives from activeTab + baby.gender
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [latestRecord, baby, activeTab]);
 
   function toPercent(value: number): number {
     return ((value - yRange.min) / (yRange.max - yRange.min)) * 100;
