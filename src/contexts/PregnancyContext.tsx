@@ -57,6 +57,7 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- client-only localStorage hydration */
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
@@ -66,7 +67,6 @@ export function PregnancyProvider({ children }: { children: ReactNode }) {
         if (saved.childOrder) setChildOrderState(saved.childOrder);
         if (saved.dueDate) {
           const calc = calculateFromDueDate(saved.dueDate);
-          /* eslint-disable react-hooks/set-state-in-effect -- client-only localStorage hydration */
           setDueDateState(saved.dueDate);
           setCurrentWeek(calc.week);
           setCurrentDay(calc.day);

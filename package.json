@@ -17,7 +17,9 @@
     "build:static": "STATIC_EXPORT=true next build",
     "build:ios": "STATIC_EXPORT=true next build && npx cap copy ios && npx cap open ios",
     "build:android": "STATIC_EXPORT=true next build && npx cap copy android && npx cap open android",
-    "cap:sync": "npx cap sync"
+    "cap:sync": "npx cap sync",
+    "qa": "bash scripts/qa.sh",
+    "qa:quick": "npx tsc --noEmit && npx eslint src && bash scripts/verify-app.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

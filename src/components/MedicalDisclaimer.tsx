@@ -7,6 +7,7 @@ export default function MedicalDisclaimer() {
   const [dismissed, setDismissed] = useState(true); // default true to avoid flash
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage hydration on mount
     setDismissed(localStorage.getItem("mamma-disclaimer-accepted") !== null);
   }, []);
 

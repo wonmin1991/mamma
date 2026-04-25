@@ -90,19 +90,21 @@ export default function BenefitsPage() {
   const [allBenefits, setAllBenefits] = useState<BenefitItem[]>(defaultBenefits);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- localStorage/URL hydration on mount */
     setSelectedRegion(loadSavedRegion());
     const params = new URLSearchParams(window.location.search);
     if (params.get("tab") === "infertility") {
       setActiveTab("infertility");
     }
     setMounted(true);
-    // Lazy load full benefits data (2.8MB) in background
+    /* eslint-enable react-hooks/set-state-in-effect */
     loadAllBenefits().then(setAllBenefits);
   }, []);
 
   // React to mode change after Zustand hydration
   useEffect(() => {
     if (!mounted) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing tab to external store
     if (appMode === "infertility") setActiveTab("infertility");
   }, [appMode, mounted]);
 

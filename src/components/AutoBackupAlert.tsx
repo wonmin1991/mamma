@@ -52,8 +52,10 @@ export default function AutoBackupAlert() {
 
   useEffect(() => {
     const initial = computeInitial();
+    /* eslint-disable react-hooks/set-state-in-effect -- localStorage hydration on mount */
     setShow(initial.show);
     setDays(initial.days);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const handleBackup = () => {

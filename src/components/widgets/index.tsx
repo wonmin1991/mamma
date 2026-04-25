@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactElement } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide, tips } from "@/data/mock";
@@ -199,9 +200,12 @@ function getRecommendedCategories(week: number): string[] {
 function QuickTipWidget() {
   const { currentWeek } = usePregnancy();
   const categories = getRecommendedCategories(currentWeek);
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
 
-  // 우선 카테고리 순서대로 팁 찾기, 같은 카테고리 내에서는 날짜로 로테이션
+  // 일자 인덱스는 마운트 시점 기준 1회 계산 (렌더마다 변하지 않도록)
+  const [dayOfYear] = useState(() =>
+    Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+  );
+
   let tip = tips[0];
   for (const cat of categories) {
     const catTips = tips.filter((t) => t.category === cat);

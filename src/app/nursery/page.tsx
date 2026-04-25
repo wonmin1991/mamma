@@ -99,6 +99,7 @@ export default function NurseryPage() {
   const maxDailyAds = 10;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- ad stats hydration on mount
     setTodayAdCount(getAdStats().todayCount);
     return () => {
       adCleanupRef.current?.();
