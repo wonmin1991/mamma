@@ -558,12 +558,16 @@ export async function loadAllBenefits(): Promise<BenefitItem[]> {
 // 동기 접근 (이전 호환용 — lazy load 전까지 기본 혜택만 반환)
 export const benefits: BenefitItem[] = _defaultBenefits;
 
-// ─── 단계 분류 (출산 전 / 출산 후 / 둘 다) ──────────────────
-export type BenefitStage = "pregnancy" | "postnatal" | "both";
+// ─── 단계 분류 (출산 전 / 출산 후 / 둘 다 / 난임) ──────────
+export type BenefitStage = "pregnancy" | "postnatal" | "both" | "infertility";
+
+const INFERTILITY_KEYWORDS = [
+  "난임", "시험관", "체외수정", "인공수정", "IVF", "IUI", "배란",
+];
 
 const PREGNANCY_KEYWORDS = [
   "임신", "임산부", "산모", "산전", "분만", "출산준비", "엽산", "철분", "기형아",
-  "산부인과", "초음파", "태아", "고위험임신", "난임", "보건소 등록",
+  "산부인과", "초음파", "태아", "고위험임신", "보건소 등록",
 ];
 
 const POSTNATAL_KEYWORDS = [
@@ -577,6 +581,9 @@ const BOTH_KEYWORDS = ["첫만남", "출산", "산후", "출산축하", "장려�
 /** 혜택의 단계를 추론합니다. */
 export function inferBenefitStage(b: BenefitItem): BenefitStage {
   const text = `${b.name} ${b.summary}`;
+
+  // 난임은 최우선 — 다른 키워드와 겹쳐도 난임으로 분류
+  if (INFERTILITY_KEYWORDS.some((k) => text.includes(k))) return "infertility";
 
   // 카테고리 우선 분기
   if (b.category === "education") return "postnatal";
@@ -598,19 +605,20 @@ export const BOTH_VISIBLE_FROM_WEEK = 32;
 
 /**
  * 주어진 단계에 해당하는 혜택만 필터링.
- * - stage="pregnancy": pregnancy + (currentWeek >= 32일 때만 both 포함)
- * - stage="postnatal": postnatal + both
- * - stage="all": 전체
+ * - stage="pregnancy": pregnancy + (currentWeek >= 32일 때만 both 포함). 난임은 제외.
+ * - stage="postnatal": postnatal + both. 난임은 제외.
+ * - stage="all": 난임 외 전체 (난임은 별도 탭에서 노출).
  */
 export function filterBenefitsByStage(
   list: BenefitItem[],
   stage: BenefitStage | "all",
   opts?: { currentWeek?: number }
 ): BenefitItem[] {
-  if (stage === "all") return list;
   const showBothInPregnancy = (opts?.currentWeek ?? 0) >= BOTH_VISIBLE_FROM_WEEK;
   return list.filter((b) => {
     const s = inferBenefitStage(b);
+    if (s === "infertility") return false; // 난임은 별도 탭
+    if (stage === "all") return true;
     if (s === stage) return true;
     if (s === "both") {
       if (stage === "postnatal") return true;
