@@ -12,8 +12,10 @@ import {
   Settings2,
   ChevronRight,
   ArrowLeftRight,
+  Heart,
 } from "lucide-react";
 import { useBabyStore, getBabyAgeLabel, generateInsights, getBabyAgeMonths, type Insight } from "@/store/useBabyStore";
+import { useStore } from "@/store/useStore";
 import { CARE_LOG_TYPES, type CareLogEntry } from "@/data/postnatal";
 import { useEffect, useMemo, useState } from "react";
 import { buildGreeting, type Greeting } from "@/lib/dynamicGreeting";
@@ -59,6 +61,7 @@ export default function PostnatalHome() {
   const baby = useBabyStore((s) => s.baby);
   const careLogs = useBabyStore((s) => s.careLogs);
   const setMode = useBabyStore((s) => s.setMode);
+  const hearts = useStore((s) => s.hearts);
 
   const summary = useMemo(() => computeSummary(careLogs), [careLogs]);
   const insights = useMemo(() => generateInsights(careLogs), [careLogs]);
@@ -90,6 +93,14 @@ export default function PostnatalHome() {
           <div className="flex items-center justify-between">
             <p className="text-sm text-primary font-medium mb-1">{greeting?.label ?? "오늘도 화이팅! 💪"}</p>
             <div className="flex items-center gap-1">
+              <Link
+                href="/nursery"
+                className="flex items-center gap-1 px-2 py-1 rounded-full bg-card/80 backdrop-blur-sm border border-card-border hover:scale-105 transition-transform"
+                aria-label={`보유 하트 ${hearts}개`}
+              >
+                <Heart size={12} className="text-primary" fill="currentColor" />
+                <span className="text-xs font-bold text-primary tabular-nums">{hearts}</span>
+              </Link>
               <button
                 onClick={() => setMode("pregnancy")}
                 className="p-1.5 rounded-full hover:bg-card/50 transition-colors"

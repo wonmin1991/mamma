@@ -4,9 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePregnancy } from "@/contexts/PregnancyContext";
 import { weeklyGuide } from "@/data/mock";
-import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle, Camera } from "lucide-react";
+import { ChevronRight, Settings2, ArrowLeftRight, AlertTriangle, Camera, Heart } from "lucide-react";
 import { formatDueDate } from "@/lib/date";
 import { useBabyStore } from "@/store/useBabyStore";
+import { useStore } from "@/store/useStore";
 import { buildGreeting, type Greeting } from "@/lib/dynamicGreeting";
 
 export default function HeroSection() {
@@ -18,6 +19,7 @@ export default function HeroSection() {
   const baby = useBabyStore((s) => s.baby);
   const mode = useBabyStore((s) => s.mode);
   const setMode = useBabyStore((s) => s.setMode);
+  const hearts = useStore((s) => s.hearts);
   const trimesterLabel = weekInfo.trimester === 1 ? "초기" : weekInfo.trimester === 2 ? "중기" : "후기";
 
   // 시간대·모드·주차 결합 동적 인사말 (마운트 시 1회 시간 캡처해 매분 바뀌지 않게)
@@ -39,6 +41,14 @@ export default function HeroSection() {
             {greeting?.label ?? (parentRole === "dad" ? "오늘도 든든한 아빠 ✨" : "오늘도 건강하세요 ✨")}
           </p>
           <div className="flex items-center gap-1">
+            <Link
+              href="/nursery"
+              className="flex items-center gap-1 px-2 py-1 rounded-full bg-card/80 backdrop-blur-sm border border-card-border hover:scale-105 transition-transform"
+              aria-label={`보유 하트 ${hearts}개`}
+            >
+              <Heart size={12} className="text-primary" fill="currentColor" />
+              <span className="text-xs font-bold text-primary tabular-nums">{hearts}</span>
+            </Link>
             <Link
               href="/emergency"
               className="p-1.5 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
