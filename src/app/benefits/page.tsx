@@ -26,6 +26,8 @@ import { infertilityBenefits } from "@/data/infertility";
 import { trackLink, logClick } from "@/lib/affiliate";
 import { useStore } from "@/store/useStore";
 import { useBabyStore } from "@/store/useBabyStore";
+import { usePregnancy } from "@/contexts/PregnancyContext";
+import { BOTH_VISIBLE_FROM_WEEK } from "@/data/benefits";
 import { CheckCircle2, Circle, ClipboardCheck, Heart, Syringe } from "lucide-react";
 
 // Tab is determined client-side only via useEffect to avoid hydration mismatch
@@ -81,6 +83,7 @@ function matchesRegion(benefit: BenefitItem, regionName: string): boolean {
 export default function BenefitsPage() {
   const [mounted, setMounted] = useState(false);
   const appMode = useBabyStore((s) => s.mode);
+  const { currentWeek } = usePregnancy();
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -124,7 +127,7 @@ export default function BenefitsPage() {
   const districts = selectedRegion ? getDistrictsByRegion(selectedRegion) : [];
 
   const filteredBenefits = useMemo(() => {
-    const stageFiltered = filterBenefitsByStage(allBenefits, stageFilter);
+    const stageFiltered = filterBenefitsByStage(allBenefits, stageFilter, { currentWeek });
     return stageFiltered.filter((b) => {
       if (selectedRegion && !matchesRegion(b, selectedRegion)) return false;
       if (selectedCategory && b.category !== selectedCategory) return false;
@@ -135,10 +138,10 @@ export default function BenefitsPage() {
       }
       return true;
     });
-  }, [allBenefits, stageFilter, selectedRegion, selectedCategory, searchQuery]);
+  }, [allBenefits, stageFilter, currentWeek, selectedRegion, selectedCategory, searchQuery]);
 
   const categoryCounts = useMemo(() => {
-    const stageThenRegion = filterBenefitsByStage(allBenefits, stageFilter).filter((b) =>
+    const stageThenRegion = filterBenefitsByStage(allBenefits, stageFilter, { currentWeek }).filter((b) =>
       selectedRegion ? matchesRegion(b, selectedRegion) : true
     );
     const counts = new Map<string, number>();
@@ -146,7 +149,7 @@ export default function BenefitsPage() {
       counts.set(b.category, (counts.get(b.category) ?? 0) + 1);
     }
     return counts;
-  }, [allBenefits, stageFilter, selectedRegion]);
+  }, [allBenefits, stageFilter, currentWeek, selectedRegion]);
 
   if (!mounted) {
     return (
@@ -212,6 +215,18 @@ export default function BenefitsPage() {
 
         {/* ── 일반 혜택 탭 ── */}
         {activeTab === "general" && (<>
+        {/* 출산 직전 안내 — 임신 모드 + week >= 32 */}
+        {stageFilter === "pregnancy" && currentWeek >= BOTH_VISIBLE_FROM_WEEK && (
+          <div className="rounded-xl bg-primary/5 border border-primary/20 px-3 py-2 text-xs text-primary">
+            🌸 출산이 가까워요! 출산 후 신청할 수 있는 혜택({currentWeek}주차)도 함께 보여드려요.
+          </div>
+        )}
+        {stageFilter === "pregnancy" && currentWeek < BOTH_VISIBLE_FROM_WEEK && (
+          <div className="rounded-xl bg-surface border border-card-border px-3 py-2 text-[11px] text-muted">
+            💡 첫만남이용권·부모급여 등 출산 후 혜택은 <span className="font-medium text-foreground">32주차부터</span> 자동으로 함께 표시돼요.
+          </div>
+        )}
+
         {/* Stage Filter — 출산 전 / 출산 후 / 전체 */}
         <div className="bg-card rounded-2xl border border-card-border shadow-sm p-2 flex gap-1.5">
           {([

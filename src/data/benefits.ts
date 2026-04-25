@@ -593,12 +593,30 @@ export function inferBenefitStage(b: BenefitItem): BenefitStage {
   return "both";
 }
 
-/** 주어진 단계에 해당하는 혜택만 필터링 (both는 어느 단계에도 노출). */
-export function filterBenefitsByStage(list: BenefitItem[], stage: BenefitStage | "all"): BenefitItem[] {
+/** "출산 후 신청" 혜택을 임신 모드에서 미리 노출하기 시작하는 주차 (32주 = 막달 직전) */
+export const BOTH_VISIBLE_FROM_WEEK = 32;
+
+/**
+ * 주어진 단계에 해당하는 혜택만 필터링.
+ * - stage="pregnancy": pregnancy + (currentWeek >= 32일 때만 both 포함)
+ * - stage="postnatal": postnatal + both
+ * - stage="all": 전체
+ */
+export function filterBenefitsByStage(
+  list: BenefitItem[],
+  stage: BenefitStage | "all",
+  opts?: { currentWeek?: number }
+): BenefitItem[] {
   if (stage === "all") return list;
+  const showBothInPregnancy = (opts?.currentWeek ?? 0) >= BOTH_VISIBLE_FROM_WEEK;
   return list.filter((b) => {
     const s = inferBenefitStage(b);
-    return s === stage || s === "both";
+    if (s === stage) return true;
+    if (s === "both") {
+      if (stage === "postnatal") return true;
+      if (stage === "pregnancy") return showBothInPregnancy;
+    }
+    return false;
   });
 }
 
